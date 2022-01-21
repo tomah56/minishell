@@ -60,6 +60,6 @@ fclean: clean
 re: fclean all
 
 no: 
-	@$(CC) -o $(NAME) $(SRC)
+	@$(CC) -o $(NAME) $(SRC) -L ./libs -lft
 
 .PHONY: all clean fclean re
