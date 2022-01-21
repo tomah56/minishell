@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <fcntl.h>
 
-# include "../libs/libft/libft.h"
+# include "../../libs/libft/libft.h"
 
 typedef enum e_enum
 {
