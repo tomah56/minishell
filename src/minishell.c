@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 		check = 0;
 	if (check == 0)
 	{
-		write(STDERR_FILENO, "Error\n", 6);
+ 		write(STDERR_FILENO, "Error\n", 6);
 		return (0);
 	}
 
