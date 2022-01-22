@@ -30,6 +30,8 @@ GREEN := \033[0;32m
 YELLOW := \033[1;33m
 RED := \033[1;31m
 DEFAULT := \033[0m
+LFR= -L$$HOME/.brew/opt/readline/lib -lreadline
+LFRC = -L$$HOME/.brew/opt/readline/include
 
 all: $(NAME)
 
@@ -60,6 +62,6 @@ fclean: clean
 re: fclean all
 
 no: 
-	@$(CC) -o $(NAME) $(SRC) -L ./libs -lft
+	@$(CC) -o $(NAME) $(SRC) $(LFR) -L ./libs -lft
 
 .PHONY: all clean fclean re
