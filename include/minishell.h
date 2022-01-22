@@ -19,11 +19,20 @@ typedef struct s_stone
 	int reout;
 	int reinp;
 	int pipe;
-	
+
 
 }	t_p;
 
+typedef struct s_data
+{
+	char	**environ;
+	char	**paths;
+}	t_data;
+
 char	*get_next_line(int fd);
 int		input_one(char *str);
+void	create_environment(t_data *data, char **env);
+void	msg_exit(t_data *data, char *msg);
+void	free_struct(t_data *data);
 
 #endif

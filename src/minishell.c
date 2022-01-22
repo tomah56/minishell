@@ -1,14 +1,15 @@
 #include "../include/minishell.h"
 
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_p	stone;
 	char *temp;
-	// char 
+	t_data	data;
+
 	// write(1,"minishe master$ ", 16);
 	// execve("/usr/bin/grep", &argv[1], envp);
+	create_environment(&data, envp);
+
 	temp = "not";
 	while (temp)
 	{
@@ -24,7 +25,6 @@ int	main(int argc, char **argv, char **envp)
 			printf("%s\n", temp);
 		}
 	}
-	// sorting_game(&stone);
 
 	return (0);
 }
