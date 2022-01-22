@@ -1,69 +1,44 @@
 #include "../include/minishell.h"
 
-static int	chekker(int size, char **strn, t_p *stone)
-{
-	int		*temp;
-	int		i;
 
-	i = 0;
-	while (i < size)
+void sorting_game(t_p *stone)
+{
+	char *buf;
+
+	buf = get_next_line(0);
+	while (buf)
 	{
-		// if (!ft_strncmp(strn[i], "echo", 5))
-		// {
-		// 	i++;
-		// 	printf("\nafter echo; %s\n", strn[i]);
-		// }
-		// else
-		// {
-		// 	printf("else: %s ", strn[i]);
-		// i++;
-		// }
-			printf("%s ", strn[i]);
-			i++;
+		write(1,"minishe master$ ", 16);
+		if (!ft_strncmp(buf, "echo", 4))
+			printf("next: %s", buf + 4);
+		else
+			printf("%s", buf);
 
-	}
-	// write(1, "\n",1);
-
-	return (1);
-}
-
-static int	cut_short(char *argv, t_p *stone)
-{
-	char	**temp;
-	int		size;
-
-	size = 0;
-	temp = ft_split(argv, ' ');
-	while (temp[size] != NULL)
-		size++;
-	if (size < 1)
-		return (0);
-	return (chekker(size, temp, stone));
-}
-
-int	main(int argc, char **argv)
-{
-	int	check;
-	int	i;
-	t_p	stone;
-
-	i = 1;
 	
-	if (argc > 1)
-	{
-		while (i < argc)
+	
+		buf = get_next_line(0);
+		if (!ft_strncmp(buf, "q", 1))
 		{
-			check = cut_short(argv[i], &stone);
-			i++;
+			free(buf);
+			buf = NULL;
 		}
 	}
-	else
-		check = 0;
-	if (check == 0)
+	if (buf != NULL)
+		free(buf);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_p	stone;
+	char *test;
+	// write(1,"minishe master$ ", 16);
+	test = readline("minishe master$ ");
+	while (test)
 	{
-		write(STDERR_FILENO, "Error\n", 6);
-		return (0);
+		printf("%s\n", test);
+		test = readline("minishe master$ ");
 	}
+	// sorting_game(&stone);
 
 	return (0);
 }
