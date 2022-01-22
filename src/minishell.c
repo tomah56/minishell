@@ -30,8 +30,11 @@ void sorting_game(t_p *stone)
 int	main(int argc, char **argv, char **envp)
 {
 	t_p	stone;
+	t_data	data;
+
 	char *test;
 	// write(1,"minishe master$ ", 16);
+	create_environment(&data, envp);
 	test = readline("minishe master$ ");
 	while (test)
 	{
