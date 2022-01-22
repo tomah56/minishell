@@ -14,9 +14,16 @@
 typedef struct s_stone
 {
 	char *commandlist;
+	int qudouble;
+	int qusingle;
+	int reout;
+	int reinp;
+	int pipe;
+	
 
 }	t_p;
 
 char	*get_next_line(int fd);
+int		input_one(char *str);
 
 #endif

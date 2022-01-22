@@ -1,42 +1,28 @@
 #include "../include/minishell.h"
 
 
-void sorting_game(t_p *stone)
-{
-	char *buf;
-
-	buf = get_next_line(0);
-	while (buf)
-	{
-		write(1,"minishe master$ ", 16);
-		if (!ft_strncmp(buf, "echo", 4))
-			printf("next: %s", buf + 4);
-		else
-			printf("%s", buf);
-
-	
-	
-		buf = get_next_line(0);
-		if (!ft_strncmp(buf, "q", 1))
-		{
-			free(buf);
-			buf = NULL;
-		}
-	}
-	if (buf != NULL)
-		free(buf);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_p	stone;
-	char *test;
+	char *temp;
+	// char 
 	// write(1,"minishe master$ ", 16);
-	test = readline("minishe master$ ");
-	while (test)
+	// execve("/usr/bin/grep", &argv[1], envp);
+	temp = "not";
+	while (temp)
 	{
-		printf("%s\n", test);
-		test = readline("minishe master$ ");
+		temp = readline("minishe master$ ");
+		if (!ft_strncmp(temp, "exit", 5))
+		{
+			free(temp);
+			temp = NULL;
+		}
+		else
+		{
+			input_one(temp);
+			printf("%s\n", temp);
+		}
 	}
 	// sorting_game(&stone);
 
