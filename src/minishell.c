@@ -6,21 +6,41 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/23 18:01:29 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/23 21:56:09 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../include/minishell.h"
+
+// void myhandler(int num)
+// {
+// 	write(STDOUT_FILENO, " I will never die!\n", 18);
+// }
+
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_tok tokdat;
 	char *temp;
 	t_data	data;
+	
+
+	// signal(SIGINT, myhandler);
+	// signal(SIGTERM, myhandler);
 
 	// write(1,"minishe master$ ", 16);
-	execve("/bin/echo", &argv[1], envp); // runs things in enviroment you are in 
+	// execve("/bin/echo", &argv[1], envp); // runs things in enviroment you are in 
+	int i = 1;
+	while (i < argc)
+	{
+		printf("%s\n", argv[i]);
+		i++;
+	}
 	create_environment(&data, envp);
+	save_paths(&data, envp);
+	tokdat.data = &data;
+
 	tokdat.qudouble = 0;
 	tokdat.qusingle = 0;
 	// temp = "not";
@@ -46,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 	// 		// printf("%s\n", temp);
 	// 	}
 	// }
-
+	printf("I m here\n");
 	return (0);
 }
 

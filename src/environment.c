@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 18:49:36 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/22 19:16:17 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:07:42 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+// saves all environment variables
 void	create_environment(t_data *data, char **env)
 {
 	int		len;
@@ -40,3 +41,24 @@ void	create_environment(t_data *data, char **env)
 	// }
 }
 
+// finds path in envp and saves it
+void	save_paths(t_data *data, char **env)
+{
+	char	*path_envp;
+	int		i;
+
+	while (*env != NULL && ft_strncmp(*env, "PATH=", 5))
+		++env;
+	if (*env == NULL)
+		msg_exit(data, "malloc error");
+	path_envp = (*env + 5);
+	data->paths = ft_split(path_envp, ':');
+	// i = 0;
+	// while (data->paths[i])
+	// {
+	// 	printf("paths = %s\n", data->paths[i]);
+	// 	i++;
+	// }
+	if (!data->paths)
+		msg_exit(data, "malloc error");
+}
