@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-hello
-=======
-AAAA
->>>>>>> 320eeb6df9a17d59a9b3330c2e81ce23171d82f8

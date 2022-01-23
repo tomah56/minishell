@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 18:49:36 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/22 20:31:15 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:07:42 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	save_paths(t_data *data, char **env)
 		msg_exit(data, "malloc error");
 	path_envp = (*env + 5);
 	data->paths = ft_split(path_envp, ':');
-	i = 0;
-	while (data->paths[i])
-	{
-		printf("paths = %s\n", data->paths[i]);
-		i++;
-	}
+	// i = 0;
+	// while (data->paths[i])
+	// {
+	// 	printf("paths = %s\n", data->paths[i]);
+	// 	i++;
+	// }
 	if (!data->paths)
 		msg_exit(data, "malloc error");
 }
