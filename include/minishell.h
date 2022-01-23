@@ -11,9 +11,11 @@
 # include <readline/history.h>
 
 
-typedef struct s_stone
+typedef struct s_token_data
 {
 	char *commandlist;
+	char **tokensfull;
+	int tokencount;
 	int qudouble;
 	int qusingle;
 	int reout;
@@ -21,16 +23,21 @@ typedef struct s_stone
 	int pipe;
 
 
-}	t_p;
+}	t_tok;
 
 typedef struct s_data
 {
 	char	**environ;
 	char	**paths;
+	t_tok	*tokdat;
 }	t_data;
 
+// input
 char	*get_next_line(int fd);
-int		input_one(char *str);
+int		input_one(char *str, t_tok *tokdat, int i, int j);
+int		input_two(t_tok *tokdat);
+
+// sonja
 void	create_environment(t_data *data, char **env);
 void	msg_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 14:50:35 by sreinhol          #+#    #+#             */
-/*   Updated: 2021/12/20 02:15:32 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/22 20:25:09 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+enum e_ournames
+{
+	COMMAND
+};
 
 typedef struct s_list
 {
