@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/23 16:33:04 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/23 18:01:29 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,33 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	// write(1,"minishe master$ ", 16);
-	// execve("/usr/bin/grep", &argv[1], envp);
+	execve("/bin/echo", &argv[1], envp); // runs things in enviroment you are in 
 	create_environment(&data, envp);
 	tokdat.qudouble = 0;
 	tokdat.qusingle = 0;
-	temp = "not";
-	while (temp)
-	{
-		temp = readline("minishe master$ ");
-		add_history(temp);
-		// int i = 0;
-		// while (temp[i] != '\0')
-		// {
-		// 	i++;
-		// }
-		// printf("we have the end of the string %d\n", i);
-		if (!ft_strncmp(temp, "exit", 5))
-		{
-			free(temp);
-			temp = NULL;
+	// temp = "not";
+	// while (temp)
+	// {
+	// 	temp = readline("minishe master$ ");
+	// 	add_history(temp);
+	// 	// int i = 0;
+	// 	// while (temp[i] != '\0')
+	// 	// {
+	// 	// 	i++;
+	// 	// }
+	// 	// printf("we have the end of the string %d\n", i);
+	// 	if (!ft_strncmp(temp, "exit", 5))
+	// 	{
+	// 		free(temp);
+	// 		temp = NULL;
 		
-		}
-		else
-		{
-			input_one(temp, &tokdat, 0, 0);
-			// printf("%s\n", temp);
-		}
-	}
+	// 	}
+	// 	else
+	// 	{
+	// 		input_one(temp, &tokdat, 0, 0);
+	// 		// printf("%s\n", temp);
+	// 	}
+	// }
 
 	return (0);
 }

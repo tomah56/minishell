@@ -13,7 +13,7 @@
 
 typedef struct s_token_data
 {
-	char *commandlist;
+	// char *commandlist;
 	char **tokensfull;
 	int tokencount;
 	int qudouble;
