@@ -71,6 +71,7 @@ typedef struct s_cmds
 	t_tok			tokens;
 	int				infile;
 	int				outfile;
+	char			**command;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
 }	t_cmds;
