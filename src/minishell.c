@@ -9,6 +9,7 @@ int	main(int argc, char **argv, char **envp)
 	// write(1,"minishe master$ ", 16);
 	// execve("/usr/bin/grep", &argv[1], envp);
 	create_environment(&data, envp);
+	save_paths(&data, envp);
 
 	temp = "not";
 	while (temp)

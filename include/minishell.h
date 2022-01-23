@@ -34,5 +34,6 @@ int		input_one(char *str);
 void	create_environment(t_data *data, char **env);
 void	msg_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);
+void	save_paths(t_data *data, char **env);
 
 #endif
