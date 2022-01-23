@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:12:01 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/23 21:54:08 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/23 22:53:23 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,26 @@ void	error(char *error)
 	exit (EXIT_FAILURE);
 }
 
-void	execute_cmd(t_tok *tokdat)
+
+//for one
+void	execute_cmd(t_data *data)
 {
 	int		i;
 	char	*path;
-	char	*command;
+	char	**command;
 
 	i = 0;
 	// command = ft_split(cmd, ' ');
-	command = tokdat->tokensfull[0];
-	while (tokdat->data->paths[i])
+	// command = tokdat->tokensfull[0]; //commands are later
+	command = data->cmds->commands;
+	while (data->paths[i])
 	{
-		path = ft_strjoin(tokdat->data->paths[i], "/");
-		path = ft_strjoin(path, command);
+		path = ft_strjoin(data->paths[i], "/");
+		path = ft_strjoin(path, command[0]);
 		// printf("%s\n", path);
 		if (access(path, F_OK) == 0)
 		{
-			if (execve(path, &tokdat->tokensfull[0], tokdat->data->environ) == -1)
+			if (execve(path, command, data->environ) == -1)
 				printf("error\n");
 				// error("execve Error\n");
 		}
@@ -62,6 +65,5 @@ int input_two(t_tok *tokdat)
 		printf("%s\n", tokdat->tokensfull[i]);
 		i++;
 	}
-	execute_cmd(tokdat);
 	return (1);
 }

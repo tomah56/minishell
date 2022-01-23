@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/23 16:33:21 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/23 22:45:10 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	input_one(char *str, t_tok *tokdat, int i, int j)
 		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
 			&& tokdat->qudouble == 0 )
 		{
-			tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j);
+			tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
 			while (str[i + 1] == ' ')
 				i++;
 			j = i + 1;
@@ -70,6 +70,6 @@ int	input_one(char *str, t_tok *tokdat, int i, int j)
 		i++;
 	}
 	tokdat->tokensfull[++k] = NULL;
-	input_two(tokdat);
+	// input_two(tokdat);
 	return (1);
 }

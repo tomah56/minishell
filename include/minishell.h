@@ -24,11 +24,26 @@ enum e_enum
 	NOQUOTE = 0,
 	QUSINGLE = 1,
 	QUDOUBLE = 2,
+	FAILED = -1,
 };
+
+typedef struct s_token_data
+{
+	char **tokensfull;
+	int tokencount;
+	int qudouble;
+	int qusingle;
+
+	int					type;
+	char				*content;
+	int					quote_type;
+	struct s_list_cmds	*next;
+	struct s_list_cmds	*prev;
+}	t_tok;
 
 typedef struct s_cmds
 {
-	// t_tok			tokens;
+	t_tok			*tokens;
 	int				infile;
 	int				outfile;
 	char			**commands;
@@ -43,24 +58,6 @@ typedef struct s_data
 	char	**paths;
 }	t_data;
 
-typedef struct s_token_data
-{
-	// pre
-	char **tokensfull;
-	int tokencount;
-	int qudouble;
-	int qusingle;
-
-	//temp
-	t_data				*data;
-	// after
-	int					type;
-	// content 
-	char				*content;
-	int					quote_type;
-	struct s_list_cmds	*next;
-	struct s_list_cmds	*prev;
-}	t_tok;
 
 
 
