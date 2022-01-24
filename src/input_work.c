@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 22:35:49 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:48:23 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,10 @@ int	input_one_lilist(char *str, t_data *data, int i, int j)
 			j = i + 1;
 		}
 		if (str[i + 1] == '|')
+		{
 			data->pipe = 1;
+			i++;
+		}
 		if (data->pipe == 1)
 		{
 			add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));

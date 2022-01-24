@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 22:42:41 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:51:47 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,12 @@ int	main(int argc, char **argv, char **envp)
 	// free **tokensfull and every pointer inside in the end
 	return (0);
 }
+
+
+// bash-3.2$ pwdfhuhfuhufhfuhufhf fkjfkjf
+// bash: pwdfhuhfuhufhfuhufhf: command not found
+// bash-3.2$ pwd 999999999999
+// /Users/ttokesi/Documents
 
 // Function: int rl_on_new_line ()
 // Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline. 
