@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 16:57:59 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:00:31 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void check_token_flags(char str, t_tok *tokdat)
 	else if (str == '\'' && tokdat->qusingle == 1 && tokdat->qudouble == 0)
 		tokdat->qusingle = 0;
 }
-static void check_token_flag_li(char str, t_data *data)
+static void check_token_flags_li(char str, t_data *data)
 {
 	if (str == '"' && data->qudouble == 0 && data->qusingle == 0)
 		data->qudouble = 1;
