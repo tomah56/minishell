@@ -80,4 +80,8 @@ t_cmds	*create_new_cmds_node(t_data *data);
 t_tok	*create_new_token_node(char *str);
 void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 
+// builtins
+void	builtin_env(t_data *data);
+void	builtin_pwd(t_data *data);
+
 #endif
