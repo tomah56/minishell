@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:16:33 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 00:42:54 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:49:28 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ t_cmds	*create_new_cmds_node(t_data *data)
 	return (list);
 }
 
-t_tok	*create_new_token_node(t_data *data)
+t_tok	*create_new_token_node(char *str)
 {
 	t_tok	*list;
 
 	list = ft_calloc(1, sizeof(t_tok));
 	if (list == NULL)
-		msg_exit(data, "malloc error");
+		return (NULL);
 	list->next = NULL;
 	list->prev = NULL;
-	list->content = NULL;
+	list->content = str;
 	return (list);
 }

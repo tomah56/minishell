@@ -54,6 +54,8 @@ typedef struct s_cmds
 typedef struct s_data
 {
 	t_cmds	*cmds;
+	int qudouble;
+	int qusingle;
 	char	**environ;
 	char	**paths;
 }	t_data;
@@ -75,7 +77,8 @@ void	save_paths(t_data *data, char **env);
 
 // linked list functions
 t_cmds	*create_new_cmds_node(t_data *data);
-t_tok	*create_new_token_node(t_data *data);
+t_tok	*create_new_token_node(char *str);
+void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 16:14:03 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:35:24 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			input_one_array(temp, &tokdat, 0, 0);
+			// input_one_array(temp, &tokdat, 0, 0);
+			input_one_lilist(temp, &data, 0, 0);
 			// printf("%s\n", temp);
 		}
 	}
