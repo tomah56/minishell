@@ -6,11 +6,24 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 01:31:15 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 21:21:52 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:12:40 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+t_cmds	*cmds_lstlast(t_cmds *lst)
+{
+	t_cmds	*last;
+
+	last = lst;
+	while (lst != NULL)
+	{
+		last = lst;
+		lst = last->next;
+	}
+	return (last);
+}
 
 void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode)
 {
@@ -19,10 +32,19 @@ void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode)
 	if (!newnode)
 		return ;
 	newnode->next = NULL;
-	last = *list;
-	while (last->next != NULL)
-		last = last->next;
-	newnode->prev = last;
+	last = cmds_lstlast(*list);
+	if (!list || !(*list))
+	{
+		*list = newnode;
+		newnode->next = NULL;
+		newnode->prev = NULL;
+	}
+	else if (list && newnode)
+	{
+		newnode->next = NULL;
+		last->next = newnode;
+		newnode->prev = last;
+	}
 }
 
 t_tok *inster_at_head(t_tok **head, t_tok *node_to_insert)
@@ -47,8 +69,6 @@ t_tok	*tok_lstlast(t_tok *lst)
 	}
 	return (last);
 }
-
-
 
 void	add_token_node_at_back(t_tok **list, t_tok *newnode)
 {

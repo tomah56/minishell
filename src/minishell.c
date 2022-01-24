@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 20:34:46 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:31:22 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	printlist(t_data *data)
 {
 	t_data	*temp;
 	t_tok	*temp_t;
-	int i = 0;
+	t_cmds *temp_c;
+	int i = 1;
+	int j = 1;
 
 	temp = data;
 	// while (temp != NULL)
@@ -36,18 +38,27 @@ void	printlist(t_data *data)
 	// 	temp = temp->cmds->next;
 	// 	i++;
 	// }
-		printf("CONTENT: %s - \n", temp_t->content);
-	// i = 0;
-	// temp_t = data->cmds->tokens;
-	// while (temp_t != NULL)
-	// {
-	// 	printf("TOKEN LIST NR: %d\n", i);
-	// 	// printf("TYPE: %d - \n", temp_t->cmds->tokens->type);
-	// 	// printf("QUOTE_TYPE: %d - \n", temp->cmds->tokens->quote_type);
-	// 	printf("CONTENT: %s - \n", temp_t->content);
-	// 	temp_t = temp_t->next;
-	// 	i++;
-	// }
+		// printf("CONTENT: %s - \n", temp_t->content);
+	i = 0;
+	temp_t = data->cmds->tokens;
+	temp_c = data->cmds;
+	while (temp_c != NULL)
+	{
+		printf("CMDS %d\n", j);
+		temp_t = temp_c->tokens;
+		while (temp_t != NULL)
+		{
+			// printf("TOKEN LIST NR: %d\n", i);
+			// printf("TYPE: %d - \n", temp_t->cmds->tokens->type);
+			// printf("QUOTE_TYPE: %d - \n", temp->cmds->tokens->quote_type);
+			printf("%s-->", temp_t->content);
+			temp_t = temp_t->next;
+			i++;
+		}
+		temp_c = temp_c->next;
+		j++;
+		printf("\n");
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -69,6 +80,7 @@ int	main(int argc, char **argv, char **envp)
 
 	data.qudouble = 0;
 	data.qusingle = 0;
+	data.pipe = 0;
 	// cmds = NULL;
 	// data.cmds = create_new_cmds_node(&data);
 	// data.cmds->tokens = create_new_token_node(&data);
@@ -142,8 +154,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
 			input_one_lilist(temp, &data, 0, 0);
-			// printf("content %s\n", data.cmds->tokens->content);
-			// printlist(&data);
+			// printf("content %s\n", data.cmds->tokens->next->content);
+			printlist(&data);
 			// printf("%s\n", temp);
 		}
 	}
