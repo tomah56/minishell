@@ -6,9 +6,10 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 16:35:24 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 16:59:14 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -18,6 +19,35 @@
 // {
 // 	write(STDOUT_FILENO, " I will never die!\n", 18);
 // }
+
+void	printlist(t_data *data)
+{
+	t_data	*temp;
+	t_data	*temp_t;
+	int i = 0;
+
+	temp = data;
+	while (temp != NULL)
+	{
+		printf("CMD LIST NR: %d\n", i);
+		printf("-INFILE: %d - \n", temp->cmds->infile);
+		printf("-OUTFILE: %d - \n", temp->cmds->outfile);
+		printf("COMMANDS: %s - \n", temp->cmds->commands);
+		temp = temp->cmds->next;
+		i++;
+	}
+	i = 0;
+	temp_t = data;
+	while (temp_t != NULL)
+	{
+		printf("TOKEN LIST NR: %d\n", i);
+		printf("TYPE: %d - \n", temp_t->cmds->tokens->type);
+		// printf("QUOTE_TYPE: %d - \n", temp->cmds->tokens->quote_type);
+		// printf("CONTENT: %s - \n", temp->cmds->tokens->content);
+		temp_t = temp_t->cmds->tokens->next;
+		i++;
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -39,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	tokdat.qusingle = 0;
 	data.cmds = create_new_cmds_node(&data);
 	data.cmds->tokens = create_new_token_node(&data);
-	printf("hello\n");
+	printlist(&data);
 	// data.cmds = malloc(sizeof(t_cmds)); // segfoult whitout malloc... not sure.
 	// data.cmds->tokens = &tokdat;
 	temp = "not";
