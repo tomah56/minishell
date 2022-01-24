@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   input_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 19:06:09 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:35:49 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 
@@ -114,28 +115,41 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 int	input_one_lilist(char *str, t_data *data, int i, int j)
 {
 	int	k;
+	t_cmds	*cmds;
+	t_tok	*tok;
+	t_tok	*temp;
 
+
+	cmds = NULL;
+	tok = NULL;
 	k = -1;
-	// tokdat->tokencount = count_my_tokens(str, tokdat, 0, 0);
-	// data->cmds->commands = malloc((tokdat->tokencount + 2) * sizeof(char *)); // keveri a szezont a fazonnal
-	// if (tokdat->tokensfull == NULL)
-	// 	return (0);
-	while (str[i]) // missing out the last letter
+	while (str[i])
 	{
 		check_token_flags_li(str[i], data);
-		printf("hello\n");
 		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
 			&& data->qudouble == 0 )
 		{
-			// tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
-			add_token_node_at_back(&data->cmds->tokens, create_new_token_node(ft_substr(str, j, i + 1 - j)));
-			// printf("content: %s\n", data->cmds->tokens->content);
+			temp = create_new_token_node(ft_substr(str, j, i + 1 - j));
+			add_token_node_at_back(&tok, temp);
 			while (str[i + 1] == ' ')
 				i++;
 			j = i + 1;
 		}
+		if (str[i + 1] == '|')
+			data->pipe = 1;
+		if (data->pipe == 1)
+		{
+			add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
+			tok = NULL;
+			data->pipe = 0;
+		}
 		i++;
 	}
+	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
+	data->cmds = cmds;
+		// printf("%s \n", tok->content);
+		// printf("%s \n", tok->next->content);
+
 	// tokdat->tokensfull[++k] = NULL;
 	// input_two(tokdat);
 	return (1);

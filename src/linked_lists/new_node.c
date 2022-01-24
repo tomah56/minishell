@@ -6,20 +6,21 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:16:33 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 16:58:54 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:08:15 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
-t_cmds	*create_new_cmds_node(t_data *data)
+t_cmds	*create_new_cmds_node(t_tok *tokdat)
 {
 	t_cmds	*list;
 
 	list = ft_calloc(1, sizeof(t_cmds));
 	if (list == NULL)
-		msg_exit(data, "malloc error");
+		return (NULL);
+	list->tokens = tokdat;
 	list->next = NULL;
 	list->prev = NULL;
 	list->infile = STDIN_FILENO;
