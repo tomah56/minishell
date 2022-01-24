@@ -6,7 +6,7 @@
 #    By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 12:49:33 by sreinhol          #+#    #+#              #
-#    Updated: 2021/12/27 12:50:34 by sreinhol         ###   ########.fr        #
+#    Updated: 2022/01/23 23:45:48 by sreinhol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
 
 SRC_DIR := ./src/
 OBJ_DIR := ./obj/
-SRC = $(SRC_DIR)*.c
+SRC = $(SRC_DIR)*.c ./src/linked_lists/*.c
 
 OBJS := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o, $(SRC))
 
