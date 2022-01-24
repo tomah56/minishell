@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 22:42:41 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:46:45 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	create_environment(&data, envp);
 	save_paths(&data, envp);
 	// builtin_pwd(&data);
+	builtin_env(&data);
 	data.qudouble = 0;
 	data.qusingle = 0;
 	data.pipe = 0;

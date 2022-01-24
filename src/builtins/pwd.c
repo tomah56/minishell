@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 22:23:32 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 22:41:45 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:45:42 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	builtin_pwd(t_data *data)
 	temp_env = data->environ;
 	pwd = NULL;
 	while (*temp_env != NULL && ft_strncmp(*temp_env, "PWD=", 4))
-		*temp_env++;
+		(*temp_env)++;
 	path_pwd = (*temp_env + 4);
 	pwd = ft_split(path_pwd, ':');
 	if (!pwd)
@@ -30,7 +30,7 @@ void	builtin_pwd(t_data *data)
 	i = 0;
 	while (pwd[i] != NULL)
 	{
-		printf("%s", pwd[i]);
+		printf("%s\n", pwd[i]);
 		i++;
 	}
 }
