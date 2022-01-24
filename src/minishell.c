@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 15:29:03 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 16:14:03 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ int	main(int argc, char **argv, char **envp)
 
 	tokdat.qudouble = 0;
 	tokdat.qusingle = 0;
-	data.cmds = malloc(sizeof(t_cmds)); // segfoult whitout malloc... not sure.
-	data.cmds->tokens = &tokdat;
+	data.cmds = create_new_cmds_node(&data);
+	data.cmds->tokens = create_new_token_node(&data);
+	printf("hello\n");
+	// data.cmds = malloc(sizeof(t_cmds)); // segfoult whitout malloc... not sure.
+	// data.cmds->tokens = &tokdat;
 	temp = "not";
 	while (temp)
 	{
@@ -104,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			input_one(temp, &tokdat, 0, 0);
+			input_one_array(temp, &tokdat, 0, 0);
 			// printf("%s\n", temp);
 		}
 	}

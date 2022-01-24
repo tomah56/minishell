@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 15:20:50 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 16:09:50 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,30 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	return (count);
 }
 
-int token_separator(t_data *data)
-{
-	char **alltoken;
-	int i;
-	int j;
+// int token_separator(t_data *data)
+// {
+// 	char **alltoken;
+// 	int i;
+// 	int j;
 
-	i = 0;
-	j = 0;
-	alltoken = data->cmds->tokens->tokensfull;
-	while (alltoken[i] != NULL)
-	{
-		j = 0;
-		while (alltoken[i][j] != '\0')
-		{
-			if (alltoken[i][j] == '$')
-			{
+// 	i = 0;
+// 	j = 0;
+// 	alltoken = data->cmds->tokens->tokensfull;
+// 	while (alltoken[i] != NULL)
+// 	{
+// 		j = 0;
+// 		while (alltoken[i][j] != '\0')
+// 		{
+// 			if (alltoken[i][j] == '$')
+// 			{
 				
-			}
-			j++;
-		}
-		i++;
-	}
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
 
-}
+// }
 
 int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 {
