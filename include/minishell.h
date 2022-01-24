@@ -76,8 +76,9 @@ void	free_struct(t_data *data);
 void	save_paths(t_data *data, char **env);
 
 // linked list functions
-t_cmds	*create_new_cmds_node(t_data *data);
+t_cmds	*create_new_cmds_node(t_data *data, t_tok *tokdat);
 t_tok	*create_new_token_node(char *str);
 void	add_token_node_at_back(t_tok **list, t_tok *newnode);
+void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);
 
 #endif

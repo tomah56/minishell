@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 19:01:39 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 20:34:46 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tok tokdat;
 	char *temp;
 	t_data	data;
+	// t_cmds	*cmds;
 	
 
 	// signal(SIGINT, myhandler);
@@ -68,8 +69,8 @@ int	main(int argc, char **argv, char **envp)
 
 	data.qudouble = 0;
 	data.qusingle = 0;
-	data.cmds = NULL;
-	data.cmds = create_new_cmds_node(&data);
+	// cmds = NULL;
+	// data.cmds = create_new_cmds_node(&data);
 	// data.cmds->tokens = create_new_token_node(&data);
 	// printlist(&data);
 	// data.cmds = malloc(sizeof(t_cmds)); // segfoult whitout malloc... not sure.
