@@ -37,8 +37,8 @@ typedef struct s_token_data
 	int					type;
 	char				*content;
 	int					quote_type;
-	struct s_list_cmds	*next;
-	struct s_list_cmds	*prev;
+	struct s_token_data	*next;
+	struct s_token_data	*prev;
 }	t_tok;
 
 typedef struct s_cmds
@@ -73,7 +73,9 @@ void	msg_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);
 void	save_paths(t_data *data, char **env);
 
-
+// linked list functions
+t_cmds	*create_new_cmds_node(t_data *data);
+t_tok	*create_new_token_node(t_data *data);
 
 
 #endif
