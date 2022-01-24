@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 18:00:31 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:06:09 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,16 @@ int	input_one_lilist(char *str, t_data *data, int i, int j)
 	// data->cmds->commands = malloc((tokdat->tokencount + 2) * sizeof(char *)); // keveri a szezont a fazonnal
 	// if (tokdat->tokensfull == NULL)
 	// 	return (0);
-	while (str[i])
+	while (str[i]) // missing out the last letter
 	{
 		check_token_flags_li(str[i], data);
+		printf("hello\n");
 		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
 			&& data->qudouble == 0 )
 		{
 			// tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
 			add_token_node_at_back(&data->cmds->tokens, create_new_token_node(ft_substr(str, j, i + 1 - j)));
+			// printf("content: %s\n", data->cmds->tokens->content);
 			while (str[i + 1] == ' ')
 				i++;
 			j = i + 1;

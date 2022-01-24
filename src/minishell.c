@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 16:59:14 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 19:01:39 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,31 @@
 void	printlist(t_data *data)
 {
 	t_data	*temp;
-	t_data	*temp_t;
+	t_tok	*temp_t;
 	int i = 0;
 
 	temp = data;
-	while (temp != NULL)
-	{
-		printf("CMD LIST NR: %d\n", i);
-		printf("-INFILE: %d - \n", temp->cmds->infile);
-		printf("-OUTFILE: %d - \n", temp->cmds->outfile);
-		printf("COMMANDS: %s - \n", temp->cmds->commands);
-		temp = temp->cmds->next;
-		i++;
-	}
-	i = 0;
-	temp_t = data;
-	while (temp_t != NULL)
-	{
-		printf("TOKEN LIST NR: %d\n", i);
-		printf("TYPE: %d - \n", temp_t->cmds->tokens->type);
-		// printf("QUOTE_TYPE: %d - \n", temp->cmds->tokens->quote_type);
-		// printf("CONTENT: %s - \n", temp->cmds->tokens->content);
-		temp_t = temp_t->cmds->tokens->next;
-		i++;
-	}
+	// while (temp != NULL)
+	// {
+	// 	printf("CMD LIST NR: %d\n", i);
+	// 	printf("-INFILE: %d - \n", temp->cmds->infile);
+	// 	printf("-OUTFILE: %d - \n", temp->cmds->outfile);
+	// 	printf("COMMANDS: %s - \n", temp->cmds->commands); //commands doube pointer
+	// 	temp = temp->cmds->next;
+	// 	i++;
+	// }
+		printf("CONTENT: %s - \n", temp_t->content);
+	// i = 0;
+	// temp_t = data->cmds->tokens;
+	// while (temp_t != NULL)
+	// {
+	// 	printf("TOKEN LIST NR: %d\n", i);
+	// 	// printf("TYPE: %d - \n", temp_t->cmds->tokens->type);
+	// 	// printf("QUOTE_TYPE: %d - \n", temp->cmds->tokens->quote_type);
+	// 	printf("CONTENT: %s - \n", temp_t->content);
+	// 	temp_t = temp_t->next;
+	// 	i++;
+	// }
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -65,11 +66,12 @@ int	main(int argc, char **argv, char **envp)
 	create_environment(&data, envp);
 	save_paths(&data, envp);
 
-	tokdat.qudouble = 0;
-	tokdat.qusingle = 0;
+	data.qudouble = 0;
+	data.qusingle = 0;
+	data.cmds = NULL;
 	data.cmds = create_new_cmds_node(&data);
-	data.cmds->tokens = create_new_token_node(&data);
-	printlist(&data);
+	// data.cmds->tokens = create_new_token_node(&data);
+	// printlist(&data);
 	// data.cmds = malloc(sizeof(t_cmds)); // segfoult whitout malloc... not sure.
 	// data.cmds->tokens = &tokdat;
 	temp = "not";
@@ -139,6 +141,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
 			input_one_lilist(temp, &data, 0, 0);
+			// printf("content %s\n", data.cmds->tokens->content);
+			// printlist(&data);
 			// printf("%s\n", temp);
 		}
 	}
