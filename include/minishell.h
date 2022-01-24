@@ -46,7 +46,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;
 	int				outfile;
-	char			**commands;
+	char			**commands; // not sure the functinality here ?
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
 }	t_cmds;
@@ -63,7 +63,8 @@ typedef struct s_data
 
 // input
 char	*get_next_line(int fd);
-int		input_one(char *str, t_tok *tokdat, int i, int j);
+int		input_one_array(char *str, t_tok *tokdat, int i, int j);
+int		input_one_lilist(char *str, t_data *data, int i, int j);
 int		input_two(t_tok *tokdat);
 
 // sonja
