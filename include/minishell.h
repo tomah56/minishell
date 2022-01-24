@@ -46,7 +46,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;
 	int				outfile;
-	char			**commands; // not sure the functinality here ?
+	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
 }	t_cmds;
