@@ -92,6 +92,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		temp = readline("HAKUNA MATATA 0.01$ ");
 		add_history(temp);
+		rl_on_new_line();
+		rl_replace_line("klklk\n", 8);
+		rl_redisplay(); //cotr -c cotr D
+		// rl_clear_history();
+
 
 		if (!ft_strncmp(temp, "exit", 5))
 		{
@@ -168,6 +173,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	printf("I m here\n");
+	// rl_rep
 
 	// free cmds also...
 	// free **tokensfull and every pointer inside in the end
