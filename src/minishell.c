@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 22:57:23 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/25 23:46:14 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tok tokdat;
 	char *temp;
 	t_data	data;
+	char **exp;
 	// t_cmds	*cmds;
 	
 
@@ -169,7 +170,8 @@ int	main(int argc, char **argv, char **envp)
 			input_one_lilist(temp, &data, 0, 0);
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			printlist(&data);
-			// printf("%s\n", temp);
+			// printf("command: %d",count_list_elements(&data, 1));
+			printf("tokens: %d",count_tokens(&data));
 		}
 	}
 	printf("I m here\n");
