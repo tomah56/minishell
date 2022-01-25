@@ -29,13 +29,13 @@ enum e_enum
 
 typedef struct s_token_data
 {
-	char **tokensfull;
+	char **tokensfull; //* { * echo, * chello, *other}
 	int tokencount;
 	int qudouble;
 	int qusingle;
 
 	int					type;
-	char				*content;
+	char				*content;// *echo ---- > *conent hello  ---- > *content aother
 	int					quote_type;
 	struct s_token_data	*next;
 	struct s_token_data	*prev;
@@ -56,7 +56,10 @@ typedef struct s_data
 	t_cmds	*cmds;
 	int qudouble;
 	int qusingle;
-	int pipe;
+	int i;
+	int j;
+	t_cmds	*normcm;
+	t_tok	*normtok;
 	char	**environ;
 	char	**paths;
 }	t_data;

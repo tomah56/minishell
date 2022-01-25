@@ -49,6 +49,34 @@ void	execute_cmd(t_data *data)
 	// ft_free_array(command);
 	// error("Command not found");
 }
+void	execute_linkedlist_cmd(t_data *data)
+{
+	int		i;
+	char	*path;
+	char	**command;
+
+	i = 0;
+	// command = ft_split(cmd, ' ');
+	// command = tokdat->tokensfull[0]; //commands are later
+	command = data->cmds->commands;
+	while (data->paths[i])
+	{
+		path = ft_strjoin(data->paths[i], "/");
+		path = ft_strjoin(path, command[0]);
+		// printf("%s\n", path);
+		if (access(path, F_OK) == 0)
+		{
+			if (execve(path, command, data->environ) == -1)
+				printf("error\n");
+				// error("execve Error\n");
+		}
+		i++;
+		free(path);
+	}
+	free(path);
+	// ft_free_array(command);
+	// error("Command not found");
+}
 
 int input_two(t_tok *tokdat)
 {

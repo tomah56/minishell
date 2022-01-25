@@ -112,47 +112,53 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 	return (1);
 }
 
-int	input_one_lilist(char *str, t_data *data, int i, int j)
+
+
+
+
+void	input_one_lilist_norm_cut(char *str, t_data *data)
 {
-	int	k;
-	t_cmds	*cmds;
-	t_tok	*tok;
-	t_tok	*temp;
-
-
-	cmds = NULL;
-	tok = NULL;
-	k = -1;
-	while (str[i])
-	{
-		check_token_flags_li(str[i], data);
-		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
+	if (ft_strchr(" $<>|\0", str[data->i + 1]) != NULL && data->qusingle == 0
 			&& data->qudouble == 0 )
-		{
-			temp = create_new_token_node(ft_substr(str, j, i + 1 - j));
-			add_token_node_at_back(&tok, temp);
-			while (str[i + 1] == ' ')
-				i++;
-			j = i + 1;
-		}
-		if (str[i + 1] == '|')
-		{
-			data->pipe = 1;
-		}
-		if (data->pipe == 1)
-		{
-			add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
-			tok = NULL;
-			data->pipe = 0;
-		}
-		i++;
+	{
+		add_token_node_at_back(&data->normtok, create_new_token_node(
+				ft_substr(str, data->j, data->i + 1 - data->j)));
+		while (str[data->i + 1] == ' ')
+			(data->i)++;
+		data->j = data->i + 1;
 	}
-	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
-	data->cmds = cmds;
-		// printf("%s \n", tok->content);
-		// printf("%s \n", tok->next->content);
+	if (str[data->i + 1] == '|')
+	{
+		add_cmds_node_at_back(&data->normcm, 
+			create_new_cmds_node(data->normtok));
+		data->normtok = NULL;
+	}
+}
 
-	// tokdat->tokensfull[++k] = NULL;
-	// input_two(tokdat);
+int	input_one_lilist(char *str, t_data *data, int k, int p)
+{
+	data->normcm = NULL;
+	data->normtok = NULL;
+	while (str[data->i])
+	{
+		check_token_flags_li(str[data->i], data);
+		input_one_lilist_norm_cut(str, data);
+		// if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
+		// 	&& data->qudouble == 0 )
+		// {
+		// 	add_token_node_at_back(&tok, create_new_token_node(ft_substr(str, j, i + 1 - j)));
+		// 	while (str[i + 1] == ' ')
+		// 		i++;
+		// 	j = i + 1;
+		// }
+		// if (str[i + 1] == '|')
+		// {
+		// 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
+		// 	tok = NULL;
+		// }
+		(data->i)++;
+	}
+	add_cmds_node_at_back(&data->normcm, create_new_cmds_node(data->normtok));
+	data->cmds = data->normcm;
 	return (1);
 }

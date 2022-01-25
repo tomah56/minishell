@@ -80,7 +80,8 @@ int	main(int argc, char **argv, char **envp)
 	save_paths(&data, envp);
 	data.qudouble = 0;
 	data.qusingle = 0;
-	data.pipe = 0;
+	data.i = 0;
+	data.j = 0;
 	// cmds = NULL;
 	// data.cmds = create_new_cmds_node(&data);
 	// data.cmds->tokens = create_new_token_node(&data);
@@ -92,9 +93,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		temp = readline("HAKUNA MATATA 0.01$ ");
 		add_history(temp);
-		rl_on_new_line();
-		rl_replace_line("klklk\n", 8);
-		rl_redisplay(); //cotr -c cotr D
+		// rl_on_new_line();
+		// rl_replace_line("klklk\n", 8);
+		// rl_redisplay(); //cotr -c cotr D
 		// rl_clear_history();
 
 
