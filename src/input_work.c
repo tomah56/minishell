@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:55 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 22:48:23 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 23:06:22 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int	input_one_lilist(char *str, t_data *data, int i, int j)
 		if (str[i + 1] == '|')
 		{
 			data->pipe = 1;
-			i++;
 		}
 		if (data->pipe == 1)
 		{

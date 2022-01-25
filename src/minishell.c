@@ -6,9 +6,10 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/24 22:51:47 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:57:23 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -77,7 +78,6 @@ int	main(int argc, char **argv, char **envp)
 
 	create_environment(&data, envp);
 	save_paths(&data, envp);
-	// builtin_pwd(&data);
 	data.qudouble = 0;
 	data.qusingle = 0;
 	data.pipe = 0;
@@ -149,6 +149,14 @@ int	main(int argc, char **argv, char **envp)
 
 			temp = NULL;
 		
+		}
+		else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
+		{
+			builtin_pwd(&data);
+		}
+		else if (!ft_strncmp(temp, "env", 4))
+		{
+			builtin_env(&data);
 		}
 		else
 		{
