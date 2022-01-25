@@ -54,6 +54,7 @@ typedef struct s_cmds
 typedef struct s_data
 {
 	t_cmds	*cmds;
+	t_cmds	*actual; 	//keeps track of current command -> when going to the next cmd always do cmds->next
 	int qudouble;
 	int qusingle;
 	int i;
@@ -84,9 +85,13 @@ t_cmds	*create_new_cmds_node(t_tok *tokdat);
 t_tok	*create_new_token_node(char *str);
 void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);
+int		count_tokens(t_data	*data);
 
 // builtins
 void	builtin_env(t_data *data);
 void	builtin_pwd(t_data *data);
+void	builtin_execute(t_data *data);
+void	export_only(t_data *data);
+void	sort_env(char **env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_node_back.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 01:31:15 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 22:12:40 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:14:21 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode)
 	}
 }
 
-t_tok *inster_at_head(t_tok **head, t_tok *node_to_insert)
+t_tok	*inster_at_head(t_tok **head, t_tok *node_to_insert)
 {
 	node_to_insert -> next = *head;
 	if (*head != NULL)
-		(*head) -> prev = node_to_insert;
+		(*head)-> prev = node_to_insert;
 	*head = node_to_insert;
 	node_to_insert -> prev = NULL;
 	return (node_to_insert);
