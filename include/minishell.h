@@ -65,9 +65,6 @@ typedef struct s_data
 	char	**paths;
 }	t_data;
 
-
-
-
 // input
 char	*get_next_line(int fd);
 int		input_one_array(char *str, t_tok *tokdat, int i, int j);
@@ -85,13 +82,13 @@ t_cmds	*create_new_cmds_node(t_tok *tokdat);
 t_tok	*create_new_token_node(char *str);
 void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);
-int		count_tokens(t_data	*data);
+int		count_tokens(t_cmds	*data);
 
 // builtins
 void	builtin_env(t_data *data);
 void	builtin_pwd(t_data *data);
-void	builtin_execute(t_data *data);
+void	builtin_export(t_data *data);
 void	export_only(t_data *data);
-void	sort_env(char **env);
+char	**sort_env(char **env);
 
 #endif

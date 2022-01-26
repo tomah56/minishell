@@ -1,35 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:10:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/25 23:32:50 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/26 20:07:57 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	builtin_execute(t_data *data)
+void	builtin_export(t_data *data)
 {
 	int		i;
 	t_cmds	*current_cmd;
+	char	**command;
 
-	current_cmd = data->cmds;
-	if (count_tokens(data) == 1) //need to change function for current command (now it just counts first command)
+	current_cmd = data->actual;
+	command = current_cmd->commands;
+	if (count_tokens(current_cmd) == 1)
 		export_only(data);
-	else
+	else if (count_tokens(current_cmd) > 1)
 	{
-		//check if first char after export is =, if yes then error "": not a valid identifier"
-		//otherwise check if = is found
-		//if no = then nothing is to be done and no error
-		//when = is found then put it in environ
+		while (command[i] != NULL)
+		{
+			if (command[i][0] == '=')
+			{
+				printf("`%s'", command[i]);
+				msg_exit(data, ": not a valid identifier");
+			}
+			if (ft_strchr(command[i], '=') != NULL)
+				save_variable_in_environ(data, command, i);
+			i++;
+		}
 	}
+	else
+		msg_exit(data, "no input");
 }
 
-void	sort_env(char **env)
+void	save_variable_in_environ(t_data *data, char **command, int i)
+{
+	char	*var;
+
+	var = ft_substr(command[i], 0, ft_strlen(command[i]));
+	if (var == NULL)
+		msg_exit(data, "malloc error");
+	//to be done
+}
+
+char	**sort_env(char **env)
 {
 	int		i;
 	int		j;
@@ -46,10 +67,8 @@ void	sort_env(char **env)
 			{
 				temp = ft_strdup(env[i]);
 				if (temp == NULL)
-				{
 					ft_free_array(env);
-				}
-				free(&env[i]);
+				free(env[i]);
 				env[i] = env[j];
 				env[j] = temp;
 			}
@@ -57,6 +76,7 @@ void	sort_env(char **env)
 		}
 		i++;
 	}
+	return (env);
 }
 
 void	export_only(t_data *data)
@@ -72,11 +92,18 @@ void	export_only(t_data *data)
 		if (exp == NULL)
 			msg_exit(data, "malloc error");
 		i = 0;
-		while (exp[i])
+		while (data->environ[i])
 		{
 			exp[i] = ft_strdup(data->environ[i]);
 			i++;
 		}
-		sort_env(exp);
+		exp = sort_env(exp);
 	}
+	i = 0;
+	while (exp[i] != NULL)
+	{
+		printf("declare -x %s\n", exp[i]);
+		i++;
+	}
+	ft_free_array(exp);
 }

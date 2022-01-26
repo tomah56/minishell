@@ -6,11 +6,12 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 16:50:26 by sreinhol          #+#    #+#             */
-/*   Updated: 2021/07/25 16:28:46 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:42:56 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -30,4 +31,11 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *) &s[i]);
 	}
 	return (NULL);
+}
+
+int main ()
+{
+	char *s = "hello world";
+	int c = 'x';
+	printf("%s", ft_strchr(s, c));
 }

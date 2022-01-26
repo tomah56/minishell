@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/25 23:46:14 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:13:44 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,9 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			printlist(&data);
 			// printf("command: %d",count_list_elements(&data, 1));
-			printf("tokens: %d",count_tokens(&data));
 		}
 	}
-	printf("I m here\n");
+	// printf("I m here\n");
 	// rl_rep
 
 	// free cmds also...
