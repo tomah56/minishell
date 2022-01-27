@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:10:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/26 20:07:57 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/27 22:04:45 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	builtin_export(t_data *data)
 				msg_exit(data, ": not a valid identifier");
 			}
 			if (ft_strchr(command[i], '=') != NULL)
-				save_variable_in_environ(data, command, i);
+				save_variable_in_environ(data, command);
 			i++;
 		}
 	}
@@ -40,14 +40,30 @@ void	builtin_export(t_data *data)
 		msg_exit(data, "no input");
 }
 
-void	save_variable_in_environ(t_data *data, char **command, int i)
+void	save_variable_in_environ(t_data *data, char **command)
 {
 	char	*var;
+	char	**new_environ;
+	int		i;
+	int		len;
 
 	var = ft_substr(command[i], 0, ft_strlen(command[i]));
-	if (var == NULL)
+	new_environ = ft_calloc(len + 2, sizeof(char *));
+	if (var == NULL || new_environ == NULL)
 		msg_exit(data, "malloc error");
-	//to be done
+	while (data->environ[i] != NULL)
+	{
+		new_environ[i] = data->environ[i];
+		i++;
+	}
+	len = 0;
+	while (var[len])
+		len++;
+	new_environ[i] = ft_strdup(var);
+	data->environ = new_environ;
+	new_environ[i + 1] = NULL;
+	ft_free_array(data->environ);
+	free(var);
 }
 
 char	**sort_env(char **env)
