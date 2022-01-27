@@ -29,7 +29,7 @@ enum e_enum
 
 typedef struct s_token_data
 {
-	char **tokensfull; //* { * echo, * chello, *other}
+	char **tokensfull; //* { *echo, * chello, *other}
 	int tokencount;
 	int qudouble;
 	int qusingle;
@@ -89,6 +89,7 @@ void	builtin_env(t_data *data);
 void	builtin_pwd(t_data *data);
 void	builtin_export(t_data *data);
 void	export_only(t_data *data);
+void	save_variable_in_environ(t_data *data, char **command);
 char	**sort_env(char **env);
 
 #endif
