@@ -135,30 +135,41 @@ void	input_one_lilist_norm_cut(char *str, t_data *data)
 	}
 }
 
-int	input_one_lilist(char *str, t_data *data, int k, int p)
+int	input_one_lilist(char *str, t_data *data, int i, int j)
 {
-	data->normcm = NULL;
-	data->normtok = NULL;
-	while (str[data->i])
+	t_cmds	*cmds;
+	t_tok	*tok;
+
+
+	cmds = NULL;
+	tok = NULL;
+	// data->normcm = NULL;
+	// data->normtok = NULL;
+	// while (str[data->i])
+	while (str[i])
 	{
-		check_token_flags_li(str[data->i], data);
-		input_one_lilist_norm_cut(str, data);
-		// if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
-		// 	&& data->qudouble == 0 )
-		// {
-		// 	add_token_node_at_back(&tok, create_new_token_node(ft_substr(str, j, i + 1 - j)));
-		// 	while (str[i + 1] == ' ')
-		// 		i++;
-		// 	j = i + 1;
-		// }
-		// if (str[i + 1] == '|')
-		// {
-		// 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
-		// 	tok = NULL;
-		// }
-		(data->i)++;
+		// check_token_flags_li(str[data->i], data);
+		check_token_flags_li(str[i], data);
+		// input_one_lilist_norm_cut(str, data);
+		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
+			&& data->qudouble == 0 )
+		{
+			add_token_node_at_back(&tok, create_new_token_node(ft_substr(str, j, i + 1 - j)));
+			while (str[i + 1] == ' ')
+				i++;
+			j = i + 1;
+		}
+		if (str[i + 1] == '|')
+		{
+			add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
+			tok = NULL;
+		}
+		i++;
+		// (data->i)++;
 	}
-	add_cmds_node_at_back(&data->normcm, create_new_cmds_node(data->normtok));
-	data->cmds = data->normcm;
+	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
+	data->cmds = cmds;
+	// add_cmds_node_at_back(&data->normcm, create_new_cmds_node(data->normtok));
+	// data->cmds = data->normcm;
 	return (1);
 }

@@ -12,6 +12,16 @@
 
 #include "../../include/minishell.h"
 
+void	save_variable_in_environ(t_data *data, char **command, int i)
+{
+	char	*var;
+
+	var = ft_substr(command[i], 0, ft_strlen(command[i]));
+	if (var == NULL)
+		msg_exit(data, "malloc error");
+	//to be done
+}
+
 void	builtin_export(t_data *data)
 {
 	int		i;
@@ -40,15 +50,6 @@ void	builtin_export(t_data *data)
 		msg_exit(data, "no input");
 }
 
-void	save_variable_in_environ(t_data *data, char **command, int i)
-{
-	char	*var;
-
-	var = ft_substr(command[i], 0, ft_strlen(command[i]));
-	if (var == NULL)
-		msg_exit(data, "malloc error");
-	//to be done
-}
 
 char	**sort_env(char **env)
 {
