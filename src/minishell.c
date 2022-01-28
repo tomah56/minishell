@@ -30,28 +30,16 @@ void	printlist(t_data *data)
 	int j = 1;
 
 	temp = data;
-	// while (temp != NULL)
-	// {
-	// 	printf("CMD LIST NR: %d\n", i);
-	// 	printf("-INFILE: %d - \n", temp->cmds->infile);
-	// 	printf("-OUTFILE: %d - \n", temp->cmds->outfile);
-	// 	printf("COMMANDS: %s - \n", temp->cmds->commands); //commands doube pointer
-	// 	temp = temp->cmds->next;
-	// 	i++;
-	// }
-		// printf("CONTENT: %s - \n", temp_t->content);
 	i = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
-		printf("CMDS %d\n", j);
 		temp_t = temp_c->tokens;
+		printf("CMDS %d  nuber of tokens: %d\n", j, temp_c->comandcount);
 		while (temp_t != NULL)
 		{
-			// printf("TOKEN LIST NR: %d\n", i);
-			// printf("TYPE: %d - \n", temp_t->cmds->tokens->type);
-			// printf("QUOTE_TYPE: %d - \n", temp->cmds->tokens->quote_type);
+	
 			printf("%s-->", temp_t->content);
 			temp_t = temp_t->next;
 			i++;
@@ -81,8 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	save_paths(&data, envp);
 	data.qudouble = 0;
 	data.qusingle = 0;
-	data.i = 0;
-	data.j = 0;
+	
 	// cmds = NULL;
 	// data.cmds = create_new_cmds_node(&data);
 	// data.cmds->tokens = create_new_token_node(&data);
@@ -102,60 +89,8 @@ int	main(int argc, char **argv, char **envp)
 
 		if (!ft_strncmp(temp, "exit", 5))
 		{
-			//exit has numbers in the end setting the exit status exxit also should return with rror massages
-			// exit ode goes until 255 then restarts exit 256 will show $? 0 | 511 --> 255 | 512 --> 0...
-			//  4294967295
-			//  25600000000000000001 --> 255 too much
-			//  2560000000000000001 -->1 still works
-			//  9223372036854775808 long long -- > 255
-			//  9223372036854775807 long long -- > 255
-			//  9223372036854775806 long long -- > 254
-			//  -1 --- > 255
-			//  -2 --- > 254
-			//  -255 --- > 1
-			//  -256 --- > 0
-			//  -9223372036854775808 long long -- > 0
-			//  -9223372036854775809 long long -- > 255
-			//  - ...rest-->255
-			// too big or too small number it returns error  but still exits
-			// bash-3.2$ exit -9223372036854775809
-			// exit
-			// bash: exit: -9223372036854775809: numeric argument required
-			// we should handle '-f' lags as stings and send "numberic argument requered massage"
-			//like this too
-			// bash-3.2$ exit hello
-			// exit
-			// bash: exit: hello: numeric argument required
-			
-			// too many arguments doesnt exit
-			// bash-3.2$ exit 5 5 
-			// exit
-			// bash: exit: too many arguments
-
-			// too many not numeric still exits
-			// bash-3.2$ exit b b
-			// exit
-			// bash: exit: b: numeric argument required
-
-			// exits normaly
-			// bash-3.2$ exit "55" also '55' both quote sign wroks
-			// exit
-			// ttokesi@3-F-11 Documents % 
-
-			// bash-3.2$ exit "'8'"
-			// exit
-			// bash: exit: '8': numeric argument required
-			// ttokesi@3-F-11 Documents % 
-
-			// bash-3.2$ exit ""8''
-			// exit
-			// ttokesi@3-F-11 Documents % echo $?
-			// 8
-				// hope this all the edges...
 			free(temp);
-
 			temp = NULL;
-		
 		}
 		else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
 		{
@@ -168,9 +103,17 @@ int	main(int argc, char **argv, char **envp)
 		else
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
-			input_one_lilist(temp, &data, 0, 0);
+			data.i = 0;
+			data.j = 0;
+			data.k = 0;
+			input_one_lilist(temp, &data);
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			printlist(&data);
+			printf("tokentotal: %d\n", data.tokentotal);
+			// printf("tokentotal: %d\n", data.cmds->comandcount);
+			// printf("tokentotal: %d\n", data.cmds->next->comandcount);
+			// looper_next(&data, quote_cutter_dollar);
+			// looper_next(&data, quote_cutter_dollar);
 			// printf("command: %d",count_list_elements(&data, 1));
 		}
 	}
