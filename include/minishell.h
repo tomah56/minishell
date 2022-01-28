@@ -91,5 +91,9 @@ void	builtin_export(t_data *data);
 void	export_only(t_data *data);
 void	save_variable_in_environ(t_data *data, char **command);
 char	**sort_env(char **env);
+void	builtin_cd(t_data *data);
+void	cd_only(t_data *data);
+char	*get_home(t_data *data);
+void	change_var_env(t_data *data, char *var_name, char *new_var);
 
 #endif

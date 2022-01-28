@@ -6,13 +6,9 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/26 17:13:44 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/28 23:31:38 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
 
 #include "../include/minishell.h"
 
@@ -68,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	char *temp;
 	t_data	data;
 	char **exp;
+	char *home;
 	// t_cmds	*cmds;
 	
 
