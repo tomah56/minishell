@@ -13,7 +13,7 @@
 
 #include "../../include/minishell.h"
 
-t_cmds	*create_new_cmds_node(t_tok *tokdat)
+t_cmds	*create_new_cmds_node(t_tok *tokdat, int count)
 {
 	t_cmds	*list;
 
@@ -26,6 +26,7 @@ t_cmds	*create_new_cmds_node(t_tok *tokdat)
 	list->infile = STDIN_FILENO;
 	list->outfile = STDOUT_FILENO;
 	list->commands = NULL;
+	list->comandcount = count;
 	return (list);
 }
 
@@ -40,4 +41,39 @@ t_tok	*create_new_token_node(char *str)
 	list->prev = NULL;
 	list->content = str;
 	return (list);
+}
+
+void	remove_node(t_tok **head, t_tok *node_to_remove) 
+{
+	if (*head == node_to_remove)
+	{
+		*head = node_to_remove -> next;
+		if (*head != NULL)
+		{
+			(*head) -> prev = NULL;
+		}
+		(*head) -> prev = NULL;
+		return;
+	}
+	else
+	{
+		node_to_remove -> prev -> next = node_to_remove -> next;
+		if (node_to_remove -> next != NULL)
+		{
+			node_to_remove -> next -> prev = node_to_remove -> prev;
+		}
+		node_to_remove -> next = NULL;
+		node_to_remove -> prev = NULL;
+		//find prev node in list
+		// node_t *temp = *head;
+		// while (temp != NULL && temp -> next != node_to_remove)
+		// {
+		// 	temp = temp -> next;
+		// }
+		// if (temp == NULL)
+		// 	return;
+		// temp -> next = node_to_remove -> next;
+		// node_to_remove -> next = NULL;
+	}
+	return;
 }

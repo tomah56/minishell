@@ -30,9 +30,9 @@ enum e_enum
 typedef struct s_token_data
 {
 	char **tokensfull; //* { *echo, * chello, *other}
-	int tokencount;
 	int qudouble;
 	int qusingle;
+	int tokencount;
 
 	int					type;
 	char				*content;// *echo ---- > *conent hello  ---- > *content aother
@@ -46,6 +46,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;
 	int				outfile;
+	int				comandcount;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -57,8 +58,11 @@ typedef struct s_data
 	t_cmds	*actual; 	//keeps track of current command -> when going to the next cmd always do cmds->next
 	int qudouble;
 	int qusingle;
+	int tokentotal;
+	int tokencount;
 	int i;
 	int j;
+	int k;
 	t_cmds	*normcm;
 	t_tok	*normtok;
 	char	**environ;
@@ -68,8 +72,12 @@ typedef struct s_data
 // input
 char	*get_next_line(int fd);
 int		input_one_array(char *str, t_tok *tokdat, int i, int j);
-int		input_one_lilist(char *str, t_data *data, int i, int j);
+void		input_one_lilist(char *str, t_data *data);
 int		input_two(t_tok *tokdat);
+//test
+void looper_next(t_data *data, void (*f)(char *));
+void quote_cutter_dollar(char *str);
+void	temp_looper(t_data *data);
 
 // sonja
 void	create_environment(t_data *data, char **env);
@@ -78,7 +86,7 @@ void	free_struct(t_data *data);
 void	save_paths(t_data *data, char **env);
 
 // linked list functions
-t_cmds	*create_new_cmds_node(t_tok *tokdat);
+t_cmds	*create_new_cmds_node(t_tok *tokdat, int count);
 t_tok	*create_new_token_node(char *str);
 void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);

@@ -13,17 +13,6 @@
 
 #include "../include/minishell.h"
 
-static void check_token_flags(char str, t_tok *tokdat)
-{
-	if (str == '"' && tokdat->qudouble == 0 && tokdat->qusingle == 0)
-		tokdat->qudouble = 1;
-	else if (str == '"' && tokdat->qudouble == 1 && tokdat->qusingle == 0)
-		tokdat->qudouble = 0;
-	if (str == '\'' && tokdat->qusingle == 0 && tokdat->qudouble == 0)
-		tokdat->qusingle = 1;
-	else if (str == '\'' && tokdat->qusingle == 1 && tokdat->qudouble == 0)
-		tokdat->qusingle = 0;
-}
 static void check_token_flags_li(char str, t_data *data)
 {
 	if (str == '"' && data->qudouble == 0 && data->qusingle == 0)
@@ -43,7 +32,7 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	count = 0;
 	while (str[i])
 	{
-		check_token_flags(str[i], tokdat);
+		// check_token_flags_li(str[i], tokdat);
 		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
 			&& tokdat->qudouble == 0)
 		{
@@ -59,30 +48,7 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	return (count);
 }
 
-// int token_separator(t_data *data)
-// {
-// 	char **alltoken;
-// 	int i;
-// 	int j;
 
-// 	i = 0;
-// 	j = 0;
-// 	alltoken = data->cmds->tokens->tokensfull;
-// 	while (alltoken[i] != NULL)
-// 	{
-// 		j = 0;
-// 		while (alltoken[i][j] != '\0')
-// 		{
-// 			if (alltoken[i][j] == '$')
-// 			{
-				
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-
-// }
 
 int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 {
@@ -95,7 +61,7 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 		return (0);
 	while (str[i])
 	{
-		check_token_flags(str[i], tokdat);
+		// check_token_flags_li(str[i], tokdat);
 		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
 			&& tokdat->qudouble == 0 )
 		{
@@ -115,50 +81,45 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 
 
 
-
-void	input_one_lilist_norm_cut(char *str, t_data *data)
+//input_one_lilist_norm_cut_point
+void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
 	if (ft_strchr(" $<>|\0", str[data->i + 1]) != NULL && data->qusingle == 0
-			&& data->qudouble == 0 )
+			&& data->qudouble == 0)
 	{
-		add_token_node_at_back(&data->normtok, create_new_token_node(
+		add_token_node_at_back(tok, create_new_token_node(
 				ft_substr(str, data->j, data->i + 1 - data->j)));
 		while (str[data->i + 1] == ' ')
 			(data->i)++;
-		data->j = data->i + 1;
+		data->j = (data->i) + 1;
+		(data->tokentotal)++;
+		(data->tokencount)++;
 	}
-	if (str[data->i + 1] == '|')
+	if (str[(data->i) + 1] == '|')
 	{
-		add_cmds_node_at_back(&data->normcm, 
-			create_new_cmds_node(data->normtok));
-		data->normtok = NULL;
+		add_cmds_node_at_back(cmds, create_new_cmds_node(*tok, data->tokencount));
+		*tok = NULL;
+		data->tokencount = 0;
 	}
 }
 
-int	input_one_lilist(char *str, t_data *data, int k, int p)
+void	input_one_lilist(char *str, t_data *data)
 {
-	data->normcm = NULL;
-	data->normtok = NULL;
+	t_cmds	*cmds;
+	t_tok	*tok;
+
+	cmds = NULL;
+	tok = NULL;
+	data->tokentotal = 0;
+	data->tokencount = 0;
 	while (str[data->i])
 	{
 		check_token_flags_li(str[data->i], data);
-		input_one_lilist_norm_cut(str, data);
-		// if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && data->qusingle == 0
-		// 	&& data->qudouble == 0 )
-		// {
-		// 	add_token_node_at_back(&tok, create_new_token_node(ft_substr(str, j, i + 1 - j)));
-		// 	while (str[i + 1] == ' ')
-		// 		i++;
-		// 	j = i + 1;
-		// }
-		// if (str[i + 1] == '|')
-		// {
-		// 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok));
-		// 	tok = NULL;
-		// }
+		inp_o_li_norm_cut(str, data, &cmds, &tok);
 		(data->i)++;
 	}
-	add_cmds_node_at_back(&data->normcm, create_new_cmds_node(data->normtok));
-	data->cmds = data->normcm;
-	return (1);
+	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok, data->tokencount));
+
+	
+	data->cmds = cmds;
 }
