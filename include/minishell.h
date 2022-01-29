@@ -76,8 +76,8 @@ int		input_one_array(char *str, t_tok *tokdat, int i, int j);
 void	input_one_lilist(char *str, t_data *data);
 int		input_two(t_tok *tokdat);
 //test
-void looper_next(t_data *data, void (*f)(char *));
-void quote_cutter_dollar(char *str);
+void	looper_next(t_data *data, void (*f)(char *));
+char	*quote_cutter(char *str);
 void	temp_looper(t_data *data);
 
 // sonja

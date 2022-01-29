@@ -79,8 +79,6 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 }
 
 
-
-
 //input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {

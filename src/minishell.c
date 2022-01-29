@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	temp = "not";
 	while (temp)
 	{
-		temp = readline("HAKUNA MATATA 0.01$ ");
+		temp = readline("HAKUNA MATATA 0.02$ ");
 		add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
@@ -106,9 +106,12 @@ int	main(int argc, char **argv, char **envp)
 			input_one_lilist(temp, &data);
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			printlist(&data);
-			printf("tokentotal: %d\n", data.tokentotal);
+			// printf("tokentotal: %d\n", data.tokentotal);
 			temp_looper(&data);
-			printf("from comands: %s\n", data.cmds->next->commands[1]);
+			char *temp2;
+			temp2 = quote_cutter(data.cmds->commands[0]);
+			printf("%s\n", temp2);
+			// printf("from comands: %s\n", data.cmds->next->commands[1]);
 			// printf("tokentotal: %d\n", data.cmds->comandcount);
 			// printf("tokentotal: %d\n", data.cmds->next->comandcount);
 			// looper_next(&data, quote_cutter_dollar);
