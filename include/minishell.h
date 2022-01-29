@@ -25,7 +25,7 @@ enum e_enum
 	QUSINGLE = 1,
 	QUDOUBLE = 2,
 	FAILED = -1,
-	SUCCESS = 0;
+	SUCCESS = 0,
 };
 
 typedef struct s_token_data
