@@ -1,16 +1,34 @@
 #include "../include/minishell.h"
 
 
-void quote_cutter_dollar(char *str)
+char	*quote_cutter(char *str)
 {
-	// int i;
+	int		i;
+	int		j;
+	char	*temp;
+	int qusig;
+	int qudou;
 
-	printf("%s\n", str);
-	// i = 0;
-	// while (str[i] != '\0')
-	// {
-	// 	i++;
-	// }
+	qusig = 0;
+	qudou = 0;
+	i = 0;
+	j = 0;
+	temp = malloc((ft_strlen(str) - 2) * sizeof(char));
+	while (str[i] != '\0')
+	{
+		if (!(str[i] == '\'' || qudou == 1) || !(str[i] == '\"' || qusig == 1))
+		{
+			temp[j] = str[i];
+			j++;
+		}
+			// if (str[i] != '\'' && qudou == 0)
+			// 	qusig = 1;
+			// if (str[i] != '\"' && qusig == 0)
+			// 	qudou = 1;
+		i++;
+	}
+	temp[j] = '\0';
+	return (temp);
 }
 
 
@@ -38,10 +56,8 @@ void	temp_looper(t_data *data)
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
 	char	**temp;
-	int i = 0;
-	int j = 0;
+	int		i;
 
-	i = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
@@ -57,8 +73,7 @@ void	temp_looper(t_data *data)
 		}
 		temp[i] = NULL;
 		temp_c->commands = temp;
-		free(temp);
 		temp_c = temp_c->next;
-		j++;
+		free(temp);
 	}
 }
