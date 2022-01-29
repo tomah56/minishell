@@ -94,16 +94,13 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		data->j = (data->i) + 1;
 		(data->tokentotal)++;
 		(data->tokencount)++;
-		// ((*tok)->tokencount)++;
 	}
 	if (str[(data->i) + 1] == '|')
 	{
 		add_cmds_node_at_back(cmds, create_new_cmds_node(*tok, data->tokencount));
 		*tok = NULL;
 		data->tokencount = 0;
-		// (*tok)->tokencount = 0;
 	}
-		// (*cmds)->comandcount = data->tokencount;
 }
 
 void	input_one_lilist(char *str, t_data *data)

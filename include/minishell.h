@@ -46,7 +46,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;
 	int				outfile;
-	int comandcount;
+	int				comandcount;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -77,6 +77,7 @@ int		input_two(t_tok *tokdat);
 //test
 void looper_next(t_data *data, void (*f)(char *));
 void quote_cutter_dollar(char *str);
+void	temp_looper(t_data *data);
 
 // sonja
 void	create_environment(t_data *data, char **env);

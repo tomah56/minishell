@@ -110,6 +110,8 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			printlist(&data);
 			printf("tokentotal: %d\n", data.tokentotal);
+			temp_looper(&data);
+			printf("from comands: %s\n", data.cmds->next->commands[1]);
 			// printf("tokentotal: %d\n", data.cmds->comandcount);
 			// printf("tokentotal: %d\n", data.cmds->next->comandcount);
 			// looper_next(&data, quote_cutter_dollar);

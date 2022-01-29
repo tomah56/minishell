@@ -36,23 +36,28 @@ void looper_next(t_data *data, void (*f)(char *))
 void	temp_looper(t_data *data)
 {
 	t_tok	*temp_t;
-	t_cmds *temp_c;
-	int i = 1;
-	int j = 1;
+	t_cmds	*temp_c;
+	char	**temp;
+	int i = 0;
+	int j = 0;
 
 	i = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
+		temp = malloc((temp_c->comandcount + 1) * sizeof(char*));
 		temp_t = temp_c->tokens;
+		i = 0;
 		while (temp_t != NULL)
 		{
-			// if (((temp_t->content == '<' && temp_t->next->content != '<')) || temp_t->content == '>' && temp_t->next->content != '>' ))
-			// printf("%s-->", temp_t->content);
+			temp[i] = temp_t->content;
 			temp_t = temp_t->next;
 			i++;
 		}
+		temp[i] = NULL;
+		temp_c->commands = temp;
+		free(temp);
 		temp_c = temp_c->next;
 		j++;
 	}
