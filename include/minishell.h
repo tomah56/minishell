@@ -17,14 +17,15 @@ enum e_enum
 {
 	WORD = 1,
 	METACHAR = 2,
-	RED_IN = 3,
-	RED_OUT_TRUNC = 4,
-	HEREDOC = 5,
-	RED_OUT_APPEND = 6,
+	RED_IN = 3,  //  <
+	RED_OUT_TRUNC = 4, //  >
+	HEREDOC = 5, //  <<
+	RED_OUT_APPEND = 6,//  >>
 	NOQUOTE = 0,
 	QUSINGLE = 1,
 	QUDOUBLE = 2,
 	FAILED = -1,
+	SUCCESS = 0;
 };
 
 typedef struct s_token_data
@@ -46,7 +47,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;
 	int				outfile;
-	int				comandcount;
+	int				comandcount; //number of tokens per command
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -72,7 +73,7 @@ typedef struct s_data
 // input
 char	*get_next_line(int fd);
 int		input_one_array(char *str, t_tok *tokdat, int i, int j);
-void		input_one_lilist(char *str, t_data *data);
+void	input_one_lilist(char *str, t_data *data);
 int		input_two(t_tok *tokdat);
 //test
 void looper_next(t_data *data, void (*f)(char *));
