@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:10:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/27 22:04:45 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/29 19:24:33 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ void	builtin_export(t_data *data)
 	t_cmds	*current_cmd;
 	char	**command;
 
+	i = 0;
 	current_cmd = data->actual;
 	command = current_cmd->commands;
-	if (count_tokens(current_cmd) == 1)
+	if (current_cmd->comandcount == 1)
 		export_only(data);
-	else if (count_tokens(current_cmd) > 1)
+	else if (current_cmd->comandcount > 1)
 	{
 		while (command[i] != NULL)
 		{

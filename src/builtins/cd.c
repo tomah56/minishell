@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 18:43:42 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/28 23:33:06 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/29 19:24:58 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	builtin_cd(t_data *data)
 {
 	t_cmds	*current_cmd;
-	char	*command;
+	char	**command;
 	char	*cwd;
 	char	*new;
 
@@ -23,9 +23,9 @@ void	builtin_cd(t_data *data)
 	cwd = getcwd(cwd, 0);
 	current_cmd = data->actual;
 	command = current_cmd->commands;
-	if (count_tokens(current_cmd) == 1)
+	if (current_cmd->comandcount == 1)
 		cd_only(data);
-	else if (count_tokens(current_cmd) > 1)
+	else if (current_cmd->comandcount > 1)
 	{
 		if (chdir(command[1]) == -1)
 		{
