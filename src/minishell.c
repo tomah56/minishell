@@ -6,11 +6,13 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/30 02:11:23 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/30 23:21:52 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	g_exit = 0;
 
 // void myhandler(int num)
 // {
@@ -35,7 +37,6 @@ void	printlist(t_data *data)
 		printf("CMDS %d  nuber of tokens: %d\n", j, temp_c->comandcount);
 		while (temp_t != NULL)
 		{
-	
 			printf("%s-->", temp_t->content);
 			temp_t = temp_t->next;
 			i++;
@@ -64,6 +65,8 @@ int	main(int argc, char **argv, char **envp)
 
 	create_environment(&data, envp);
 	save_paths(&data, envp);
+	// export_only(&data);
+	// system("leaks minishelll");
 	// cmds = NULL;
 	// data.cmds = create_new_cmds_node(&data);
 	// data.cmds->tokens = create_new_token_node(&data);

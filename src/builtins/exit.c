@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/22 19:02:34 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 23:26:45 by sreinhol         ###   ########.fr       */
+/*   Created: 2022/01/30 20:52:50 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/01/30 23:12:15 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-void	msg_exit(t_data *data, char *msg)
+void	builtin_exit(t_data *data)
 {
-	free_struct(data);
-	write(STDERR_FILENO, msg, ft_strlen(msg));
-	exit(EXIT_FAILURE);
+	write(STDERR_FILENO, "exit\n", 5);
+		
 }
 
-void	free_struct(t_data *data)
-{
-	if (data != NULL)
-	{
-		if (data->environ != NULL)
-			ft_free_array(data->environ);
-		if (data->paths != NULL)
-			ft_free_array(data->paths);
-	}
-}
+
+	// if (data->actual->next != NULL) //when there is a next cmd, exit does nothing

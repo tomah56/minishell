@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:10:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/29 22:40:47 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/30 19:08:17 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,32 @@ void	export_only(t_data *data)
 		}
 		exp = sort_env(exp);
 	}
+	print_export(data, exp);
+	ft_free_array(exp);
+}
+
+void	print_export(t_data *data, char **exp)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*var_name;
+	char	*var;
+
 	i = 0;
 	while (exp[i] != NULL)
 	{
-		printf("declare -x %s\n", exp[i]);
+		len = ft_strlen(exp[i]);
+		j = 0;
+		while (exp[i][j] && exp[i][j] != '=')
+			j++;
+		j = j + 1;
+		var_name = ft_substr(exp[i], 0, j);
+		var = ft_substr(exp[i], j, (len - j));
+		printf("%s", var_name);
+		printf("\"%s\"\n", var);
+		free(var_name);
+		free(var);
 		i++;
 	}
-	ft_free_array(exp);
 }
