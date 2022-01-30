@@ -33,7 +33,7 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	while (str[i])
 	{
 		// check_token_flags_li(str[i], tokdat);
-		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
+		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
 			&& tokdat->qudouble == 0)
 		{
 			while (str[i + 1] == ' ')
@@ -62,7 +62,7 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 	while (str[i])
 	{
 		// check_token_flags_li(str[i], tokdat);
-		if (ft_strchr(" $<>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
+		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
 			&& tokdat->qudouble == 0 )
 		{
 			tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
@@ -82,7 +82,7 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 //input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
-	if (ft_strchr(" $<>|\0", str[data->i + 1]) != NULL && data->qusingle == 0
+	if (ft_strchr(" <>|\0", str[data->i + 1]) != NULL && data->qusingle == 0
 			&& data->qudouble == 0)
 	{
 		add_token_node_at_back(tok, create_new_token_node(
