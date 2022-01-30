@@ -111,8 +111,15 @@ int	main(int argc, char **argv, char **envp)
 			// printf("tokentotal: %d\n", data.tokentotal);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 			char *temp2;
+			int size;
+			size = size_dollar(data.cmds->commands[0]).length;
+			printf("size: %d\n", size);
 			temp2 = quote_cutter(data.cmds->commands[0], 0, 0);
-			printf("%s\n", temp2);
+			printf("quoteremooval: ->%s\n", temp2);
+			// temp2 = expand_dollar(temp2, &data);
+			// printf("expand: ->%s\n", temp2);
+			free(temp2);
+			temp2 = NULL;
 			// printf("from comands: %s\n", data.cmds->next->commands[1]);
 			// printf("tokentotal: %d\n", data.cmds->comandcount);
 			// printf("tokentotal: %d\n", data.cmds->next->comandcount);
