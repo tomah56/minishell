@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 19:19:22 by sreinhol          #+#    #+#             */
-/*   Updated: 2021/07/25 16:28:59 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/30 01:28:10 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strlcpy(str, s1, len);
 		ft_strlcat(str, s2, len);
 	}
+	free((void *) s2);
 	return (str);
 }

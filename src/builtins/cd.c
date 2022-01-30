@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 18:43:42 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/29 19:24:58 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/30 01:31:00 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ void	change_var_env(t_data *data, char *var_name, char *new_var)
 	len = ft_strlen(var_name);
 	new_var = ft_strjoin(var_name, new_var);
 	new = ft_strdup(new_var);
+	free(new_var);
 	if (new == NULL)
 		msg_exit(data, "malloc error");
 	while (data->environ[i] != NULL
 		&& ft_strncmp(data->environ[i], var_name, len))
 		i++;
+	free((void *) data->environ[i]);
 	data->environ[i] = new;
 }

@@ -105,5 +105,8 @@ void	builtin_cd(t_data *data);
 void	cd_only(t_data *data);
 char	*get_home(t_data *data);
 void	change_var_env(t_data *data, char *var_name, char *new_var);
+void	builtin_unset(t_data *data);
+int		check_valid_var(t_data *data, char **command);
+char	**delete_var_env(t_data *data, char **command, int i, int j);
 
 #endif

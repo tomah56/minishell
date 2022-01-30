@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:10:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/29 19:24:33 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/29 22:40:47 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	save_variable_in_environ(t_data *data, char **command)
 	int		i;
 	int		len;
 
+	len = 0;
+	i = 0;
+	while (data->environ[len])
+		len++;
 	var = ft_substr(command[i], 0, ft_strlen(command[i]));
 	new_environ = ft_calloc(len + 2, sizeof(char *));
 	if (var == NULL || new_environ == NULL)
@@ -57,13 +61,10 @@ void	save_variable_in_environ(t_data *data, char **command)
 		new_environ[i] = data->environ[i];
 		i++;
 	}
-	len = 0;
-	while (var[len])
-		len++;
 	new_environ[i] = ft_strdup(var);
-	data->environ = new_environ;
 	new_environ[i + 1] = NULL;
 	ft_free_array(data->environ);
+	data->environ = new_environ;
 	free(var);
 }
 
