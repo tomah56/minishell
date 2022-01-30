@@ -64,8 +64,6 @@ int	main(int argc, char **argv, char **envp)
 
 	create_environment(&data, envp);
 	save_paths(&data, envp);
-	data.qudouble = 0;
-	data.qusingle = 0;
 	
 	// cmds = NULL;
 	// data.cmds = create_new_cmds_node(&data);
@@ -76,6 +74,8 @@ int	main(int argc, char **argv, char **envp)
 	temp = "not";
 	while (temp)
 	{
+		data.qudouble = 0;
+		data.qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.02$ ");
 		add_history(temp);
 		// rl_on_new_line();
@@ -107,9 +107,9 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			printlist(&data);
 			// printf("tokentotal: %d\n", data.tokentotal);
-			temp_looper(&data);
+			commands_link_to_array_looper(&data); // puts the linklist to the array
 			char *temp2;
-			temp2 = quote_cutter(data.cmds->commands[0]);
+			temp2 = quote_cutter(data.cmds->commands[0], 0, 0);
 			printf("%s\n", temp2);
 			// printf("from comands: %s\n", data.cmds->next->commands[1]);
 			// printf("tokentotal: %d\n", data.cmds->comandcount);

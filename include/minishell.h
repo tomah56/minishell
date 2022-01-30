@@ -48,6 +48,7 @@ typedef struct s_cmds
 	int				infile;
 	int				outfile;
 	int				comandcount; //number of tokens per command
+	int				heredocon;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -77,8 +78,8 @@ void	input_one_lilist(char *str, t_data *data);
 int		input_two(t_tok *tokdat);
 //test
 void	looper_next(t_data *data, void (*f)(char *));
-char	*quote_cutter(char *str);
-void	temp_looper(t_data *data);
+char	*quote_cutter(char *str, int qusig, int qudou);
+void	commands_link_to_array_looper(t_data *data);
 
 // sonja
 void	create_environment(t_data *data, char **env);

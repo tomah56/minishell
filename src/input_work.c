@@ -117,7 +117,8 @@ void	input_one_lilist(char *str, t_data *data)
 		(data->i)++;
 	}
 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok, data->tokencount));
-
+	if (data->qudouble == 1 || data->qusingle == 1) //handeling unclosed qutation marks as it was undefined behaviout in the pdf
+		write(1, "error: input\n", 13);
 	
 	data->cmds = cmds;
 }
