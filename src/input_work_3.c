@@ -75,19 +75,23 @@ int check_quote_type_dollar(char *str)
 	return (temp);
 }
 
-int size_dollar(char *str)
+t_s size_dollar(char *str)
 {
-	int size;
+	t_s size;
 	int i;
 
 	i = 0;
-	size = 0;
+	size.length = 0;
+	size.i = 0;
+	size.j = 0;
 	while (str[i] !='\0')
 	{
-		if (size != 0 && (str[i] == '\'' || str[i] == '\"'))
+		if (size.length != 0 && (str[i] == '\'' || str[i] == '\"' || str[i] == '$'))
 			break ;
-		if (str[i] == '$' || size != 0)
-			size++;
+		if (str[i] == '$' || size.length != 0)
+			size.length++;
+		if (str[i] == '$')
+			size.start = i;
 		i++;
 	}
 	return (size);
@@ -96,12 +100,38 @@ int size_dollar(char *str)
 char *expand_dirt_dollar(char *str, t_data *data)
 {
 	char *temp;
+	char *tempfull;
+	t_s siz;
+	// while
 
+	//siz = size_dollar(str + siz.start + siz.length); 
+	siz = size_dollar(str);
+	temp = expand_clean_dollar(ft_substr(str, siz.start, siz.length), data);
+	ft_strlen(str);
+	ft_strlen(temp);
+	tempfull = malloc((ft_strlen(str) - siz.length + ft_strlen(temp)));
+	while (str[siz.i] != '\0')
+	{
+		if (str[siz.i] == '$')
+		{
+			while (temp[siz.j] != '\0')
+			{
+				tempfull[siz.i + siz.j] = temp[siz.j];
+				siz.j++;
+			}
+			while (str[siz.i] != '\"' || str[siz.i] != '\'')
+				siz.i++;
+		}
+		else
+			tempfull[siz.i] = str[siz.i];
+		siz.i++;
+	}
+	
 
 	
 
 
-	return (temp);
+	return (tempfull);
 }
 
 char	*expand_clean_dollar(char *str, t_data *data)

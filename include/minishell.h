@@ -72,6 +72,14 @@ typedef struct s_data
 	char	**paths;
 }	t_data;
 
+typedef struct s_size
+{
+	int length;
+	int start;
+	int i;
+	int j;
+}	t_s;
+
 // input
 char	*get_next_line(int fd);
 int		input_one_array(char *str, t_tok *tokdat, int i, int j);
@@ -82,7 +90,7 @@ void	looper_next(t_data *data, void (*f)(char *));
 char	*quote_cutter(char *str, int qusig, int qudou);
 void	commands_link_to_array_looper(t_data *data);
 char	*expand_clean_dollar(char *str, t_data *data);
-int size_dollar(char *str);
+t_s size_dollar(char *str);
 
 // sonja
 void	create_environment(t_data *data, char **env);
