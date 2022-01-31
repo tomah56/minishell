@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 20:10:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 19:08:17 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/31 23:59:35 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	save_variable_in_environ(t_data *data, char **command)
 	ft_free_array(data->environ);
 	data->environ = new_environ;
 	free(var);
+	g_exit = 0;
 }
 
 char	**sort_env(char **env)
@@ -119,6 +120,7 @@ void	export_only(t_data *data)
 	}
 	print_export(data, exp);
 	ft_free_array(exp);
+	g_exit = 0;
 }
 
 void	print_export(t_data *data, char **exp)

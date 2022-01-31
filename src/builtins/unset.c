@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:51:51 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 00:44:21 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/01 00:02:19 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	check_valid_var(t_data *data, char **command)
 		}
 		i++;
 	}
+	g_exit = 0;
 	return (-1);
 }
 

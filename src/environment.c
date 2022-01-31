@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 18:49:36 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 22:32:38 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/31 23:10:48 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	create_environment(t_data *data, char **env)
 void	save_paths(t_data *data, char **env)
 {
 	char	*path_envp;
-	int		i;
+	// int		i;
 
 	while (*env != NULL && ft_strncmp(*env, "PATH=", 5))
 		++env;
