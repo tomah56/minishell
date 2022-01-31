@@ -1,43 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_helpers.c                                     :+:      :+:    :+:   */
+/*   ft_is_plus_minus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 20:12:51 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 23:56:36 by sreinhol         ###   ########.fr       */
+/*   Created: 2022/01/31 23:07:16 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/01/31 23:07:39 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-int	count_tokens(t_cmds	*actual)
+int	ft_is_plus_minus(char c)
 {
-	t_tok	*temp_t;
-	int		i;
-
-	i = 1;
-	temp_t = actual->tokens;
-	while (temp_t->next != NULL)
-	{
-		temp_t = temp_t->next;
-		i++;
-	}
-	return (i);
-}
-
-int	count_commands(t_data	*data)
-{
-	t_cmds	*temp_t;
-	int		i;
-
-	i = 1;
-	temp_t = data->cmds;
-	while (temp_t->next != NULL)
-	{
-		temp_t = temp_t->next;
-		i++;
-	}
-	return (i);
+	if (c == '+' || c == '-')
+		return (1);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 18:43:42 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 01:31:00 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/01/31 23:56:41 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	builtin_cd(t_data *data)
 	new = NULL;
 	new = getcwd(new, 0);
 	change_var_env(data, "PWD=", new);
+	g_exit = 0;
 }
 
 void	cd_only(t_data *data)
@@ -53,6 +54,7 @@ void	cd_only(t_data *data)
 	}
 	change_var_env(data, "OLDPWD=", cwd);
 	change_var_env(data, "PWD=", home);
+	g_exit = 0;
 }
 
 char	*get_home(t_data *data)

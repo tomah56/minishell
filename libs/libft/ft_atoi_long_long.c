@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_helpers.c                                     :+:      :+:    :+:   */
+/*   ft_atoi_long_long.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 20:12:51 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 23:56:36 by sreinhol         ###   ########.fr       */
+/*   Created: 2022/01/31 23:05:20 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/01/31 23:05:43 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-int	count_tokens(t_cmds	*actual)
+long	ft_atoi_long_long(char *str)
 {
-	t_tok	*temp_t;
-	int		i;
+	int			i;
+	int			flag;
+	long long	nb;
 
-	i = 1;
-	temp_t = actual->tokens;
-	while (temp_t->next != NULL)
+	flag = 1;
+	nb = 0;
+	i = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	while (str[i] == 45 && ft_isdigit(str[i + 1]))
 	{
-		temp_t = temp_t->next;
+		flag *= -1;
 		i++;
 	}
-	return (i);
-}
-
-int	count_commands(t_data	*data)
-{
-	t_cmds	*temp_t;
-	int		i;
-
-	i = 1;
-	temp_t = data->cmds;
-	while (temp_t->next != NULL)
+	while (str[i] == 43 && ft_isdigit(str[i + 1]))
+		i++;
+	while (str[i] >= 48 && str[i] <= 57)
 	{
-		temp_t = temp_t->next;
+		nb = (nb * 10) + (str[i] - 48);
 		i++;
 	}
-	return (i);
+	nb *= flag;
+	return (nb);
 }

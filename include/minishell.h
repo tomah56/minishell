@@ -6,7 +6,6 @@
 # include <limits.h>
 # include "../libs/libft/libft.h"
 
-# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -80,6 +79,8 @@ typedef struct s_size
 	int j;
 }	t_s;
 
+extern int	g_exit;
+
 // input
 char	*get_next_line(int fd);
 int		input_one_array(char *str, t_tok *tokdat, int i, int j);
@@ -104,6 +105,7 @@ t_tok	*create_new_token_node(char *str);
 void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);
 int		count_tokens(t_cmds	*data);
+int		count_commands(t_data	*data);
 
 // builtins
 void	builtin_env(t_data *data);
@@ -120,5 +122,6 @@ void	change_var_env(t_data *data, char *var_name, char *new_var);
 void	builtin_unset(t_data *data);
 int		check_valid_var(t_data *data, char **command);
 char	**delete_var_env(t_data *data, char **command, int i, int j);
+void	builtin_exit(t_data *data);
 
 #endif
