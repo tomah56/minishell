@@ -13,7 +13,7 @@
 
 #include "../include/minishell.h"
 
-static void check_token_flags_li(char str, t_data *data)
+void check_token_flags_li(char str, t_data *data)
 {
 	if (str == '"' && data->qudouble == 0 && data->qusingle == 0)
 		data->qudouble = 1;
@@ -28,6 +28,7 @@ static void check_token_flags_li(char str, t_data *data)
 static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 {
 	int count;
+	
 
 	count = 0;
 	while (str[i])

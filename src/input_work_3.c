@@ -81,57 +81,80 @@ t_s size_dollar(char *str)
 	int i;
 
 	i = 0;
-	size.length = 0;
+	size.len = 0;
 	size.i = 0;
 	size.j = 0;
+	size.sta = 0;
+	size.ori = ft_strlen(str);
 	while (str[i] !='\0')
 	{
-		if (size.length != 0 && (str[i] == '\'' || str[i] == '\"' || str[i] == '$'))
+		if (size.len != 0 && !ft_isalnum(str[i]))
 			break ;
-		if (str[i] == '$' || size.length != 0)
-			size.length++;
+		if (str[i] == '$' || size.len != 0)
+			size.len++;
 		if (str[i] == '$')
-			size.start = i;
+			size.sta = i;
 		i++;
 	}
 	return (size);
 }
 
+
+
 char *expand_dirt_dollar(char *str, t_data *data)
 {
-	char *temp;
-	char *tempfull;
+	char *doll;
+	char *jo1;
+	char *allof;
+	int new;
 	t_s siz;
 	// while
 
-	//siz = size_dollar(str + siz.start + siz.length); 
+	//siz = size_dollar(str + siz.start + siz.len); 
+	allof = NULL;
 	siz = size_dollar(str);
-	temp = expand_clean_dollar(ft_substr(str, siz.start, siz.length), data);
-	ft_strlen(str);
-	ft_strlen(temp);
-	tempfull = malloc((ft_strlen(str) - siz.length + ft_strlen(temp)));
-	while (str[siz.i] != '\0')
+	while (siz.ori != 0)
 	{
-		if (str[siz.i] == '$')
+		if (siz.len == 0)
 		{
-			while (temp[siz.j] != '\0')
-			{
-				tempfull[siz.i + siz.j] = temp[siz.j];
-				siz.j++;
-			}
-			while (str[siz.i] != '\"' || str[siz.i] != '\'')
-				siz.i++;
+			jo1 = ft_strdup(str + new);
+			siz.ori = 0;
 		}
 		else
-			tempfull[siz.i] = str[siz.i];
-		siz.i++;
+		{
+
+			doll = expand_clean_dollar(ft_substr(str, siz.sta, siz.len), data);
+			new = ft_strlen(doll);
+			jo1 = malloc((siz.sta + new) + 1);
+			while (siz.i < siz.sta + new)
+			{
+				if (str[siz.i] == '$')
+				{
+					while (doll[siz.j] != '\0')
+					{
+						jo1[siz.i + siz.j] = doll[siz.j];
+						siz.j++;
+					}
+				}
+				else if (siz.i < siz.sta)
+					jo1[siz.i] = str[siz.i];
+				siz.i++;
+			}
+			jo1[siz.sta + new] = '\0';
+			new = siz.sta + siz.len;
+			siz = size_dollar(str + siz.sta + siz.len);
+			printf("ori: %d   sta: %d   len: %d\n", siz.ori, siz.sta, siz.len);
+		}
+		if (allof == NULL)
+			allof = ft_strdup(jo1);
+		else
+			allof = ft_strjoin(allof, jo1);
 	}
-	
 
-	
+	// printf("%s\n", jo1);
 
 
-	return (tempfull);
+	return (allof);
 }
 
 char	*expand_clean_dollar(char *str, t_data *data)

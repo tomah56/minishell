@@ -74,8 +74,9 @@ typedef struct s_data
 
 typedef struct s_size
 {
-	int length;
-	int start;
+	int ori;
+	int len;
+	int sta;
 	int i;
 	int j;
 }	t_s;
@@ -90,7 +91,11 @@ void	looper_next(t_data *data, void (*f)(char *));
 char	*quote_cutter(char *str, int qusig, int qudou);
 void	commands_link_to_array_looper(t_data *data);
 char	*expand_clean_dollar(char *str, t_data *data);
-t_s size_dollar(char *str);
+int		size_dollar_point(char **str, t_data *data);
+char	*expand_dirt_dollar(char *str, t_data *data);
+void	check_token_flags_li(char str, t_data *data);
+char	*expand_looper(char *str, t_data *data);
+char	*expand_next_part(char *str, t_data *data);
 
 // sonja
 void	create_environment(t_data *data, char **env);

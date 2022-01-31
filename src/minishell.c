@@ -112,10 +112,13 @@ int	main(int argc, char **argv, char **envp)
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 			char *temp2;
 			int size;
-			size = size_dollar(data.cmds->commands[0]).length;
-			printf("size: %d\n", size);
-			temp2 = quote_cutter(data.cmds->commands[0], 0, 0);
-			printf("quoteremooval: ->%s\n", temp2);
+			// size = size_dollar(data.cmds->commands[0]).len;
+			// printf("size: %d\n", size);
+			// temp2 = expand_dirt_dollar(data.cmds->commands[0], &data);
+			temp2 = expand_next_part(data.cmds->commands[0], &data);
+			printf("expander:->%s<-\n", temp2);
+			// temp2 = quote_cutter(data.cmds->commands[0], 0, 0);
+			// printf("quoteremooval: ->%s<-\n", temp2);
 			// temp2 = expand_dollar(temp2, &data);
 			// printf("expand: ->%s\n", temp2);
 			free(temp2);
