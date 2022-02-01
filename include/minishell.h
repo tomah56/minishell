@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <limits.h>
+# include <stdbool.h>
 # include "../libs/libft/libft.h"
 
 # include <readline/readline.h>
@@ -128,5 +129,6 @@ void	builtin_unset(t_data *data);
 int		check_valid_var(t_data *data, char **command);
 char	**delete_var_env(t_data *data, char **command, int i, int j);
 void	builtin_exit(t_data *data);
+void	builtin_echo(t_data *data);
 
 #endif
