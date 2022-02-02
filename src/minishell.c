@@ -48,6 +48,25 @@ void	printlist(t_data *data)
 
 int	g_exit = 0;
 
+static void	rec_sig(int num)
+{
+	write(2, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void new_prompt()
+{
+	char *temp;
+	temp = readline(">");
+	add_history(temp);
+		// rl_on_new_line();
+		// rl_replace_line("klklk\n", 8);
+		// rl_redisplay(); //cotr -c cotr D
+		// rl_clear_history();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_tok tokdat;
@@ -56,6 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	char **exp;
 	char *home;
 	// t_cmds	*cmds;
+	signal(SIGINT, rec_sig);
 	
 
 	// signal(SIGINT, myhandler);
@@ -80,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		data.qudouble = 0;
 		data.qusingle = 0;
-		temp = readline("HAKUNA MATATA 0.02$ ");
+		temp = readline("HAKUNA MATATA 0.1$ ");
 		add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
@@ -101,6 +121,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			builtin_env(&data);
 		}
+		else if (!ft_strncmp(temp, ">>", 4))
+		{
+			new_prompt();
+		}
 		else
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
@@ -112,25 +136,21 @@ int	main(int argc, char **argv, char **envp)
 			printlist(&data);
 			// printf("tokentotal: %d\n", data.tokentotal);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
+
+			data.actual = data.cmds;
+			builtin_echo(&data);
+
 			char *temp2;
-			int size;
-			// size = size_dollar(data.cmds->commands[0]).len;
-			// printf("size: %d\n", size);
-			// temp2 = expand_dirt_dollar(data.cmds->commands[0], &data);
+	
 			temp2 = expand_next_part(data.cmds->commands[0], &data);
 			printf("expander:->%s<-\n", temp2);
-			// temp2 = quote_cutter(data.cmds->commands[0], 0, 0);
-			// printf("quoteremooval: ->%s<-\n", temp2);
-			// temp2 = expand_dollar(temp2, &data);
-			// printf("expand: ->%s\n", temp2);
+			temp2 = quote_cutter(temp2, 0, 0);
+			printf("quoteremooval: ->%s<-\n", temp2);
+
+		
 			free(temp2);
 			temp2 = NULL;
-			// printf("from comands: %s\n", data.cmds->next->commands[1]);
-			// printf("tokentotal: %d\n", data.cmds->comandcount);
-			// printf("tokentotal: %d\n", data.cmds->next->comandcount);
-			// looper_next(&data, quote_cutter_dollar);
-			// looper_next(&data, quote_cutter_dollar);
-			// printf("command: %d",count_list_elements(&data, 1));
+
 		}
 	}
 	// printf("I m here\n");

@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <signal.h>
 # include "../libs/libft/libft.h"
 
 # include <readline/readline.h>

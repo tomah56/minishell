@@ -1,5 +1,33 @@
 #include "../include/minishell.h"
 
+char	*expand_clean_dollar(char *str, t_data *data)
+{
+	char	*temp;
+	int		i;
+	int		j;
+	int		size;
+
+	i = 0;
+	if (str == NULL)
+		return (NULL);
+	while (data->environ[i] != NULL)
+	{	
+		size = ft_strlen(str);
+		if (!ft_strncmp(data->environ[i], str + 1, size - 1) && data->environ[i][size - 1] == '=')
+		{
+			temp = malloc(ft_strlen(data->environ[i]) - size + 1);
+			j = size - 1;
+			while (data->environ[i][j++] != '\0')
+				temp[j - size] = data->environ[i][j];
+			temp[j - size] = '\0';
+			free(str);
+			return (temp);
+		}
+		i++;
+	}
+	free(str);
+	return (NULL);
+}
 
 int	size_dollar_point(char **str, t_data *data)
 {
@@ -50,11 +78,9 @@ char	*expand_next_part(char *str, t_data *data)
 {
 	char	*buf;
 	char	*superholder;
-	int		size;
 
 	if (str == NULL)
 		return (NULL);
-	size = 1;
 	superholder = NULL;
 	data->qudouble = 0;
 	data->qusingle = 0;
@@ -64,7 +90,10 @@ char	*expand_next_part(char *str, t_data *data)
 		if (buf != NULL)
 		{
 			if (superholder == NULL)
+			{
 				superholder = ft_strdup(buf);
+				free(buf);
+			}
 			else
 				superholder = ft_strjoin(superholder, buf);
 		}
