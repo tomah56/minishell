@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 
 	create_environment(&data, envp);
 	save_paths(&data, envp);
-	builtin_echo(&data);
+	// builtin_echo(&data);
 	// export_only(&data);
 	// system("leaks minishelll");
 	// cmds = NULL;

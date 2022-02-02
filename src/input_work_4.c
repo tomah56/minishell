@@ -60,25 +60,14 @@ char	*expand_next_part(char *str, t_data *data)
 	data->qusingle = 0;
 	while (*str != '\0')
 	{
-		// check_token_flags_li(*str, data);
 		buf = next_part(&str, data);
-		if (buf[0])
+		if (buf != NULL)
 		{
-			// superholder = save_and_staff(&buf, &superholder);
 			if (superholder == NULL)
 				superholder = ft_strdup(buf);
 			else
 				superholder = ft_strjoin(superholder, buf);
-			// if (check_end(&buf))
-			// 	return (superholder);
 		}
-
-
-
-		// if (size < 0)
-		// 	return (0);
-		// str++;
 	}
 	return (superholder);
-	// return (buf);
 }
