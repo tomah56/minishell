@@ -50,6 +50,7 @@ typedef struct s_cmds
 	int				outfile;
 	int				comandcount; //number of tokens per command
 	int				heredocon;
+	bool			builtin;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -130,5 +131,7 @@ int		check_valid_var(t_data *data, char **command);
 char	**delete_var_env(t_data *data, char **command, int i, int j);
 void	builtin_exit(t_data *data);
 void	builtin_echo(t_data *data);
+void	check_for_builtins(t_data *data);
+void	execute_builtin(t_data *data);
 
 #endif
