@@ -36,7 +36,7 @@ void	printlist(t_data *data)
 		printf("CMDS %d  nuber of tokens: %d\n", j, temp_c->comandcount);
 		while (temp_t != NULL)
 		{
-			printf("%s-->", temp_t->content);
+			printf("%s[---]", temp_t->content);
 			temp_t = temp_t->next;
 			i++;
 		}
@@ -137,8 +137,8 @@ int	main(int argc, char **argv, char **envp)
 			// printf("tokentotal: %d\n", data.tokentotal);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 
-			data.actual = data.cmds;
-			builtin_echo(&data);
+			// data.actual = data.cmds;
+			// builtin_echo(&data);
 
 			char *temp2;
 	

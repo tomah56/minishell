@@ -20,21 +20,21 @@ void	check_for_builtins(t_data *data)
 	while (cmd)
 	{
 		if (ft_strncmp(cmd->commands[0], "cd", 3) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "echo", 5) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "env", 4) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "exit", 5) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "export", 7) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "pwd", 4) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "unset", 6) == SUCCESS)
-			cmd->builtin == true;
+			cmd->builtin = true;
 		else
-			cmd->builtin == false;
+			cmd->builtin = false;
 		cmd = cmd->next;
 	}
 }

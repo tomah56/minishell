@@ -79,6 +79,14 @@ int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 	return (1);
 }
 
+int is_couble(char str, char strp1)
+{
+	if ((str == '<' || str == '>') && str == strp1)
+	{
+		return (1);
+	}
+	return (0);
+}
 
 //input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
@@ -86,6 +94,8 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 	if (ft_strchr(" <>|\0", str[data->i + 1]) != NULL && data->qusingle == 0
 			&& data->qudouble == 0)
 	{
+		if (is_couble(str[data->i], str[data->i + 1]))
+			(data->i)++;
 		add_token_node_at_back(tok, create_new_token_node(
 				ft_substr(str, data->j, data->i + 1 - data->j)));
 		while (str[data->i + 1] == ' ')
