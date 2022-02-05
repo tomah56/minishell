@@ -1,6 +1,18 @@
 #include "../include/minishell.h"
 
-char	*here_doc(char *stop, t_data * data)
+void h_doc_to_file(int fd, char *str)
+{
+	
+	if (fd == -2)
+		fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND/* , 0644 */);
+	else
+	{
+		write(fd, &str, ft_strlen(str));
+		write(fd, "\n", 1);
+	}
+}
+
+char	*here_doc_to_string(char *stop, t_data * data)
 {
 	char	*temp;
 	char	*superholder;
@@ -14,17 +26,37 @@ char	*here_doc(char *stop, t_data * data)
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
 		if (superholder == NULL)
-			{
-				superholder = ft_strdup(temp);
-				free(temp);
-			}
-			else
-				superholder = ft_strjoin(superholder, temp);
-				//question should we save the new lines too???? curently it oes not do that
-				//also maybe is not enough to save it in a string it needs a file descriptor?
-			temp = readline(">");
+		{
+			superholder = ft_strdup(temp);
+		}
+		else
+			superholder = ft_strjoin(superholder, temp);
+			//question should we save the new lines too???? curently it oes not do that
+			//also maybe is not enough to save it in a string it needs a file descriptor?
+		temp = readline(">");
 	}
 	return (superholder);
+}
+
+int	here_doc(char *stop, t_data * data)
+{
+	char	*temp;
+	int		size;
+	int fd;
+
+	if (stop == NULL)
+		return (-1); // bash: syntax error near unexpected token `newline'
+	fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	size = ft_strlen(stop);
+	temp = readline(">");
+	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
+	{
+		write(fd, temp, ft_strlen(temp));
+		write(fd, "\n", 1);
+	temp = readline(">");
+	}
+	close(fd);
+	return (fd);
 }
 
 // heredoc scpeials

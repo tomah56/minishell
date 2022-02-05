@@ -11,6 +11,7 @@ char *l_e_loop_sequence(char *srt, t_data *data)
 	return (temp);
 }
 
+
 void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
@@ -30,14 +31,16 @@ void	link_expand_looper(t_data *data)
 				temp_t->content = l_e_loop_sequence(temp_t->content, data); //leak danger
 			else
 			{
+				unlink("./temp.txt"); // if multiple heredoc in one command it always start with clean file
+				// remove_node(&data->cmds->tokens, temp_t->prev);  // this shit is not working
 				temp_t = temp_t->next;
-				temp_t->content = here_doc(quote_cutter(temp_t->content, 0, 0), data);
+				temp_c->infile = here_doc(quote_cutter(temp_t->content, 0, 0), data);
+
 
 			}
 			temp_t = temp_t->next;
 			i++;
 		}
-
 		// temp_c->commands = temp;
 		temp_c = temp_c->next;
 		free(temp);

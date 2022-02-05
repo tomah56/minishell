@@ -6,6 +6,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "../libs/libft/libft.h"
 
 # include <readline/readline.h>
@@ -50,7 +51,7 @@ typedef struct s_cmds
 	int				infile;
 	int				outfile;
 	int				comandcount; //number of tokens per command
-	int				heredocon;
+	int				heredocfile;
 	bool			builtin;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
@@ -104,7 +105,7 @@ void	link_expand_looper(t_data *data);
 
 
 //here_doc
-char	*here_doc(char *stop, t_data * data);
+int	here_doc(char *stop, t_data * data);
 
 // sonja
 void	create_environment(t_data *data, char **env);
@@ -119,6 +120,7 @@ void	add_token_node_at_back(t_tok **list, t_tok *newnode);
 void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);
 int		count_tokens(t_cmds	*data);
 int		count_commands(t_data	*data);
+void	remove_node(t_tok **head, t_tok *node_to_remove); //nottest
 
 // builtins
 void	builtin_env(t_data *data);
