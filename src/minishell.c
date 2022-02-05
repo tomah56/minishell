@@ -59,6 +59,8 @@ static void	rec_sig(int num)
 void new_prompt()
 {
 	char *temp;
+
+	temp = "not";
 	temp = readline(">");
 	add_history(temp);
 		// rl_on_new_line();
@@ -133,23 +135,26 @@ int	main(int argc, char **argv, char **envp)
 			data.k = 0;
 			input_one_lilist(temp, &data);
 			// printf("content %s\n", data.cmds->tokens->next->content);
+			// printlist(&data);
+			link_expand_looper(&data);
+			// printf("\nexpand,qutecut:\n");
 			printlist(&data);
 			// printf("tokentotal: %d\n", data.tokentotal);
-			commands_link_to_array_looper(&data); // puts the linklist to the array
+			// commands_link_to_array_looper(&data); // puts the linklist to the array
 
 			// data.actual = data.cmds;
 			// builtin_echo(&data);
 
-			char *temp2;
+			// char *temp2;
 	
-			temp2 = expand_next_part(data.cmds->commands[0], &data);
-			printf("expander:->%s<-\n", temp2);
-			temp2 = quote_cutter(temp2, 0, 0);
-			printf("quoteremooval: ->%s<-\n", temp2);
+			// temp2 = expand_next_part(data.cmds->commands[0], &data);
+			// printf("expander:->%s<-\n", temp2);
+			// temp2 = quote_cutter(temp2, 0, 0);
+			// printf("quoteremooval: ->%s<-\n", temp2);
 
 		
-			free(temp2);
-			temp2 = NULL;
+			// free(temp2);
+			// temp2 = NULL;
 
 		}
 	}
@@ -173,3 +178,22 @@ int	main(int argc, char **argv, char **envp)
 // Change what's displayed on the screen to reflect the current contents of rl_line_buffer. 
 //   rl_clear_history, ?????
 //  rl_replace_line, ????? 
+
+
+// bash-3.2$ cat | echo bubu
+// bubu
+// not error machage just waits... (WTF)
+// bash-3.2$ cat | grep b
+// b
+// b
+// b
+// b
+// c
+// f
+
+// d
+// exit
+// g
+// ^C
+
+

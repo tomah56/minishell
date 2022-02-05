@@ -102,6 +102,10 @@ char	*expand_looper(char *str, t_data *data);
 char	*expand_next_part(char *str, t_data *data);
 void	link_expand_looper(t_data *data);
 
+
+//here_doc
+char	*here_doc(char *stop, t_data * data);
+
 // sonja
 void	create_environment(t_data *data, char **env);
 void	msg_exit(t_data *data, char *msg);

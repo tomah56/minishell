@@ -1,11 +1,21 @@
 
 #include "../include/minishell.h"
 
+char *l_e_loop_sequence(char *srt, t_data *data)
+{
+	char *temp;
+
+	temp = expand_next_part(srt, data);
+	free(srt);
+	temp = quote_cutter(temp, 0, 0);
+	return (temp);
+}
+
 void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
-    char	*temp;
+	char	*temp;
 	int		i;
 
 	temp_t = data->cmds->tokens;
@@ -16,10 +26,14 @@ void	link_expand_looper(t_data *data)
 		i = 0;
 		while (temp_t != NULL)
 		{
-            // if (!ft_strncmp(temp_t->content, ">", 1))
-                // data->
-			temp = expand_next_part(temp_t->content, data);
+			if (ft_strncmp(temp_t->content, "<<", 2))
+				temp_t->content = l_e_loop_sequence(temp_t->content, data); //leak danger
+			else
+			{
+				temp_t = temp_t->next;
+				temp_t->content = here_doc(quote_cutter(temp_t->content, 0, 0), data);
 
+			}
 			temp_t = temp_t->next;
 			i++;
 		}
@@ -36,7 +50,7 @@ void	link_expand_looper(t_data *data)
 
 void data_load(char *temp, t_data *data)
 {
-    input_one_lilist(temp, data);
+	input_one_lilist(temp, data);
 
 
 }
