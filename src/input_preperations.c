@@ -16,7 +16,6 @@ void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
-	char	*temp;
 	int		i;
 
 	temp_t = data->cmds->tokens;
@@ -35,15 +34,12 @@ void	link_expand_looper(t_data *data)
 				// remove_node(&data->cmds->tokens, temp_t->prev);  // this shit is not working
 				temp_t = temp_t->next;
 				temp_c->infile = here_doc(quote_cutter(temp_t->content, 0, 0), data);
-
-
 			}
 			temp_t = temp_t->next;
 			i++;
 		}
 		// temp_c->commands = temp;
 		temp_c = temp_c->next;
-		free(temp);
 	}
 }
 

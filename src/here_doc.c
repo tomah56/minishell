@@ -45,7 +45,10 @@ int	here_doc(char *stop, t_data * data)
 	int fd;
 
 	if (stop == NULL)
+	{
+		write(2, "ERROR\n",6);
 		return (-1); // bash: syntax error near unexpected token `newline'
+	}
 	fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
 	size = ft_strlen(stop);
 	temp = readline(">");

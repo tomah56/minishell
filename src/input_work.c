@@ -91,13 +91,16 @@ int is_couble(char str, char strp1)
 //input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
-	if (ft_strchr(" <>|\0", str[data->i + 1]) != NULL && data->qusingle == 0
-			&& data->qudouble == 0)
+	if ((ft_strchr(" <>|\0", str[data->i + 1]) != NULL || ft_strchr("<>|",
+		str[data->i]) != NULL) && data->qusingle == 0 && data->qudouble == 0)
 	{
+		while ( (data->j) == 0 && str[(data->j)] == ' ')
+			(data->j)++;
 		if (is_couble(str[data->i], str[data->i + 1]))
 			(data->i)++;
-		add_token_node_at_back(tok, create_new_token_node(
-				ft_substr(str, data->j, data->i + 1 - data->j)));
+		if (data->i + 1 - data->j != 0)
+			add_token_node_at_back(tok, create_new_token_node(
+					ft_substr(str, data->j, data->i + 1 - data->j)));
 		while (str[data->i + 1] == ' ')
 			(data->i)++;
 		data->j = (data->i) + 1;
@@ -123,6 +126,8 @@ void	input_one_lilist(char *str, t_data *data)
 	data->tokencount = 0;
 	while (str[data->i])
 	{
+		// while (str[data->j] == ' ')
+		// 	(data->j)++;
 		check_token_flags_li(str[data->i], data);
 		inp_o_li_norm_cut(str, data, &cmds, &tok);
 		(data->i)++;
