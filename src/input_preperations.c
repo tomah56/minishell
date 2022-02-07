@@ -17,14 +17,12 @@ void	link_expand_looper(t_data *data)
 	t_tok	*temp_t;
 	t_tok	*temp_t2;
 	t_cmds	*temp_c;
-	int		i;
 
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
-		i = 0;
 		while (temp_t != NULL)
 		{
 			if (ft_strncmp(temp_t->content, "<<", 2))
@@ -35,16 +33,21 @@ void	link_expand_looper(t_data *data)
 				temp_t = temp_t->next;
 				temp_t2 = temp_t->prev->prev; // becaouse of the deleting middle guys
 				temp_c->infile = here_doc(quote_cutter(temp_t->content, 0, 0), data);
-				remove_node(&data->cmds->tokens, temp_t->prev); // freeeing content is not working... is it a leak???
- 				remove_node(&data->cmds->tokens, temp_t);
-				temp_t = temp_t2;
-				// remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
-				// remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
+				if (temp_c->comandcount == 2)
+				{
+					if (count_commands(data) == 1)
+						exit(EXIT_SUCCESS);
+					remove_node_c(&data->cmds, temp_c);
+				}
+				else
+				{
+					remove_node(&data->cmds->tokens, temp_t->prev); // freeeing content is not working... is it a leak???
+					remove_node(&data->cmds->tokens, temp_t);
+					temp_t = temp_t2;
+				}
 			}
 			temp_t = temp_t->next;
-			i++;
 		}
-		// temp_c->commands = temp;
 		temp_c = temp_c->next;
 	}
 }

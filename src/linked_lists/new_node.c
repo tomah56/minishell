@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:16:33 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/24 22:08:15 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/02/07 22:12:19 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ t_tok	*create_new_token_node(char *str)
 	return (list);
 }
 
-void	remove_node(t_tok **head, t_tok *node_to_remove) 
+void	remove_node(t_tok **head, t_tok *node_to_remove)
 {
+	if (*head == NULL || node_to_remove == NULL)
+		return ;
 	if (*head == node_to_remove)
 	{
 		*head = node_to_remove -> next;
 		if (*head != NULL)
 		{
-			(*head) -> prev = NULL;
+			(*head)-> prev = NULL;
 		}
-		(*head) -> prev = NULL;
+		(*head)-> prev = NULL;
 		return ;
 	}
 	else
@@ -78,5 +80,32 @@ void	remove_node(t_tok **head, t_tok *node_to_remove)
 	// free(node_to_remove->content);
 	// node_to_remove->content = NULL;
 	// free(node_to_remove);
+	return ;
+}
+
+void	remove_node_c(t_cmds **head, t_cmds *node_to_remove)
+{
+	if (*head == NULL || node_to_remove == NULL)
+		return ;
+	if (*head == node_to_remove)
+	{
+		*head = node_to_remove -> next;
+		if (*head != NULL)
+		{
+			(*head)-> prev = NULL;
+		}
+		(*head)-> prev = NULL;
+		return ;
+	}
+	else
+	{
+		node_to_remove -> prev -> next = node_to_remove -> next;
+		if (node_to_remove -> next != NULL)
+		{
+			node_to_remove -> next -> prev = node_to_remove -> prev;
+		}
+		node_to_remove -> next = NULL;
+		node_to_remove -> prev = NULL;
+	}
 	return ;
 }
