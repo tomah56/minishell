@@ -121,6 +121,7 @@ void	add_cmds_node_at_back(t_cmds **list, t_cmds *newnode);
 int		count_tokens(t_cmds	*data);
 int		count_commands(t_data	*data);
 void	remove_node(t_tok **head, t_tok *node_to_remove); //nottest
+void	remove_node_c(t_cmds **head, t_cmds *node_to_remove);
 
 // builtins
 void	builtin_env(t_data *data);
