@@ -31,9 +31,11 @@ void	link_expand_looper(t_data *data)
 			else
 			{
 				unlink("./temp.txt"); // if multiple heredoc in one command it always start with clean file
-				// remove_node(&data->cmds->tokens, temp_t->prev);  // this shit is not working
 				temp_t = temp_t->next;
 				temp_c->infile = here_doc(quote_cutter(temp_t->content, 0, 0), data);
+				// remove_node(&data->cmds->tokens, temp_t);  // this shit is not working
+				remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
+				remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
 			}
 			temp_t = temp_t->next;
 			i++;

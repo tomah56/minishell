@@ -61,7 +61,7 @@ void new_prompt()
 	char *temp;
 
 	temp = "not";
-	temp = readline(">");
+	temp = readline("?");
 	add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
