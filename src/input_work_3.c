@@ -45,7 +45,7 @@ char	*quote_cutter(char *str, int qusig, int qudou)
 			temp[j++] = str[i];
 		i++;
 	}
-	free(str);
+	// free(str);
 	temp[j] = '\0';
 	return (temp);
 }

@@ -50,13 +50,18 @@ int	here_doc(char *stop, t_data * data)
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
 	fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == FAILED)
+	{
+		write(2, "ERROR\n",6); // temperarrly
+		return (-1);
+	}
 	size = ft_strlen(stop);
 	temp = readline(">"); // how is this gets inside my linked list????????
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
-	temp = readline(">");
+		temp = readline(">");
 	}
 	close(fd);
 	return (fd);

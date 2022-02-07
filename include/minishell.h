@@ -41,6 +41,15 @@ typedef struct s_token_data
 	int					type;
 	char				*content;// *echo ---- > *conent hello  ---- > *content aother
 	int					quote_type;
+	// needs to save all fd is not enoguh to update always the latest one.
+	int				infile;  // execution order issue
+	int				outfile;	// 
+// bash-3.2$ < temp.txt <<  end wc
+// > j
+// > end
+// bash: temp.txt: Permission denied
+// bash-3.2$ chmod 0666 temp.txt 
+// bash-3.2$ 
 	struct s_token_data	*next;
 	struct s_token_data	*prev;
 }	t_tok;
