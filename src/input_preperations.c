@@ -15,6 +15,7 @@ char *l_e_loop_sequence(char *srt, t_data *data)
 void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
+	t_tok	*temp_t2;
 	t_cmds	*temp_c;
 	int		i;
 
@@ -30,12 +31,15 @@ void	link_expand_looper(t_data *data)
 				temp_t->content = l_e_loop_sequence(temp_t->content, data); //leak danger
 			else
 			{
-				unlink("./temp.txt"); // if multiple heredoc in one command it always start with clean file
+				unlink("./temp.txt"); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
 				temp_t = temp_t->next;
+				temp_t2 = temp_t->prev->prev; // becaouse of the deleting middle guys
 				temp_c->infile = here_doc(quote_cutter(temp_t->content, 0, 0), data);
-				// remove_node(&data->cmds->tokens, temp_t);  // this shit is not working
-				remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
-				remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
+				remove_node(&data->cmds->tokens, temp_t->prev); // freeeing content is not working... is it a leak???
+ 				remove_node(&data->cmds->tokens, temp_t);
+				temp_t = temp_t2;
+				// remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
+				// remove_node(&data->cmds->tokens, data->cmds->tokens);  // this shit is not working
 			}
 			temp_t = temp_t->next;
 			i++;

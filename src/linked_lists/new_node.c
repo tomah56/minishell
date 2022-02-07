@@ -53,7 +53,7 @@ void	remove_node(t_tok **head, t_tok *node_to_remove)
 			(*head) -> prev = NULL;
 		}
 		(*head) -> prev = NULL;
-		return;
+		return ;
 	}
 	else
 	{
@@ -75,5 +75,8 @@ void	remove_node(t_tok **head, t_tok *node_to_remove)
 		// temp -> next = node_to_remove -> next;
 		// node_to_remove -> next = NULL;
 	}
-	return;
+	// free(node_to_remove->content);
+	// node_to_remove->content = NULL;
+	// free(node_to_remove);
+	return ;
 }
