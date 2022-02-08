@@ -6,12 +6,11 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/01 22:56:44 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:38:43 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 // void myhandler(int num)
 // {
@@ -33,7 +32,7 @@ void	printlist(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
-		printf("CMDS %d  nuber of tokens: %d\n", j, temp_c->comandcount);
+		printf("CMDS %d  number of tokens: %d\n", j, temp_c->comandcount);
 		while (temp_t != NULL)
 		{
 			printf("%s[---]", temp_t->content);
