@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		data.qudouble = 0;
 		data.qusingle = 0;
-		temp = readline("HAKUNA MATATA 0.1$ ");
+		temp = readline("HAKUNA MATATA 0.42$ ");
 		add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
