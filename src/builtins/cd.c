@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 18:43:42 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/07 22:43:03 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/08 21:35:40 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	builtin_cd(t_data *data)
 	cwd = getcwd(cwd, 0);
 	current_cmd = data->actual;
 	command = current_cmd->commands;
-	if (current_cmd->comandcount == 1)
+	if (current_cmd->comandcount == 1 || ft_strchr(command[1], '~') != NULL)
 		cd_only(data);
 	else if (current_cmd->comandcount > 1)
 	{
@@ -32,12 +32,12 @@ void	builtin_cd(t_data *data)
 			printf("`%s'", command[1]);
 			msg_exit(data, ": No such file or directory");
 		}
+		change_var_env(data, "OLDPWD=", cwd);
+		new = NULL;
+		new = getcwd(new, 0);
+		change_var_env(data, "PWD=", new);
+		g_exit = 0;
 	}
-	change_var_env(data, "OLDPWD=", cwd);
-	new = NULL;
-	new = getcwd(new, 0);
-	change_var_env(data, "PWD=", new);
-	g_exit = 0;
 }
 
 void	cd_only(t_data *data)
