@@ -31,6 +31,11 @@ enum e_enum
 	DOLLARQ = 7,
 	FAILED = -1,
 	SUCCESS = 0,
+	FIRST = 1,
+	MIDDLE = 2,
+	LAST = 3,
+	READ = 0,
+	WRITE = 1,
 };
 
 typedef struct s_token_data
@@ -73,15 +78,15 @@ typedef struct s_data
 {
 	t_cmds	*cmds;
 	t_cmds	*actual; 	//keeps track of current command -> when going to the next cmd always do cmds->next
-	int qudouble;
-	int qusingle;
-	int tokentotal;
-	int tokencount;
-	int i;
-	int j;
-	int k;
-	t_cmds	*normcm;
-	t_tok	*normtok;
+	int		qudouble;
+	int		qusingle;
+	int		tokentotal;
+	int		tokencount;
+	int		i;
+	int		j;
+	int		k;
+	int		childfd[2];
+	int		pipefd[2];
 	char	**environ;
 	char	**paths;  //dont create paths at the beginning just right before execve, bc path can be changed!
 }	t_data;

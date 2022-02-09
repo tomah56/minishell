@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:12:01 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/01/26 15:53:50 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:21:33 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	execute_cmd(t_data *data)
 	// ft_free_array(command);
 	// error("Command not found");
 }
+
 void	execute_linkedlist_cmd(t_data *data)
 {
 	int		i;
@@ -78,7 +79,7 @@ void	execute_linkedlist_cmd(t_data *data)
 	// error("Command not found");
 }
 
-int input_two(t_tok *tokdat)
+int	input_two(t_tok *tokdat)
 {
 	// pid_t	pid;
 

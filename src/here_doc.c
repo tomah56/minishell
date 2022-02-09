@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/02/09 20:58:52 by sreinhol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void h_doc_to_file(int fd, char *str)
+void	h_doc_to_file(int fd, char *str)
 {
-	
 	if (fd == -2)
 		fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND/* , 0644 */);
 	else
@@ -12,7 +23,7 @@ void h_doc_to_file(int fd, char *str)
 	}
 }
 
-char	*here_doc_to_string(char *stop, t_data * data)
+char	*here_doc_to_string(char *stop, t_data *data)
 {
 	char	*temp;
 	char	*superholder;
@@ -38,21 +49,21 @@ char	*here_doc_to_string(char *stop, t_data * data)
 	return (superholder);
 }
 
-int	here_doc(char *stop, t_data * data)
+int	here_doc(char *stop, t_data *data)
 {
 	char	*temp;
 	int		size;
-	int fd;
+	int		fd;
 
 	if (stop == NULL)
 	{
-		write(2, "ERROR\n",6);
+		write(2, "ERROR\n", 6);
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
 	fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == FAILED)
 	{
-		write(2, "ERROR\n",6); // temperarrly
+		write(2, "ERROR\n", 6); // temperarrly
 		return (-1);
 	}
 	size = ft_strlen(stop);
