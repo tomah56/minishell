@@ -159,7 +159,7 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			// printlist(&data);
 			link_expand_looper(&data);
-			// bypass_juntion(&data);
+			bypass_juntion(&data);
 			//redirections
 			// printf("\nexpand,qutecut:\n");
 			printlist(&data);

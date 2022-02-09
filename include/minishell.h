@@ -114,12 +114,17 @@ char	*expand_looper(char *str, t_data *data);
 char	*expand_next_part(char *str, t_data *data);
 void	link_expand_looper(t_data *data);
 
+// expand heredoc
+char	*no_expand_next_part_no(char *str, t_data *data);
+
 
 //here_doc
 int	here_doc(char *stop, t_data * data);
 
 // redirections
 void	bypass_juntion(t_data *data);
+//expands and then removes quotes
+char *l_e_loop_sequence(char *srt, t_data *data);
 
 // sonja
 void	create_environment(t_data *data, char **env);

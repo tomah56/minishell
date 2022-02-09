@@ -56,7 +56,7 @@ int	size_dollar_point(char **str, t_data *data)
 	return (len);
 }
 
-char *next_part(char **str, t_data *data)
+static char *next_part(char **str, t_data *data)
 {
 	char *buf;
 	char *temp;
