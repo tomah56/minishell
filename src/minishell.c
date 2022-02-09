@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/08 21:21:26 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:46:34 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	printlist(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
-		printf("CMDS %d  number of tokens: %d\n", j, temp_c->comandcount);
+		printf("CMDS %d  number of tokens: %d\n", j, count_tokens(temp_c));
 		while (temp_t != NULL)
 		{
 			printf("%s[---]", temp_t->content);
@@ -163,6 +163,7 @@ int	main(int argc, char **argv, char **envp)
 			//redirections
 			// printf("\nexpand,qutecut:\n");
 			printlist(&data);
+			// system("leaks minishelll");
 			// printf("tokentotal: %d\n", data.tokentotal);
 			// commands_link_to_array_looper(&data); // puts the linklist to the array
 

@@ -125,6 +125,7 @@ void	bypass_juntion(t_data *data);
 void	create_environment(t_data *data, char **env);
 void	msg_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);
+void	free_token_struct(t_tok *head);
 void	save_paths(t_data *data, char **env);
 
 // linked list functions
@@ -159,4 +160,7 @@ void	builtin_echo(t_data *data);
 void	check_for_builtins(t_data *data);
 void	execute_builtin(t_data *data);
 
+
+//to delete later
+void	printlist(t_data *data);
 #endif
