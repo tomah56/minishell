@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:16:33 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/08 19:41:36 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:52:51 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	remove_node(t_tok **head, t_tok *node_to_remove)
 	// free(node_to_remove->content);
 	// node_to_remove->content = NULL;
 	// free(node_to_remove);
+	// ft_free_array((*head)->tokensfull);
 	return ;
 }
 

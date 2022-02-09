@@ -11,7 +11,18 @@ char *l_e_loop_sequence(char *srt, t_data *data)
 	return (temp);
 }
 
-t_tok *l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data)
+t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
+{
+	t_tok	*temp_t;
+
+	temp_t = NULL;
+	if (count_commands(data) == 1)
+		exit(EXIT_SUCCESS);
+	remove_node_c(&data->cmds, temp_c);
+	return (temp_t);
+}
+
+t_tok	*l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
 
@@ -23,20 +34,15 @@ t_tok *l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data)
 	else
 	{
 		unlink("./temp.txt"); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
+		temp_t2 = temp_t->next->next;
 		temp_t = (temp_t)->next;
-		temp_t2 = (temp_t)->prev->prev; // becaouse of the deleting middle guys
 		(temp_t)->infile = here_doc(quote_cutter((temp_t)->content, 0, 0), data);
-		printf("TOKENS: %d\n", count_tokens(temp_c));
 		if (count_tokens(temp_c) == 2)
-		{
-			if (count_commands(data) == 1)
-				exit(EXIT_SUCCESS);
-			remove_node_c(&data->cmds, temp_c);
-		}
+			temp_t = only_heredoc(data, temp_c);
 		else
 		{
-			remove_node(&data->cmds->tokens, (temp_t)->prev); // freeeing content is not working... is it a leak???
-			remove_node(&data->cmds->tokens, (temp_t));
+			remove_node(&temp_c->tokens, (temp_t)->prev); // freeeing content is not working... is it a leak???
+			remove_node(&temp_c->tokens, (temp_t));
 			temp_t = temp_t2;
 		}
 	}
