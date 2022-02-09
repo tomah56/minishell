@@ -98,7 +98,7 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 			(data->j)++;
 		if (is_couble(str[data->i], str[data->i + 1]))
 			(data->i)++;
-		if (data->i + 1 - data->j != 0)
+		if (data->i + 1 - data->j != 0 && str[(data->i)] != '|')
 			add_token_node_at_back(tok, create_new_token_node(
 					ft_substr(str, data->j, data->i + 1 - data->j)));
 		while (str[data->i + 1] == ' ')
