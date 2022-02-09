@@ -48,11 +48,22 @@ void	printlist(t_data *data)
 int	g_exit = 0;
 
 static void	rec_sig(int num)
-{
-	write(2, "\n", 1);
-	rl_replace_line("", 0);
+{	
 	rl_on_new_line();
 	rl_redisplay();
+	write(2, "  \b\b", 5);
+	// printf("%d\n", num);
+	if (num == 2)
+	{
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	// if (num == 3)
+	// 	exit(EXIT_FAILURE);
+	if (num == 15)
+		exit(EXIT_FAILURE);
 }
 
 void new_prompt()
@@ -76,6 +87,8 @@ int	main(int argc, char **argv, char **envp)
 	char **exp;
 	char *home;
 	// t_cmds	*cmds;
+	// signal(SIGTERM, rec_sig);
+	signal(SIGQUIT, rec_sig);
 	signal(SIGINT, rec_sig);
 	
 
@@ -102,12 +115,18 @@ int	main(int argc, char **argv, char **envp)
 		data.qudouble = 0;
 		data.qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
+		if (temp == NULL)
+		{
+			write(2, "\x1b[1A", 4);
+			write(2, "\x1b[19C", 5);
+			write(2, " exit\n", 6);
+			exit(EXIT_SUCCESS);
+		}
 		add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
 		// rl_redisplay(); //cotr -c cotr D
 		// rl_clear_history();
-
 
 		if (!ft_strncmp(temp, "exit", 5))
 		{
@@ -126,6 +145,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			new_prompt();
 		}
+		// else if (temp == EOF)
+		// {
+		// 	exit(EXIT_SUCCESS);
+		// }
 		else
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
@@ -136,6 +159,7 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			// printlist(&data);
 			link_expand_looper(&data);
+			// bypass_juntion(&data);
 			//redirections
 			// printf("\nexpand,qutecut:\n");
 			printlist(&data);

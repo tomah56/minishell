@@ -7,6 +7,8 @@
 # include <stdbool.h>
 # include <signal.h>
 # include <fcntl.h>
+// # include <std
+
 # include "../libs/libft/libft.h"
 
 # include <readline/readline.h>
@@ -116,6 +118,9 @@ void	link_expand_looper(t_data *data);
 //here_doc
 int	here_doc(char *stop, t_data * data);
 
+// redirections
+void	bypass_juntion(t_data *data);
+
 // sonja
 void	create_environment(t_data *data, char **env);
 void	msg_exit(t_data *data, char *msg);
@@ -131,6 +136,8 @@ int		count_tokens(t_cmds	*data);
 int		count_commands(t_data	*data);
 void	remove_node(t_tok **head, t_tok *node_to_remove); //nottest
 void	remove_node_c(t_cmds **head, t_cmds *node_to_remove);
+// other version of remove node
+void	ot_remove_node(t_tok **head, t_tok *node_to_remove);
 
 // builtins
 void	builtin_env(t_data *data);

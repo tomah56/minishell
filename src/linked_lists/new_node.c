@@ -42,6 +42,24 @@ t_tok	*create_new_token_node(char *str)
 	return (list);
 }
 
+void	ot_remove_node(t_tok **head, t_tok *node_to_remove)
+{
+	if (*head == NULL || node_to_remove == NULL)
+		return ;
+
+	if (*head == node_to_remove)
+		*head = node_to_remove->next;
+ 
+	if (node_to_remove->next != NULL)
+		node_to_remove->next->prev = node_to_remove->prev;
+
+	if (node_to_remove->prev != NULL)
+		node_to_remove->prev->next = node_to_remove->next;
+
+	free(node_to_remove);
+	return ;
+}
+
 void	remove_node(t_tok **head, t_tok *node_to_remove)
 {
 	if (*head == NULL || node_to_remove == NULL)
