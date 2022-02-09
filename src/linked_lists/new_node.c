@@ -83,16 +83,6 @@ void	remove_node(t_tok **head, t_tok *node_to_remove)
 		}
 		node_to_remove -> next = NULL;
 		node_to_remove -> prev = NULL;
-		//find prev node in list
-		// node_t *temp = *head;
-		// while (temp != NULL && temp -> next != node_to_remove)
-		// {
-		// 	temp = temp -> next;
-		// }
-		// if (temp == NULL)
-		// 	return;
-		// temp -> next = node_to_remove -> next;
-		// node_to_remove -> next = NULL;
 	}
 	// free(node_to_remove->content);
 	// node_to_remove->content = NULL;

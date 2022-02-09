@@ -70,6 +70,7 @@ int	here_doc(char *stop, t_data *data)
 	temp = readline(">"); // how is this gets inside my linked list????????
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
+		temp = no_expand_next_part_no(temp, data);
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
 		temp = readline(">");
