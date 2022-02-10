@@ -71,12 +71,6 @@ t_tok	*l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data, char *name)
 	return (temp_t);
 }
 
-// still segfoults
-// << so << bo |<< ju
-// >so
-// zsh: segmentation fault  ./minishelll
-
-
 void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
@@ -97,9 +91,6 @@ void	link_expand_looper(t_data *data)
 	}
 }
 
-// something looping over this
-// char *temp2;
-// temp2 = expand_next_part(data.cmds->commands[0], &data);
 
 void data_load(char *temp, t_data *data)
 {

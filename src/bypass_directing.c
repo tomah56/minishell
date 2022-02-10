@@ -27,26 +27,22 @@ void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 
 	if (!ft_strncmp((*temp_t)->content, ">", 1))
 	{
+		ot_remove_node(&temp_c->tokens, (*temp_t));
 		*temp_t = (*temp_t)->next;
-		// temp_t2 = (*temp_t)->prev->prev; // becaouse of the deleting middle guys
-
-		(*temp_t)->infile = file_opener((*temp_t)->content, data); // until tests
-
-		// ot_remove_node(&temp_c->tokens, (*temp_t));
-		// ot_remove_node(&temp_c->tokens, (*temp_t)->prev); // freeeing content is not working... is it a leak???
-		// ot_remove_node(&data->cmds->tokens, (*temp_t)->prev); // freeeing content is not working... is it a leak???
-		// ot_remove_node(&data->cmds->tokens, (*temp_t));
-		// *temp_t = temp_t2;
+		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
+		ot_remove_node(&data->cmds->tokens, (*temp_t));
 	}
-	*temp_t = (*temp_t)->next;
-	// if (!ft_strncmp((temp_t)->content, "<", 1))
-	// {
-	// 	temp_t2 = (temp_t)->prev->prev; // becaouse of the deleting middle guys
-	// 	(temp_t)->outfile = file_opener((temp_t)->content, data);
-	// 	ot_remove_node(&data->cmds->tokens, (temp_t)->prev); // freeeing content is not working... is it a leak???
-	// 	ot_remove_node(&data->cmds->tokens, (temp_t));
-	// 	temp_t = temp_t2;
-	// }
+	else if (!ft_strncmp((*temp_t)->content, "<", 1))
+	{
+		ot_remove_node(&temp_c->tokens, (*temp_t));
+		*temp_t = (*temp_t)->next;
+		(*temp_t)->infile = file_opener((*temp_t)->content, data);
+		ot_remove_node(&data->cmds->tokens, (*temp_t));
+	}
+	if (*temp_t && (*temp_t)->next)
+		*temp_t = (*temp_t)->next;
+	else
+		*temp_t = NULL;
 }
 
 void	bypass_juntion(t_data *data)
