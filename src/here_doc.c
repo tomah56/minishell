@@ -49,7 +49,11 @@ char	*here_doc_to_string(char *stop, t_data *data)
 	return (superholder);
 }
 
+<<<<<<< HEAD
 int	here_doc(char *stop, t_data *data)
+=======
+int	here_doc(char *stop, t_data * data, char *name)
+>>>>>>> 57e1e936d79071f8b0df7e2e49c17f90cd97f737
 {
 	char	*temp;
 	int		size;
@@ -60,7 +64,7 @@ int	here_doc(char *stop, t_data *data)
 		write(2, "ERROR\n", 6);
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
-	fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	fd = open(name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == FAILED)
 	{
 		write(2, "ERROR\n", 6); // temperarrly

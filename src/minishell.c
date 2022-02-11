@@ -27,6 +27,8 @@ void	printlist(t_data *data)
 
 	temp = data;
 	i = 0;
+	if (data->cmds->tokens == NULL) // this one segfaulted when list elements were deleted
+		return ;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)

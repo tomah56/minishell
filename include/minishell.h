@@ -124,7 +124,7 @@ char	*no_expand_next_part_no(char *str, t_data *data);
 
 
 //here_doc
-int	here_doc(char *stop, t_data * data);
+int	here_doc(char *stop, t_data * data, char *name);
 
 // redirections
 void	bypass_juntion(t_data *data);
