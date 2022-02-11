@@ -1,4 +1,3 @@
-
 #include "../include/minishell.h"
 
 static	char	*hd_name_maker(long number)

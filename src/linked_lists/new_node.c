@@ -45,19 +45,67 @@ t_tok	*create_new_token_node(char *str)
 void	ot_remove_node(t_tok **head, t_tok *node_to_remove)
 {
 	if (*head == NULL || node_to_remove == NULL)
+	{
+
+		printf("Hello X\n\n");
 		return ;
+	}
 
 	if (*head == node_to_remove)
+	{
+		printf("Hello 1\n");
 		*head = node_to_remove->next;
+	}
  
-	if (node_to_remove->next != NULL)
-		node_to_remove->next->prev = node_to_remove->prev;
-
 	if (node_to_remove->prev != NULL)
+	{
+		
+
+		printf("Hello 3\n");
 		node_to_remove->prev->next = node_to_remove->next;
 
-	free(node_to_remove);
+	}
+	else if (node_to_remove->next == NULL)
+	{
+		printf("Hello 2\n");
+		*head = NULL;
+	}
+
+	if (node_to_remove->next != NULL)
+	{
+
+		printf("Hello 4\n");
+		node_to_remove->next->prev = node_to_remove->prev;
+	}
+	else
+	{
+		printf("Hello 5\n");
+		// node_to_remove->next->prev = NULL;
+	}
+
+		printf("\n");
+
+	// free(node_to_remove);
 	return ;
+}
+
+void _temp_ot_remove_node(t_tok  **list, t_tok  *node)
+{
+	if (list == NULL || node == NULL)
+		return ;
+
+	if (node->prev == NULL)
+	{
+		if (node->next == NULL)
+			*list = NULL;
+		else
+			node->next->prev = NULL;
+	}
+	node->prev->next = NULL;
+	if (node->next)
+		node->next->prev = node->prev;
+	free(node->content);
+	free(node);
 }
 
 void	remove_node(t_tok **head, t_tok *node_to_remove)

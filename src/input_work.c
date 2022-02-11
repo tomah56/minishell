@@ -88,6 +88,12 @@ int is_couble(char str, char strp1)
 	return (0);
 }
 
+void crazy_do_it_all_at_once(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
+{
+	add_token_node_at_back(tok, create_new_token_node(
+					ft_substr(str, data->j, data->i + 1 - data->j)));
+}
+
 //input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
@@ -101,6 +107,7 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		if (data->i + 1 - data->j != 0 && str[(data->i)] != '|')
 			add_token_node_at_back(tok, create_new_token_node(
 					ft_substr(str, data->j, data->i + 1 - data->j)));
+			// crazy_do_it_all_at_once(str, data, cmds, tok);
 		while (str[data->i + 1] == ' ')
 			(data->i)++;
 		data->j = (data->i) + 1;

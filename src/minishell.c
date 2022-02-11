@@ -27,10 +27,22 @@ void	printlist(t_data *data)
 
 	temp = data;
 	i = 0;
-	if (data->cmds->tokens == NULL) // this one segfaulted when list elements were deleted
-		return ;
-	temp_t = data->cmds->tokens;
+
+
+	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL 
 	temp_c = data->cmds;
+	while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
+	{
+	printf("BUBU 1\n");
+		if (temp_c != NULL)
+			temp_c = temp_c->next;
+	}
+	// if (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
+	// 	return ;
+	printf("BUBU 2\n");
+	temp_t = temp_c->tokens;
+	printf("BUBU 3\n");
+		// return ;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
@@ -44,6 +56,24 @@ void	printlist(t_data *data)
 		temp_c = temp_c->next;
 		j++;
 		printf("\n");
+	}
+}
+
+void print_command_array(t_data *data)
+{
+	t_cmds	*temp_c;
+	int	i;
+
+	temp_c = data->cmds;
+	while (temp_c != NULL)
+	{
+		i = 0;
+		while (temp_c->commands[i] != NULL)
+		{
+			printf("%s\n", temp_c->commands[i]);
+			i++;
+		}
+		temp_c = temp_c->next;
 	}
 }
 
@@ -117,13 +147,13 @@ int	main(int argc, char **argv, char **envp)
 		data.qudouble = 0;
 		data.qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
-		if (temp == NULL)
-		{
-			write(2, "\x1b[1A", 4);
-			write(2, "\x1b[19C", 5);
-			write(2, " exit\n", 6);
-			exit(EXIT_SUCCESS);
-		}
+		// if (temp == NULL)
+		// {
+		// 	write(2, "\x1b[1A", 4);
+		// 	write(2, "\x1b[19C", 5);
+		// 	write(2, " exit\n", 6);
+		// 	exit(EXIT_SUCCESS);
+		// }
 		add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
@@ -162,12 +192,17 @@ int	main(int argc, char **argv, char **envp)
 			// printlist(&data);
 			link_expand_looper(&data);
 			bypass_juntion(&data);
+			// in_out_file_looper(&data);
+			commands_link_to_array_looper(&data); // puts the linklist to the array
+			// printf("%s\n", data.cmds->commands[0]);
+			print_command_array(&data);
+
+
 			//redirections
 			// printf("\nexpand,qutecut:\n");
-			printlist(&data);
+			// printlist(&data);
 			// system("leaks minishelll");
 			// printf("tokentotal: %d\n", data.tokentotal);
-			// commands_link_to_array_looper(&data); // puts the linklist to the array
 
 			// data.actual = data.cmds;
 			// builtin_echo(&data);

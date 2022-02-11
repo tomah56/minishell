@@ -46,6 +46,7 @@ typedef struct s_token_data
 	// needs to save all fd is not enoguh to update always the latest one.
 	int				infile;  // execution order issue
 	int				outfile;	// 
+	int				bedeleted;
 // bash-3.2$ < temp.txt <<  end wc
 // > j
 // > end
@@ -125,6 +126,10 @@ int	here_doc(char *stop, t_data * data, char *name);
 void	bypass_juntion(t_data *data);
 //expands and then removes quotes
 char *l_e_loop_sequence(char *srt, t_data *data);
+t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c);
+// setting the need to use infiels outfiles
+void	in_out_file_looper(t_data *data);
+
 
 // sonja
 void	create_environment(t_data *data, char **env);
