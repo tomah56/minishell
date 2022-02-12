@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 01:31:15 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/25 20:14:21 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 23:27:49 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,3 @@ void	add_token_node_at_back(t_tok **list, t_tok *newnode)
 		newnode->prev = last;
 	}
 }
-
-

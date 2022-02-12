@@ -180,7 +180,7 @@ void	execute_builtin(t_data *data);
 // execution
 void	execute(t_data	*data);
 void	execute_cmd(t_data *data, t_cmds *temp_c);
-void	process_creator(t_data *data, t_cmds *temp_c);
+void	process_creator(t_data *data, t_cmds *temp_c, int flag);
 void	pipes(t_data *data, int flag, t_cmds *temp_c);
 void	execute_one_cmd(t_data *data);
 
