@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/09 15:46:34 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 14:25:37 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	main(int argc, char **argv, char **envp)
 
 	// write(1,"minishe master$ ", 16);
 	// execve("/bin/echo", &argv[1], envp); // runs things in enviroment you are in 
-
 	create_environment(&data, envp);
 	save_paths(&data, envp);
 	// builtin_echo(&data);
@@ -135,14 +134,14 @@ int	main(int argc, char **argv, char **envp)
 			free(temp);
 			temp = NULL;
 		}
-		else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
-		{
-			builtin_pwd(&data);
-		}
-		else if (!ft_strncmp(temp, "env", 4))
-		{
-			builtin_env(&data);
-		}
+		// else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
+		// {
+		// 	builtin_pwd(&data);
+		// }
+		// else if (!ft_strncmp(temp, "env", 4))
+		// {
+		// 	builtin_env(&data);
+		// }
 		else if (!ft_strncmp(temp, ">>", 4))
 		{
 			new_prompt();
@@ -161,13 +160,18 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			// printlist(&data);
 			link_expand_looper(&data);
-			bypass_juntion(&data);
+			// bypass_juntion(&data);
+			commands_link_to_array_looper(&data); // puts the linklist to the array
+			// if (count_commands(&data) > 1)
+			// 	execute(&data);
+			// if (count_commands(&data) == 1)
+			// 	execute_one_cmd(&data);
+			printf("HERE\n");
 			//redirections
 			// printf("\nexpand,qutecut:\n");
-			printlist(&data);
+			// printlist(&data);
 			// system("leaks minishelll");
 			// printf("tokentotal: %d\n", data.tokentotal);
-			// commands_link_to_array_looper(&data); // puts the linklist to the array
 
 			// data.actual = data.cmds;
 			// builtin_echo(&data);

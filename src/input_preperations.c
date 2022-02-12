@@ -58,7 +58,8 @@ t_tok	*l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data, char *name)
 		unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
 		temp_t2 = temp_t->next->next;
 		temp_t = (temp_t)->next;
-		(temp_t)->infile = here_doc(quote_cutter((temp_t)->content, 0, 0), data, name);
+		// (temp_t)->infile = here_doc(quote_cutter((temp_t)->content, 0, 0), data, name); // orogonoal
+		temp_c->infile = here_doc(quote_cutter((temp_t)->content, 0, 0), data, name);
 		if (count_tokens(temp_c) == 2)
 			temp_t = only_heredoc(data, temp_c);
 		else

@@ -36,6 +36,7 @@ enum e_enum
 	LAST = 3,
 	READ = 0,
 	WRITE = 1,
+	CHILD = 0,
 };
 
 typedef struct s_token_data
@@ -137,6 +138,7 @@ void	msg_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);
 void	free_token_struct(t_tok *head);
 void	save_paths(t_data *data, char **env);
+// char	**save_paths(t_data *data);
 
 // linked list functions
 t_cmds	*create_new_cmds_node(t_tok *tokdat, int count);
@@ -170,6 +172,12 @@ void	builtin_echo(t_data *data);
 void	check_for_builtins(t_data *data);
 void	execute_builtin(t_data *data);
 
+// execution
+void	execute(t_data	*data);
+void	execute_cmd(t_data *data, t_cmds *temp_c);
+void	process_creator(t_data *data, t_cmds *temp_c);
+void	pipes(t_data *data, int flag, t_cmds *temp_c);
+void	execute_one_cmd(t_data *data);
 
 //to delete later
 void	printlist(t_data *data);

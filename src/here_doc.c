@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/09 20:58:52 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:01:26 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ char	*here_doc_to_string(char *stop, t_data *data)
 	return (superholder);
 }
 
-<<<<<<< HEAD
-int	here_doc(char *stop, t_data *data)
-=======
-int	here_doc(char *stop, t_data * data, char *name)
->>>>>>> 57e1e936d79071f8b0df7e2e49c17f90cd97f737
+int	here_doc(char *stop, t_data *data, char *name)
 {
 	char	*temp;
 	int		size;
@@ -79,7 +75,7 @@ int	here_doc(char *stop, t_data * data, char *name)
 		write(fd, "\n", 1);
 		temp = readline(">");
 	}
-	close(fd);
+	// close(fd);
 	return (fd);
 }
 

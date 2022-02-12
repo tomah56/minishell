@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:02:34 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/30 23:26:45 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/11 13:44:17 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,5 @@ void	free_struct(t_data *data)
 	{
 		if (data->environ != NULL)
 			ft_free_array(data->environ);
-		if (data->paths != NULL)
-			ft_free_array(data->paths);
 	}
 }

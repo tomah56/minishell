@@ -29,14 +29,16 @@ void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 	{
 		ot_remove_node(&temp_c->tokens, (*temp_t));
 		*temp_t = (*temp_t)->next;
-		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
+		// (*temp_t)->outfile = file_opener((*temp_t)->content, data); //original
+		temp_c->outfile = file_opener((*temp_t)->content, data);
 		ot_remove_node(&data->cmds->tokens, (*temp_t));
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 1))
 	{
 		ot_remove_node(&temp_c->tokens, (*temp_t));
 		*temp_t = (*temp_t)->next;
-		(*temp_t)->infile = file_opener((*temp_t)->content, data);
+		// (*temp_t)->infile = file_opener((*temp_t)->content, data); //original
+		temp_c->infile = file_opener((*temp_t)->content, data);
 		ot_remove_node(&data->cmds->tokens, (*temp_t));
 	}
 	if (*temp_t && (*temp_t)->next)

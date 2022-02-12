@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 18:49:36 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/01/31 23:10:48 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/11 18:31:18 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,27 @@ void	save_paths(t_data *data, char **env)
 	if (!data->paths)
 		msg_exit(data, "malloc error");
 }
+
+// char	**save_paths(t_data *data)
+// {
+// 	char	*path_envp;
+// 	char	**paths;
+// 	// int		i;
+
+// 	paths = NULL;
+// 	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
+// 		++data->environ;
+// 	if (*data->environ == NULL)
+// 		msg_exit(data, "error");
+// 	path_envp = (*data->environ + 5);
+// 	paths = ft_split(path_envp, ':');
+// 	// i = 0;
+// 	// while (data->paths[i])
+// 	// {
+// 	// 	printf("paths = %s\n", data->paths[i]);
+// 	// 	i++;
+// 	// }
+// 	if (!paths)
+// 		msg_exit(data, "malloc error");
+// 	return (paths);
+// }
