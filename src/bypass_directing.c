@@ -12,7 +12,7 @@ static int	file_opener(char *filtogo, t_data * data)
 		write(2, "ERROR\n",6);
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
-	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0644); //which mode do we need?
+	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0777); //which mode do we need? 0644
 	if (fd == FAILED)
 	{
 		write(2, "ERROR\n",6); // temperarrly

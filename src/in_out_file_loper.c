@@ -11,6 +11,21 @@ static t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 	return (temp_t);
 }
 
+// it fails in these cases.. Why???
+
+// HAKUNA MATATA 0.42$ >ju.txt | < juk jsj | < why.txt 
+// CMDS 1  number of tokens: 1
+// jsj[---]
+// jsj
+// HAKUNA MATATA 0.42$ >ju.txt | < juk jsj | < why.txt  | >bik.txt
+// CMDS 1  number of tokens: 1
+// jsj[---]
+// CMDS 2  number of tokens: 2
+// >[---]bik.txt[---]
+// jsj
+// >
+// bik.txt
+
 static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
@@ -28,39 +43,54 @@ static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 			*temp_t = temp_t2;
 		}
 	}
-	// *temp_t = (*temp_t)->next;
-	return ;
+	else
+		*temp_t = (*temp_t)->next;
 }
-
 
 void	in_out_file_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
 
-	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
+	temp_t = data->cmds->tokens;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
 		while (temp_t != NULL)
 		{
-			if (temp_c->infile != -1)
+			if (temp_t->infile != -1)
+			{
+				if (temp_c->infile != 0)
+					close(temp_c->infile);
 				temp_c->infile = temp_t->infile;
-			if (temp_c->outfile != -1)
+			}
+			if (temp_t->outfile != -1)
+			{
+				if (temp_c->outfile != 1)
+					close(temp_c->outfile);
 				temp_c->outfile = temp_t->outfile;
-			in_out_norm(&temp_t, temp_c, data);
-
-
-			// if (temp_t->prev != NULL)
-			// {
-			// 	close(temp_t->prev->infile);
-			// 	close(temp_t->prev->outfile);
-			// }
-			temp_t = (temp_t)->next;
+			}
+			temp_t = temp_t->next;
 		}
 		temp_c = temp_c->next;
 	}
 }
 
-// shaise 
+void	remove_linklist_file_looper(t_data *data)
+{
+	t_tok	*temp_t;
+	t_cmds	*temp_c;
+
+	temp_c = data->cmds;
+	temp_t = data->cmds->tokens;
+	while (temp_c != NULL)
+	{
+		temp_t = temp_c->tokens;
+		while (temp_t != NULL)
+		{
+			in_out_norm(&temp_t, temp_c, data);
+		}
+		temp_c = temp_c->next;
+	}
+}

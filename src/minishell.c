@@ -41,6 +41,7 @@ void	printlist(t_data *data)
 	{
 		temp_t = temp_c->tokens;
 		printf("CMDS %d  number of tokens: %d\n", j, count_tokens(temp_c));
+		printf("infile %d  outfile: %d\n", temp_c->infile, temp_c->outfile);
 		while (temp_t != NULL)
 		{
 			printf("%s[---]", temp_t->content);
@@ -154,11 +155,13 @@ int	main(int argc, char **argv, char **envp)
 			link_expand_looper(&data);
 			bypass_juntion(&data);
 			in_out_file_looper(&data);
+			remove_linklist_file_looper(&data);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 
 
 			printlist(&data);
-			print_command_array(&data);
+			// print_command_array(&data);
+			// execve("usr/bin/echo", data.cmds->commands, data.environ);
 
 
 		}

@@ -129,6 +129,8 @@ int	here_doc(char *stop, t_data * data, char *name);
 // redirections
 void	bypass_juntion(t_data *data);
 
+void	remove_linklist_file_looper(t_data *data);
+
 //expands and then removes quotes
 char	*l_e_loop_sequence(char *srt, t_data *data);
 // t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c);
