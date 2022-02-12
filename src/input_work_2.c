@@ -12,11 +12,11 @@
 
 #include "../include/minishell.h"
 
-void	error(char *error)
-{
-	perror(error);
-	exit (EXIT_FAILURE);
-}
+// void	error(char *error)
+// {
+// 	perror(error);
+// 	exit (EXIT_FAILURE);
+// }
 
 
 //for one
@@ -78,20 +78,20 @@ void	error(char *error)
 // 	// error("Command not found");
 // }
 
-int	input_two(t_tok *tokdat)
-{
-	// pid_t	pid;
+// int	input_two(t_tok *tokdat)
+// {
+// 	// pid_t	pid;
 
-	// pid = fork();
-	// if (pid == -1)
-	// 	error("fork process creator Error\n");
-	int i;
+// 	// pid = fork();
+// 	// if (pid == -1)
+// 	// 	error("fork process creator Error\n");
+// 	int i;
 
-	i = 0;
-	while (tokdat->tokensfull[i])
-	{
-		printf("%s\n", tokdat->tokensfull[i]);
-		i++;
-	}
-	return (1);
-}
+// 	i = 0;
+// 	while (tokdat->tokensfull[i])
+// 	{
+// 		printf("%s\n", tokdat->tokensfull[i]);
+// 		i++;
+// 	}
+// 	return (1);
+// }

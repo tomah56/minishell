@@ -92,7 +92,7 @@ void	commands_link_to_array_looper(t_data *data)
 		temp[i] = NULL;
 		temp_c->commands = temp;
 		temp_c = temp_c->next;
-		free(temp);
+		// free(temp);
 	}
 }
 

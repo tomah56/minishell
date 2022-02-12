@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/12 17:19:11 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:20:27 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	printlist(t_data *data)
 	i = 0;
 	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL 
 	temp_c = data->cmds;
-	while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
-	{
-		if (temp_c != NULL)
-			temp_c = temp_c->next;
-	}
+	// while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
+	// {
+	// 	if (temp_c != NULL)
+	// 		temp_c = temp_c->next;
+	// }
 	// if (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
 	// 	return ;
 	temp_t = temp_c->tokens;
@@ -108,20 +108,9 @@ int	main(int argc, char **argv, char **envp)
 
 	// signal(SIGINT, myhandler);
 	// signal(SIGTERM, myhandler);
-
-	// write(1,"minishe master$ ", 16);
-	// execve("/bin/echo", &argv[1], envp); // runs things in enviroment you are in 
 	create_environment(&data, envp);
 	save_paths(&data, envp);
-	// builtin_echo(&data);
-	// export_only(&data);
-	// system("leaks minishelll");
-	// cmds = NULL;
-	// data.cmds = create_new_cmds_node(&data);
-	// data.cmds->tokens = create_new_token_node(&data);
-	// printlist(&data);
-	// data.cmds = malloc(sizeof(t_cmds)); // segfoult whitout malloc... not sure.
-	// data.cmds->tokens = &tokdat;
+
 	temp = "not";
 	while (temp)
 	{
@@ -146,14 +135,6 @@ int	main(int argc, char **argv, char **envp)
 			free(temp);
 			temp = NULL;
 		}
-		// else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
-		// {
-		// 	builtin_pwd(&data);
-		// }
-		// else if (!ft_strncmp(temp, "env", 4))
-		// {
-		// 	builtin_env(&data);
-		// }
 		else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
 		{
 			builtin_pwd(&data);
@@ -170,10 +151,9 @@ int	main(int argc, char **argv, char **envp)
 			data.k = 0;
 			input_one_lilist(temp, &data);
 			// printf("content %s\n", data.cmds->tokens->next->content);
-			// printlist(&data);
 			link_expand_looper(&data);
 			bypass_juntion(&data);
-			// in_out_file_looper(&data);
+			in_out_file_looper(&data);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 			// if (count_commands(&data) == 1)
 			// 	execute_one_cmd(&data);
@@ -182,6 +162,10 @@ int	main(int argc, char **argv, char **envp)
 			if (count_commands(&data) > 1)
 				execute(&data);
 			// printf("%s\n", data.cmds->commands[0]);
+
+
+			printlist(&data);
+			print_command_array(&data);
 
 
 		}
