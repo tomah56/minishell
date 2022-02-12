@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int	file_opener(char *filtogo, t_data * data)
+static int	file_opener(char *filtogo, t_data * data)
 {
 	char	*temp;
 	int		size;
@@ -21,7 +21,7 @@ int	file_opener(char *filtogo, t_data * data)
 	return (fd);
 }
 
-void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
+static void not_working_by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
 
@@ -29,22 +29,59 @@ void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 	{
 		ot_remove_node(&temp_c->tokens, (*temp_t));
 		*temp_t = (*temp_t)->next;
-		// (*temp_t)->outfile = file_opener((*temp_t)->content, data); //original
-		temp_c->outfile = file_opener((*temp_t)->content, data);
-		ot_remove_node(&data->cmds->tokens, (*temp_t));
+		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
+		ot_remove_node(&temp_c->tokens, (*temp_t));
+
+
+		
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 1))
 	{
 		ot_remove_node(&temp_c->tokens, (*temp_t));
 		*temp_t = (*temp_t)->next;
-		// (*temp_t)->infile = file_opener((*temp_t)->content, data); //original
-		temp_c->infile = file_opener((*temp_t)->content, data);
-		ot_remove_node(&data->cmds->tokens, (*temp_t));
+		(*temp_t)->infile = file_opener((*temp_t)->content, data);
+		ot_remove_node(&temp_c->tokens, (*temp_t));
 	}
 	if (*temp_t && (*temp_t)->next)
 		*temp_t = (*temp_t)->next;
 	else
 		*temp_t = NULL;
+}
+
+static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
+{
+	t_tok	*temp_t2;
+
+	if (!ft_strncmp((*temp_t)->content, ">", 1))
+	{
+		temp_t2 = (*temp_t)->next->next;
+		*temp_t = (*temp_t)->next;
+		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
+		if (count_tokens(temp_c) == 2)
+			*temp_t = only_heredoc(data, temp_c);
+		else
+		{
+			remove_node(&temp_c->tokens, (*temp_t)->prev); // freeeing content is not working... is it a leak???
+			remove_node(&temp_c->tokens, (*temp_t));
+			*temp_t = temp_t2;
+		}
+	}
+	else if (!ft_strncmp((*temp_t)->content, "<", 1))
+	{
+		temp_t2 = (*temp_t)->next->next;
+		*temp_t = (*temp_t)->next;
+		(*temp_t)->infile = file_opener((*temp_t)->content, data);
+		if (count_tokens(temp_c) == 2)
+			*temp_t = only_heredoc(data, temp_c);
+		else
+		{
+			remove_node(&temp_c->tokens, (*temp_t)->prev); // freeeing content is not working... is it a leak???
+			remove_node(&temp_c->tokens, (*temp_t));
+			*temp_t = temp_t2;
+		}
+	}
+	else
+		*temp_t = (*temp_t)->next;
 }
 
 void	bypass_juntion(t_data *data)

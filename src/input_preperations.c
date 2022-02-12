@@ -1,4 +1,3 @@
-
 #include "../include/minishell.h"
 
 static	char	*hd_name_maker(long number)
@@ -44,7 +43,7 @@ t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 	return (temp_t);
 }
 
-t_tok	*l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data, char *name)
+static t_tok	*l_e_l_norm(t_tok *temp_t, t_cmds	*temp_c, t_data *data, char *name)
 {
 	t_tok	*temp_t2;
 

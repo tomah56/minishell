@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/12 14:25:37 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 14:37:29 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ void	printlist(t_data *data)
 
 	temp = data;
 	i = 0;
-	if (data->cmds->tokens == NULL) // this one segfaulted when list elements were deleted
-		return ;
-	temp_t = data->cmds->tokens;
+	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL 
 	temp_c = data->cmds;
+	while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
+	{
+		if (temp_c != NULL)
+			temp_c = temp_c->next;
+	}
+	// if (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
+	// 	return ;
+	temp_t = temp_c->tokens;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
@@ -44,6 +50,24 @@ void	printlist(t_data *data)
 		temp_c = temp_c->next;
 		j++;
 		printf("\n");
+	}
+}
+
+static void print_command_array(t_data *data)
+{
+	t_cmds	*temp_c;
+	int	i;
+
+	temp_c = data->cmds;
+	while (temp_c != NULL)
+	{
+		i = 0;
+		while (temp_c->commands[i] != NULL)
+		{
+			printf("%s\n", temp_c->commands[i]);
+			i++;
+		}
+		temp_c = temp_c->next;
 	}
 }
 
@@ -68,18 +92,6 @@ static void	rec_sig(int num)
 		exit(EXIT_FAILURE);
 }
 
-void new_prompt()
-{
-	char *temp;
-
-	temp = "not";
-	temp = readline("?");
-	add_history(temp);
-		// rl_on_new_line();
-		// rl_replace_line("klklk\n", 8);
-		// rl_redisplay(); //cotr -c cotr D
-		// rl_clear_history();
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -116,13 +128,13 @@ int	main(int argc, char **argv, char **envp)
 		data.qudouble = 0;
 		data.qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
-		if (temp == NULL)
-		{
-			write(2, "\x1b[1A", 4);
-			write(2, "\x1b[19C", 5);
-			write(2, " exit\n", 6);
-			exit(EXIT_SUCCESS);
-		}
+		// if (temp == NULL) //printf also send EOF signal... problem
+		// {
+		// 	write(2, "\x1b[1A", 4);
+		// 	write(2, "\x1b[19C", 5);
+		// 	write(2, " exit\n", 6);
+		// 	exit(EXIT_SUCCESS);
+		// }
 		add_history(temp);
 		// rl_on_new_line();
 		// rl_replace_line("klklk\n", 8);
@@ -150,6 +162,14 @@ int	main(int argc, char **argv, char **envp)
 		// {
 		// 	exit(EXIT_SUCCESS);
 		// }
+		else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
+		{
+			builtin_pwd(&data);
+		}
+		else if (!ft_strncmp(temp, "env", 4))
+		{
+			builtin_env(&data);
+		}
 		else
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
@@ -160,38 +180,16 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			// printlist(&data);
 			link_expand_looper(&data);
-			// bypass_juntion(&data);
+			bypass_juntion(&data);
+			// in_out_file_looper(&data);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
-			// if (count_commands(&data) > 1)
-			// 	execute(&data);
-			// if (count_commands(&data) == 1)
-			// 	execute_one_cmd(&data);
-			printf("HERE\n");
-			//redirections
-			// printf("\nexpand,qutecut:\n");
-			// printlist(&data);
-			// system("leaks minishelll");
-			// printf("tokentotal: %d\n", data.tokentotal);
+			// printf("%s\n", data.cmds->commands[0]);
+			print_command_array(&data);
 
-			// data.actual = data.cmds;
-			// builtin_echo(&data);
-
-			// char *temp2;
-	
-			// temp2 = expand_next_part(data.cmds->commands[0], &data);
-			// printf("expander:->%s<-\n", temp2);
-			// temp2 = quote_cutter(temp2, 0, 0);
-			// printf("quoteremooval: ->%s<-\n", temp2);
-
-		
-			// free(temp2);
-			// temp2 = NULL;
 
 		}
 	}
-	
-	// printf("I m here\n");
-	// rl_rep
+
 
 	// free cmds also...
 	// free **tokensfull and every pointer inside in the end

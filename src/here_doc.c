@@ -6,13 +6,13 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/11 17:01:26 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 14:38:24 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	h_doc_to_file(int fd, char *str)
+static void h_doc_to_file(int fd, char *str)
 {
 	if (fd == -2)
 		fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND/* , 0644 */);
@@ -23,7 +23,7 @@ void	h_doc_to_file(int fd, char *str)
 	}
 }
 
-char	*here_doc_to_string(char *stop, t_data *data)
+static char	*here_doc_to_string(char *stop, t_data * data)
 {
 	char	*temp;
 	char	*superholder;
@@ -75,7 +75,7 @@ int	here_doc(char *stop, t_data *data, char *name)
 		write(fd, "\n", 1);
 		temp = readline(">");
 	}
-	// close(fd);
+	// close(fd); closing somwhere in the end....
 	return (fd);
 }
 
