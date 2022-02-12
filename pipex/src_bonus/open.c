@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 15:35:31 by sreinhol          #+#    #+#             */
-/*   Updated: 2021/12/27 12:38:41 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 15:32:23 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,24 @@ void	pipes(t_pipex *pipex, int flag, char **argv, int argc)
 			error(argv[argc - 2]);
 	}
 	pipex->childfd[WRITE] = pipex->pipefd[WRITE];
+}
+
+
+
+void	pipes_2(t_data *data, int flag, t_cmds *temp_c)
+{
+	if (flag == FIRST)
+		data->pipefd[READ] = temp_c->infile;
+	data->childfd[READ] = data->pipefd[READ];
+	if (flag == MIDDLE || flag == FIRST)
+	{
+		pipe(data->pipefd);
+	}
+	if (flag == MIDDLE || flag == LAST)
+	{
+		write(2, "PO\n", 3);
+		data->pipefd[WRITE] = STDOUT_FILENO;
+		data->pipefd[READ] = data->childfd[WRITE];
+	}
+	data->childfd[WRITE] = data->pipefd[WRITE];
 }

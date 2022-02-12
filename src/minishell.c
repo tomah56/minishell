@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/12 14:37:29 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:19:11 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,14 +154,6 @@ int	main(int argc, char **argv, char **envp)
 		// {
 		// 	builtin_env(&data);
 		// }
-		else if (!ft_strncmp(temp, ">>", 4))
-		{
-			new_prompt();
-		}
-		// else if (temp == EOF)
-		// {
-		// 	exit(EXIT_SUCCESS);
-		// }
 		else if (!ft_strncmp(temp, "pwd", 4) || !ft_strncmp(temp, "pwd ", 5))
 		{
 			builtin_pwd(&data);
@@ -183,8 +175,13 @@ int	main(int argc, char **argv, char **envp)
 			bypass_juntion(&data);
 			// in_out_file_looper(&data);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
+			// if (count_commands(&data) == 1)
+			// 	execute_one_cmd(&data);
+			// print_command_array(&data);
+			printlist(&data);
+			if (count_commands(&data) > 1)
+				execute(&data);
 			// printf("%s\n", data.cmds->commands[0]);
-			print_command_array(&data);
 
 
 		}

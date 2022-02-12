@@ -66,8 +66,8 @@ typedef struct s_token_data
 typedef struct s_cmds
 {
 	t_tok			*tokens;
-	int				infile;
-	int				outfile;
+	int				infile; // stdin
+	int				outfile; // stdout / 
 	int				comandcount; //number of tokens per command
 	int				heredocfile;
 	bool			builtin;
