@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int	file_opener(char *filtogo, t_data * data)
+static int	file_opener(char *filtogo, t_data * data)
 {
 	char	*temp;
 	int		size;
@@ -21,7 +21,7 @@ int	file_opener(char *filtogo, t_data * data)
 	return (fd);
 }
 
-void not_working_by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
+static void not_working_by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
 
@@ -48,7 +48,7 @@ void not_working_by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 		*temp_t = NULL;
 }
 
-void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
+static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
 

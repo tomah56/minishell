@@ -29,7 +29,6 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 {
 	int count;
 	
-
 	count = 0;
 	while (str[i])
 	{
@@ -51,33 +50,33 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 
 
 
-int	input_one_array(char *str, t_tok *tokdat, int i, int j)
-{
-	int	k;
+// int	input_one_array(char *str, t_tok *tokdat, int i, int j)
+// {
+// 	int	k;
 
-	k = -1;
-	tokdat->tokencount = count_my_tokens(str, tokdat, 0, 0);
-	tokdat->tokensfull = malloc((tokdat->tokencount + 2) * sizeof(char *)); // version array
-	if (tokdat->tokensfull == NULL)
-		return (0);
-	while (str[i])
-	{
-		// check_token_flags_li(str[i], tokdat);
-		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
-			&& tokdat->qudouble == 0 )
-		{
-			tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
+// 	k = -1;
+// 	tokdat->tokencount = count_my_tokens(str, tokdat, 0, 0);
+// 	tokdat->tokensfull = malloc((tokdat->tokencount + 2) * sizeof(char *)); // version array
+// 	if (tokdat->tokensfull == NULL)
+// 		return (0);
+// 	while (str[i])
+// 	{
+// 		// check_token_flags_li(str[i], tokdat);
+// 		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
+// 			&& tokdat->qudouble == 0 )
+// 		{
+// 			tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
 
-			while (str[i + 1] == ' ')
-				i++;
-			j = i + 1;
-		}
-		i++;
-	}
-	tokdat->tokensfull[++k] = NULL;
-	input_two(tokdat);
-	return (1);
-}
+// 			while (str[i + 1] == ' ')
+// 				i++;
+// 			j = i + 1;
+// 		}
+// 		i++;
+// 	}
+// 	tokdat->tokensfull[++k] = NULL;
+// 	input_two(tokdat);
+// 	return (1);
+// }
 
 int is_couble(char str, char strp1)
 {

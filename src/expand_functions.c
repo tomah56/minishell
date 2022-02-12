@@ -29,7 +29,7 @@ char	*expand_clean_dollar(char *str, t_data *data)
 	return (NULL);
 }
 
-int	size_dollar_point(char **str, t_data *data)
+static int	size_dollar_point(char **str, t_data *data)
 {
 	int len;
 

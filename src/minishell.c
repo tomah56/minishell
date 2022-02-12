@@ -27,22 +27,16 @@ void	printlist(t_data *data)
 
 	temp = data;
 	i = 0;
-
-
 	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL 
 	temp_c = data->cmds;
 	while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
 	{
-	printf("BUBU 1\n");
 		if (temp_c != NULL)
 			temp_c = temp_c->next;
 	}
 	// if (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
 	// 	return ;
-	printf("BUBU 2\n");
 	temp_t = temp_c->tokens;
-	printf("BUBU 3\n");
-		// return ;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
@@ -59,7 +53,7 @@ void	printlist(t_data *data)
 	}
 }
 
-void print_command_array(t_data *data)
+static void print_command_array(t_data *data)
 {
 	t_cmds	*temp_c;
 	int	i;
@@ -98,18 +92,6 @@ static void	rec_sig(int num)
 		exit(EXIT_FAILURE);
 }
 
-void new_prompt()
-{
-	char *temp;
-
-	temp = "not";
-	temp = readline("?");
-	add_history(temp);
-		// rl_on_new_line();
-		// rl_replace_line("klklk\n", 8);
-		// rl_redisplay(); //cotr -c cotr D
-		// rl_clear_history();
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -147,7 +129,7 @@ int	main(int argc, char **argv, char **envp)
 		data.qudouble = 0;
 		data.qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
-		// if (temp == NULL)
+		// if (temp == NULL) //printf also send EOF signal... problem
 		// {
 		// 	write(2, "\x1b[1A", 4);
 		// 	write(2, "\x1b[19C", 5);
@@ -173,14 +155,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			builtin_env(&data);
 		}
-		else if (!ft_strncmp(temp, ">>", 4))
-		{
-			new_prompt();
-		}
-		// else if (temp == EOF)
-		// {
-		// 	exit(EXIT_SUCCESS);
-		// }
 		else
 		{
 			// input_one_array(temp, &tokdat, 0, 0);
@@ -198,31 +172,9 @@ int	main(int argc, char **argv, char **envp)
 			print_command_array(&data);
 
 
-			//redirections
-			// printf("\nexpand,qutecut:\n");
-			// printlist(&data);
-			// system("leaks minishelll");
-			// printf("tokentotal: %d\n", data.tokentotal);
-
-			// data.actual = data.cmds;
-			// builtin_echo(&data);
-
-			// char *temp2;
-	
-			// temp2 = expand_next_part(data.cmds->commands[0], &data);
-			// printf("expander:->%s<-\n", temp2);
-			// temp2 = quote_cutter(temp2, 0, 0);
-			// printf("quoteremooval: ->%s<-\n", temp2);
-
-		
-			// free(temp2);
-			// temp2 = NULL;
-
 		}
 	}
-	
-	// printf("I m here\n");
-	// rl_rep
+
 
 	// free cmds also...
 	// free **tokensfull and every pointer inside in the end

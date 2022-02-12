@@ -100,22 +100,20 @@ extern int	g_exit;
 
 // input
 char	*get_next_line(int fd);
-int		input_one_array(char *str, t_tok *tokdat, int i, int j);
+// int		input_one_array(char *str, t_tok *tokdat, int i, int j); del
 void	input_one_lilist(char *str, t_data *data);
-int		input_two(t_tok *tokdat);
+// int		input_two(t_tok *tokdat);
 //test
 void	looper_next(t_data *data, void (*f)(char *));
 char	*quote_cutter(char *str, int qusig, int qudou);
 void	commands_link_to_array_looper(t_data *data);
+
 char	*expand_clean_dollar(char *str, t_data *data);
-int		size_dollar_point(char **str, t_data *data);
-char	*expand_dirt_dollar(char *str, t_data *data);
 void	check_token_flags_li(char str, t_data *data);
-char	*expand_looper(char *str, t_data *data);
 char	*expand_next_part(char *str, t_data *data);
 void	link_expand_looper(t_data *data);
 
-// expand heredoc
+// expand heredoc no quotes
 char	*no_expand_next_part_no(char *str, t_data *data);
 
 
@@ -124,6 +122,7 @@ int	here_doc(char *stop, t_data * data, char *name);
 
 // redirections
 void	bypass_juntion(t_data *data);
+
 //expands and then removes quotes
 char *l_e_loop_sequence(char *srt, t_data *data);
 t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c);
@@ -131,12 +130,6 @@ t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c);
 void	in_out_file_looper(t_data *data);
 
 
-// sonja
-void	create_environment(t_data *data, char **env);
-void	msg_exit(t_data *data, char *msg);
-void	free_struct(t_data *data);
-void	free_token_struct(t_tok *head);
-void	save_paths(t_data *data, char **env);
 
 // linked list functions
 t_cmds	*create_new_cmds_node(t_tok *tokdat, int count);
@@ -149,6 +142,14 @@ void	remove_node(t_tok **head, t_tok *node_to_remove); //nottest
 void	remove_node_c(t_cmds **head, t_cmds *node_to_remove);
 // other version of remove node
 void	ot_remove_node(t_tok **head, t_tok *node_to_remove);
+
+// sonja
+void	create_environment(t_data *data, char **env);
+void	msg_exit(t_data *data, char *msg);
+void	free_struct(t_data *data);
+void	free_token_struct(t_tok *head);
+void	save_paths(t_data *data, char **env);
+
 
 // builtins
 void	builtin_env(t_data *data);

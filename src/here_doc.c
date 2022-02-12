@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void h_doc_to_file(int fd, char *str)
+static void h_doc_to_file(int fd, char *str)
 {
 	
 	if (fd == -2)
@@ -12,7 +12,7 @@ void h_doc_to_file(int fd, char *str)
 	}
 }
 
-char	*here_doc_to_string(char *stop, t_data * data)
+static char	*here_doc_to_string(char *stop, t_data * data)
 {
 	char	*temp;
 	char	*superholder;
@@ -64,7 +64,7 @@ int	here_doc(char *stop, t_data * data, char *name)
 		write(fd, "\n", 1);
 		temp = readline(">");
 	}
-	close(fd);
+	// close(fd); closing somwhere in the end....
 	return (fd);
 }
 
