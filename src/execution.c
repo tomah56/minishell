@@ -52,84 +52,84 @@
 // 	}
 // }
 
-void	execute_cmd(t_data *data, t_cmds *temp_c)
-{
-	char	**command;
-	char	**paths_cmd;
-	char	*path;
-	int		i;
+// void	execute_cmd(t_data *data, t_cmds *temp_c)
+// {
+// 	char	**command;
+// 	char	**paths_cmd;
+// 	char	*path;
+// 	int		i;
 
-	command = ft_split(*temp_c->commands, ' ');
-	paths_cmd = save_paths(data);
-	i = 0;
-	while (paths_cmd[i])
-	{
-		path = ft_strjoin(paths_cmd[i], "/");
-		path = ft_strjoin(path, command[0]);
-		if (access(path, F_OK) == SUCCESS)
-		{
-			if (execve(path, &command[0], data->environ) == FAILED)
-				msg_exit(data, "execve Error\n");
-		}
-		i++;
-		free(path);
-	}
-	free(path);
-	ft_free_array(command);
-	msg_exit(data, "Command not found\n");
-}
+// 	command = ft_split(*temp_c->commands, ' ');
+// 	paths_cmd = save_paths(data,);
+// 	i = 0;
+// 	while (paths_cmd[i])
+// 	{
+// 		path = ft_strjoin(paths_cmd[i], "/");
+// 		path = ft_strjoin(path, command[0]);
+// 		if (access(path, F_OK) == SUCCESS)
+// 		{
+// 			if (execve(path, &command[0], data->environ) == FAILED)
+// 				msg_exit(data, "execve Error\n");
+// 		}
+// 		i++;
+// 		free(path);
+// 	}
+// 	free(path);
+// 	ft_free_array(command);
+// 	msg_exit(data, "Command not found\n");
+// }
 
-void	execute(t_data	*data)
-{
-	t_cmds	*temp_c;
+// void	execute(t_data	*data)
+// {
+// 	t_cmds	*temp_c;
 
-	temp_c = data->cmds;
-	pipes(data, FIRST, temp_c);
-	process_creator(data, temp_c);
-	printlist_c(temp_c);
-	temp_c = temp_c->next;
-	while (temp_c != NULL)
-	{
-		printlist_c(temp_c);
-		pipes(data, MIDDLE, temp_c);
-		temp_c = temp_c->next;
-	}
-	// printf("HELLO\n");
-	pipes(data, LAST, temp_c);
-	process_creator(data, temp_c);
-	while (wait(NULL) != FAILED)
-		continue ;
-	//free function or in main 
-}
+// 	temp_c = data->cmds;
+// 	pipes(data, FIRST, temp_c);
+// 	process_creator(data, temp_c);
+// 	printlist_c(temp_c);
+// 	temp_c = temp_c->next;
+// 	while (temp_c != NULL)
+// 	{
+// 		printlist_c(temp_c);
+// 		pipes(data, MIDDLE, temp_c);
+// 		temp_c = temp_c->next;
+// 	}
+// 	// printf("HELLO\n");
+// 	pipes(data, LAST, temp_c);
+// 	process_creator(data, temp_c);
+// 	while (wait(NULL) != FAILED)
+// 		continue ;
+// 	//free function or in main 
+// }
 
-void	execute_one_cmd(t_data *data)
-{
-	int		i;
-	char	*path;
-	char	**command;
+// void	execute_one_cmd(t_data *data)
+// {
+// 	int		i;
+// 	char	*path;
+// 	char	**command;
 
-	i = 0;
-	command = malloc((count_tokens(data->cmds) + 1) * sizeof(char *));
-	while (data->cmds->commands[i])
-	{
-		command[i] = data->cmds->commands[i];
-		i++;
-	}
-	i = 0;
-	while (data->paths[i])
-	{
-		path = ft_strjoin(data->paths[i], "/");
-		path = ft_strjoin(path, command[0]);
-		if (access(path, F_OK) == 0)
-		{
-			if (execve(path, &command[0], data->environ) == FAILED)
-				msg_exit(data, "execve error");
-		}
-		i++;
-		free(path);
-	}
-	write(2, "Command not found\n", 18);
-	free(path);
-}
+// 	i = 0;
+// 	command = malloc((count_tokens(data->cmds) + 1) * sizeof(char *));
+// 	while (data->cmds->commands[i])
+// 	{
+// 		command[i] = data->cmds->commands[i];
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (data->paths[i])
+// 	{
+// 		path = ft_strjoin(data->paths[i], "/");
+// 		path = ft_strjoin(path, command[0]);
+// 		if (access(path, F_OK) == 0)
+// 		{
+// 			if (execve(path, &command[0], data->environ) == FAILED)
+// 				msg_exit(data, "execve error");
+// 		}
+// 		i++;
+// 		free(path);
+// 	}
+// 	write(2, "Command not found\n", 18);
+// 	free(path);
+// }
 
 //function that checks for builtins
