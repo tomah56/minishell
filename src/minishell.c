@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:30:40 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/02/12 23:36:38 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 23:55:50 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	printlist(t_data *data)
 	{
 		temp_t = temp_c->tokens;
 		printf("CMDS %d  number of tokens: %d\n", j, count_tokens(temp_c));
-		printf("CMDS %d  INFILE: %d\n", j, temp_c->infile);
-		printf("CMDS %d  OTFILE: %d\n", j, temp_c->outfile);
+		printf("infile %d  outfile: %d\n", temp_c->infile, temp_c->outfile);
 		while (temp_t != NULL)
 		{
 			printf("%s[---]", temp_t->content);
@@ -155,15 +154,17 @@ int	main(int argc, char **argv, char **envp)
 			// printf("content %s\n", data.cmds->tokens->next->content);
 			link_expand_looper(&data);
 			bypass_juntion(&data);
-			// printlist(&data);
-			// in_out_file_looper(&data);
+			in_out_file_looper(&data);
+			remove_linklist_file_looper(&data);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 			// if (count_commands(&data) == 1)
 			// 	execute_one_cmd(&data);
 			// print_command_array(&data);
 			printlist(&data);
-			execute(&data);
-			//free all
+			// print_command_array(&data);
+			// execve("usr/bin/echo", data.cmds->commands, data.environ);
+
+
 		}
 	}
 
