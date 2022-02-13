@@ -25,14 +25,14 @@ static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
 
-	if (!ft_strncmp((*temp_t)->content, ">", 1))
+	if (!ft_strncmp((*temp_t)->content, ">", 2))
 	{
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
 	}
-	else if (!ft_strncmp((*temp_t)->content, "<", 1))
+	else if (!ft_strncmp((*temp_t)->content, "<", 2))
 	{
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;

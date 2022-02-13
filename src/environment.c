@@ -42,16 +42,16 @@ void	create_environment(t_data *data, char **env)
 }
 
 // finds path in envp and saves it
-void	save_paths(t_data *data, char **env)
+void	save_paths(t_data *data)
 {
 	char	*path_envp;
 	// int		i;
 
-	while (*env != NULL && ft_strncmp(*env, "PATH=", 5))
-		++env;
-	if (*env == NULL)
+	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
+		++data->environ;
+	if (*data->environ == NULL)
 		msg_exit(data, "error");
-	path_envp = (*env + 5);
+	path_envp = (*data->environ + 5);
 	data->paths = ft_split(path_envp, ':');
 	// i = 0;
 	// while (data->paths[i])
