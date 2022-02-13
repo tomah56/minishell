@@ -110,7 +110,6 @@ int	main(int argc, char **argv, char **envp)
 	// signal(SIGINT, myhandler);
 	// signal(SIGTERM, myhandler);
 	create_environment(&data, envp);
-	save_paths(&data, envp);
 
 	temp = "not";
 	while (temp)
@@ -157,10 +156,12 @@ int	main(int argc, char **argv, char **envp)
 			in_out_file_looper(&data);
 			remove_linklist_file_looper(&data);
 			commands_link_to_array_looper(&data); // puts the linklist to the array
+			execute_the_ii(&data);
 			// if (count_commands(&data) == 1)
-			// 	execute_one_cmd(&data);
+				// execute_one_cmd(&data);
+				// execute(&data);
 			// print_command_array(&data);
-			printlist(&data);
+			// printlist(&data);
 			// print_command_array(&data);
 			// execve("usr/bin/echo", data.cmds->commands, data.environ);
 

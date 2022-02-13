@@ -15,7 +15,7 @@
 static void h_doc_to_file(int fd, char *str)
 {
 	if (fd == -2)
-		fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND/* , 0644 */);
+		fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0777);
 	else
 	{
 		write(fd, &str, ft_strlen(str));
@@ -60,7 +60,7 @@ int	here_doc(char *stop, t_data *data, char *name)
 		write(2, "ERROR\n", 6);
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
-	fd = open(name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0777);
 	if (fd == FAILED)
 	{
 		write(2, "ERROR\n", 6); // temperarrly

@@ -156,7 +156,7 @@ void	create_environment(t_data *data, char **env);
 void	msg_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);
 void	free_token_struct(t_tok *head);
-void	save_paths(t_data *data, char **env);
+void	save_paths(t_data *data);
 
 
 // builtins
@@ -185,6 +185,8 @@ void	execute_cmd(t_data *data, t_cmds *temp_c);
 void	process_creator(t_data *data, t_cmds *temp_c, int flag);
 void	pipes(t_data *data, int flag, t_cmds *temp_c);
 void	execute_one_cmd(t_data *data);
+
+void	execute_the_ii(t_data *data);
 
 //to delete later
 void	printlist(t_data *data);
