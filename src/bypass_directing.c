@@ -1,29 +1,29 @@
 #include "../include/minishell.h"
 
-static int	file_opener(char *filtogo, t_data * data)
+static int file_opener(char *filtogo, t_data *data)
 {
-	char	*temp;
-	int		size;
+	char *temp;
+	int size;
 	int fd;
 
 	// close(fd); // when we loop over to find the latest one we close the previous ones
 	if (filtogo == NULL)
 	{
-		write(2, "ERROR\n",6);
+		write(2, "ERROR\n", 6);
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
-	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0777); //which mode do we need? 0644
+	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0777); // which mode do we need? 0644
 	if (fd == FAILED)
 	{
-		write(2, "ERROR\n",6); // temperarrly
+		write(2, "ERROR\n", 6); // temperarrly
 		return (-1);
 	}
 	return (fd);
 }
 
-static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
+static void by_pa_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
-	t_tok	*temp_t2;
+	t_tok *temp_t2;
 
 	if (!ft_strncmp((*temp_t)->content, ">", 2))
 	{
@@ -31,6 +31,7 @@ static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
+		printf("inside junction outfile: %d\n", (*temp_t)->outfile);
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 2))
 	{
@@ -38,6 +39,7 @@ static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->infile = file_opener((*temp_t)->content, data);
+		printf("inside junction infile: %d\n", (*temp_t)->infile);
 	}
 	*temp_t = (*temp_t)->next;
 }
@@ -76,10 +78,10 @@ static void by_pa_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 // 		*temp_t = (*temp_t)->next;
 // }
 
-void	bypass_juntion(t_data *data)
+void bypass_juntion(t_data *data)
 {
-	t_tok	*temp_t;
-	t_cmds	*temp_c;
+	t_tok *temp_t;
+	t_cmds *temp_c;
 
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
