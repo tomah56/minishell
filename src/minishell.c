@@ -17,17 +17,17 @@
 // 	write(STDOUT_FILENO, " I will never die!\n", 18);
 // }
 
-void	printlist(t_data *data)
+void printlist(t_data *data)
 {
-	t_data	*temp;
-	t_tok	*temp_t;
+	t_data *temp;
+	t_tok *temp_t;
 	t_cmds *temp_c;
 	int i = 1;
 	int j = 1;
 
 	temp = data;
 	i = 0;
-	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL 
+	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL
 	temp_c = data->cmds;
 	// while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
 	// {
@@ -56,8 +56,8 @@ void	printlist(t_data *data)
 
 static void print_command_array(t_data *data)
 {
-	t_cmds	*temp_c;
-	int	i;
+	t_cmds *temp_c;
+	int i;
 
 	temp_c = data->cmds;
 	while (temp_c != NULL)
@@ -72,10 +72,10 @@ static void print_command_array(t_data *data)
 	}
 }
 
-int	g_exit = 0;
+int g_exit = 0;
 
-static void	rec_sig(int num)
-{	
+static void rec_sig(int num)
+{
 	rl_on_new_line();
 	rl_redisplay();
 	write(2, "  \b\b", 5);
@@ -93,19 +93,17 @@ static void	rec_sig(int num)
 		exit(EXIT_FAILURE);
 }
 
-
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
 	t_tok tokdat;
 	char *temp;
-	t_data	data;
+	t_data data;
 	char **exp;
 	char *home;
 	// t_cmds	*cmds;
 	// signal(SIGTERM, rec_sig);
 	signal(SIGQUIT, rec_sig);
 	signal(SIGINT, rec_sig);
-	
 
 	// signal(SIGINT, myhandler);
 	// signal(SIGTERM, myhandler);
@@ -158,23 +156,20 @@ int	main(int argc, char **argv, char **envp)
 			commands_link_to_array_looper(&data); // puts the linklist to the array
 			execute_the_ii(&data);
 			// if (count_commands(&data) == 1)
-				// execute_one_cmd(&data);
-				// execute(&data);
+			// execute_one_cmd(&data);
+			// execute(&data);
 			// print_command_array(&data);
-			// printlist(&data);
+			printlist(&data);
+			
 			// print_command_array(&data);
 			// execve("usr/bin/echo", data.cmds->commands, data.environ);
-
-
 		}
 	}
-
 
 	// free cmds also...
 	// free **tokensfull and every pointer inside in the end
 	return (0);
 }
-
 
 // bash-3.2$ pwdfhuhfuhufhfuhufhf fkjfkjf
 // bash: pwdfhuhfuhufhfuhufhf: command not found
@@ -182,12 +177,11 @@ int	main(int argc, char **argv, char **envp)
 // /Users/ttokesi/Documents
 
 // Function: int rl_on_new_line ()
-// Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline. 
+// Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
 // Function: int rl_redisplay ()
-// Change what's displayed on the screen to reflect the current contents of rl_line_buffer. 
+// Change what's displayed on the screen to reflect the current contents of rl_line_buffer.
 //   rl_clear_history, ?????
-//  rl_replace_line, ????? 
-
+//  rl_replace_line, ?????
 
 // bash-3.2$ cat | echo bubu
 // bubu
@@ -204,5 +198,3 @@ int	main(int argc, char **argv, char **envp)
 // exit
 // g
 // ^C
-
-

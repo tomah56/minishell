@@ -19,6 +19,7 @@ FLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
 SRC_DIR := ./src/
 OBJ_DIR := ./obj/
 SRC = $(SRC_DIR)*.c ./src/linked_lists/*.c ./src/builtins/*.c
+SRCWIN = $(SRC_DIR)*.c ./src/linked_lists/*.c ./src/builtins/*.c ./libs/libft/*.c
 
 OBJS := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o, $(SRC))
 
@@ -63,5 +64,7 @@ re: fclean all
 
 no: 
 	@$(CC) -o $(NAME) $(SRC) $(LFR) $(LFRC) -L ./libs -lft
+win: 
+	@$(CC) -o $(NAME) $(SRCWIN) -L/usr/include -lreadline -ltinfo
 
 .PHONY: all clean fclean re
