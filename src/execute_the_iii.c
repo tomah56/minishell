@@ -1,25 +1,5 @@
 #include "../include/minishell.h"
 
-char *make_path(t_data *data, char *str)
-{
-	char	*path;
-	int i;
-
-	i = 0;
-	while (data->paths[i])
-	{
-		path = ft_strjoin(data->paths[i], "/");
-		path = ft_strjoin(path, str);
-		if (access(path, F_OK) == SUCCESS)
-			return (path);
-		i++;
-		free(path);
-	}
-	free(path);
-	msg_exit(data, "command not found\n");
-	return (NULL);
-}
-
 //heredoc
 // void execute_the_ii(t_data *data)
 // {
@@ -224,4 +204,15 @@ char *make_path(t_data *data, char *str)
 // 	close(fd[WRITE]);
 // 	waitpid(id, NULL, 0);
 // 	waitpid(id2, NULL, 0);
+// }
+
+
+// void execute_the_ii(t_data *data)
+// {
+// 	t_cmds	*temp_cmds;
+
+// 	temp_cmds = data->cmds;
+// 	temp_cmds->infile = 3;  //until we fix the mistake
+// 	save_paths(data);
+	
 // }

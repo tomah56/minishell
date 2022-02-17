@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 18:08:12 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/12 23:47:43 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:29:19 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 
 void	pipes(t_data *data, int flag, t_cmds *temp_c)
 {
-	if (flag == FIRST)
+	if (flag == FIRST && temp_c->infile != 0)
+	{
+		write(2, "FIRST_1\n", 8);
 		data->pipefd[READ] = temp_c->infile;
-	// if (flag != FIRST)
+	}
+	if (flag == FIRST && temp_c->infile == 0)
+	{
+		write(2, "FIRST_2\n", 8);
+		data->pipefd[READ] = STDIN_FILENO;
+	}
 	data->childfd[READ] = data->pipefd[READ];
 	if (!(flag == LAST))
 	{
 		pipe(data->pipefd);
-		write(2, "HERE\n", 5);
+		write(2, "FIRST&MIDDLE\n", 13);
 	}
 	else
 	{
 		data->pipefd[WRITE] = temp_c->outfile;
 		data->pipefd[READ] = temp_c->infile;
-		write(2, "HoHo\n", 5);
+		write(2, "LAST\n", 5);
 	}
 	// data->pipefd[WRITE] = temp_c->outfile;
 	data->childfd[WRITE] = data->pipefd[WRITE];
@@ -50,24 +57,6 @@ void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 			write(2, "MINI\n", 5);
 			exit(EXIT_FAILURE);
 		}
-		// if (flag != LAST)
-		// {
-		// 	if (dup2(data->childfd[WRITE], temp_c->outfile) == FAILED
-		// 		|| dup2(data->childfd[READ], temp_c->infile) == FAILED)
-		// 	{
-		// 		write(2, "MINI\n", 5);
-		// 		exit(EXIT_FAILURE);
-		// 	}
-		// }
-		// else
-		// {
-		// 	if (dup2(data->childfd[WRITE], temp_c->outfile) == FAILED
-		// 		|| dup2(data->childfd[READ], temp_c->infile) == FAILED)
-		// 	{
-		// 		write(2, "MINI\n", 5);
-		// 		exit(EXIT_FAILURE);
-		// 	}
-		// }
 		close(data->childfd[WRITE]);
 		close(data->childfd[READ]);
 		execute_cmd(data, temp_c);
@@ -139,8 +128,8 @@ void	execute(t_data	*data)
 	t_cmds	*temp_c;
 	// char	**command;
 	temp_c = data->cmds;
+	// temp_c->infile = 3;
 	// command = temp_c->commands;
-	// printf(">>>>  %s\n", command[0]);
 	// printf(">>>>  %s\n", command[1]);
 	// temp_c = temp_c->next;
 	// printf(">>>>  %s\n", temp_c->commands[0]);
@@ -159,10 +148,11 @@ void	execute(t_data	*data)
 	write(2, "99\n", 3);
 	pipes(data, LAST, temp_c);
 	process_creator(data, temp_c, LAST);
+	write(2, "77\n", 3);
 	ft_wait(data);
-	write(2, "88\n", 3);
 	// while (wait(NULL) != FAILED)
 	// 	continue ;
+	// close(data->pipefd[WRITE]);
 	//free function or in main 
 }
 // void	execute_cmd(t_data *data, t_cmds *temp_c)

@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/12 14:38:24 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:44:39 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	here_doc(char *stop, t_data *data, char *name)
 		temp = readline(">");
 	}
 	// close(fd); closing somwhere in the end....
+	printf("HEREDOC %d\n", fd);
 	return (fd);
 }
 

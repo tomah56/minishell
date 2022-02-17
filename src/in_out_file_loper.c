@@ -59,8 +59,10 @@ void	in_out_file_looper(t_data *data)
 		temp_t = temp_c->tokens;
 		while (temp_t != NULL)
 		{
+			// printf("INFILE %d\n", temp_t->infile);
 			if (temp_t->infile != -1)
 			{
+				// printf("HERE\n");
 				if (temp_c->infile != 0)
 					close(temp_c->infile);
 				temp_c->infile = temp_t->infile;
@@ -74,7 +76,7 @@ void	in_out_file_looper(t_data *data)
 			temp_t = temp_t->next;
 		}
 		temp_c = temp_c->next;
-	}
+}
 }
 
 void	remove_linklist_file_looper(t_data *data)
