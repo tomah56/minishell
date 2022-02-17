@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bypass_directing.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 21:06:37 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/02/17 21:06:37 by sreinhol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-static int file_opener(char *filtogo, t_data *data)
+static int	file_opener(char *filtogo, t_data *data)
 {
-	char *temp;
-	int size;
-	int fd;
+	char	*temp;
+	int		size;
+	int		fd;
 
 	// close(fd); // when we loop over to find the latest one we close the previous ones
 	if (filtogo == NULL)
@@ -12,7 +24,7 @@ static int file_opener(char *filtogo, t_data *data)
 		write(2, "ERROR\n", 6);
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
-	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0777); // which mode do we need? 0644
+	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0644); // which mode do we need? 0777
 	if (fd == FAILED)
 	{
 		write(2, "ERROR\n", 6); // temperarrly
@@ -21,9 +33,9 @@ static int file_opener(char *filtogo, t_data *data)
 	return (fd);
 }
 
-static void by_pa_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
+static void	by_pa_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
-	t_tok *temp_t2;
+	t_tok	*temp_t2;
 
 	if (!ft_strncmp((*temp_t)->content, ">", 2))
 	{
@@ -78,10 +90,10 @@ static void by_pa_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 // 		*temp_t = (*temp_t)->next;
 // }
 
-void bypass_juntion(t_data *data)
+void	bypass_juntion(t_data *data)
 {
-	t_tok *temp_t;
-	t_cmds *temp_c;
+	t_tok	*temp_t;
+	t_cmds	*temp_c;
 
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;

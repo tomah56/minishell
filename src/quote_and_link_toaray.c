@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_and_link_toaray.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 21:26:24 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/02/17 21:26:24 by sreinhol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 int	quote_cut_counter(char *str)
@@ -50,8 +62,7 @@ char	*quote_cutter(char *str, int qusig, int qudou)
 	return (temp);
 }
 
-
-void looper_next(t_data *data, void (*f)(char *))
+void	looper_next(t_data *data, void (*f)(char *))
 {
 	if (data->cmds == NULL)
 	{
@@ -80,7 +91,7 @@ void	commands_link_to_array_looper(t_data *data)
 	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
-		temp = malloc((temp_c->comandcount + 1) * sizeof(char*));
+		temp = malloc((temp_c->comandcount + 1) * sizeof(char *));
 		temp_t = temp_c->tokens;
 		i = 0;
 		while (temp_t != NULL)
@@ -95,4 +106,3 @@ void	commands_link_to_array_looper(t_data *data)
 		// free(temp);
 	}
 }
-

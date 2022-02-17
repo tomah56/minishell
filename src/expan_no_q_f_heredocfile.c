@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expan_no_q_f_heredocfile.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 21:08:46 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/02/17 21:08:46 by sreinhol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 static int	no_size_dollar_point(char **str, t_data *data)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (**str == '$')
@@ -26,11 +38,11 @@ static int	no_size_dollar_point(char **str, t_data *data)
 	return (len);
 }
 
-static char *no_next_part(char **str, t_data *data)
+static char	*no_next_part(char **str, t_data *data)
 {
-	char *buf;
-	char *temp;
-	int len;
+	char	*buf;
+	char	*temp;
+	int		len;
 
 	temp = *str;
 	len = no_size_dollar_point(str, data);
@@ -42,7 +54,6 @@ static char *no_next_part(char **str, t_data *data)
 		buf = ft_substr(temp, 0, len);
 	return (buf);
 }
-
 
 char	*no_expand_next_part_no(char *str, t_data *data)
 {

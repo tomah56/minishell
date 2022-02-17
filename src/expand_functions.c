@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 21:09:07 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/02/17 21:09:07 by sreinhol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*expand_clean_dollar(char *str, t_data *data)
@@ -5,21 +17,20 @@ char	*expand_clean_dollar(char *str, t_data *data)
 	char	*temp;
 	int		i;
 	int		j;
-	int		size;
 
 	i = 0;
 	if (str == NULL)
 		return (NULL);
 	while (data->environ[i] != NULL)
 	{	
-		size = ft_strlen(str);
-		if (!ft_strncmp(data->environ[i], str + 1, size - 1) && data->environ[i][size - 1] == '=')
+		if (!ft_strncmp(data->environ[i], str + 1, ft_strlen(str) - 1)
+			&& data->environ[i][ft_strlen(str) - 1] == '=')
 		{
-			temp = malloc(ft_strlen(data->environ[i]) - size + 1);
-			j = size - 1;
+			temp = malloc(ft_strlen(data->environ[i]) - ft_strlen(str) + 1);
+			j = ft_strlen(str) - 1;
 			while (data->environ[i][j++] != '\0')
-				temp[j - size] = data->environ[i][j];
-			temp[j - size] = '\0';
+				temp[j - ft_strlen(str)] = data->environ[i][j];
+			temp[j - ft_strlen(str)] = '\0';
 			free(str);
 			return (temp);
 		}
@@ -31,7 +42,7 @@ char	*expand_clean_dollar(char *str, t_data *data)
 
 static int	size_dollar_point(char **str, t_data *data)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if ((**str == '$' && data->qusingle == 0))
@@ -46,7 +57,7 @@ static int	size_dollar_point(char **str, t_data *data)
 	}
 	else
 	{
-		while ((**str != '$' && **str != '\0' )|| data->qusingle == 1)
+		while ((**str != '$' && **str != '\0' ) || data->qusingle == 1)
 		{
 			check_token_flags_li(**str, data);
 			len++;
@@ -56,15 +67,15 @@ static int	size_dollar_point(char **str, t_data *data)
 	return (len);
 }
 
-static char *next_part(char **str, t_data *data)
+static char	*next_part(char **str, t_data *data)
 {
-	char *buf;
-	char *temp;
-	int len;
+	char	*buf;
+	char	*temp;
+	int		len;
 
 	temp = *str;
 	len = size_dollar_point(str, data);
-	if (*temp == '$'&& data->qusingle == 0)
+	if (*temp == '$' && data->qusingle == 0)
 	{
 		buf = expand_clean_dollar(ft_substr(temp, 0, len), data);
 	}
@@ -72,7 +83,6 @@ static char *next_part(char **str, t_data *data)
 		buf = ft_substr(temp, 0, len);
 	return (buf);
 }
-
 
 char	*expand_next_part(char *str, t_data *data)
 {
@@ -95,7 +105,9 @@ char	*expand_next_part(char *str, t_data *data)
 				free(buf);
 			}
 			else
+			{
 				superholder = ft_strjoin(superholder, buf);
+			}
 		}
 	}
 	return (superholder);

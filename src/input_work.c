@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
 
-void check_token_flags_li(char str, t_data *data)
+void	check_token_flags_li(char str, t_data *data)
 {
 	if (str == '"' && data->qudouble == 0 && data->qusingle == 0)
 		data->qudouble = 1;
@@ -25,10 +24,10 @@ void check_token_flags_li(char str, t_data *data)
 		data->qusingle = 0;
 }
 
-static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
+static int	count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 {
-	int count;
-	
+	int	count;
+
 	count = 0;
 	while (str[i])
 	{
@@ -47,8 +46,6 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	tokdat->qusingle = 0;
 	return (count);
 }
-
-
 
 // int	input_one_array(char *str, t_tok *tokdat, int i, int j)
 // {
@@ -78,7 +75,7 @@ static int count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 // 	return (1);
 // }
 
-int is_couble(char str, char strp1)
+int	is_double(char str, char strp1)
 {
 	if ((str == '<' || str == '>') && str == strp1)
 	{
@@ -87,35 +84,37 @@ int is_couble(char str, char strp1)
 	return (0);
 }
 
-void crazy_do_it_all_at_once(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
-{
-	add_token_node_at_back(tok, create_new_token_node(
-					ft_substr(str, data->j, data->i + 1 - data->j)));
-}
+// void	crazy_do_it_all_at_once(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
+// {
+// 	add_token_node_at_back(tok, create_new_token_node(
+// 					ft_substr(str, data->j, data->i + 1 - data->j)));
+// }
 
 //input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
-	if ((ft_strchr(" <>|\0", str[data->i + 1]) != NULL || ft_strchr("<>|",
-		str[data->i]) != NULL) && data->qusingle == 0 && data->qudouble == 0)
+	if ((ft_strchr(" <>|\0", str[data->i + 1]) != NULL
+			|| ft_strchr("<>|", str[data->i])
+			!= NULL) && data->qusingle == 0 && data->qudouble == 0)
 	{
-		while ( (data->j) == 0 && str[(data->j)] == ' ')
+		while ((data->j) == 0 && str[(data->j)] == ' ')
 			(data->j)++;
-		if (is_couble(str[data->i], str[data->i + 1]))
+		if (is_double(str[data->i], str[data->i + 1]))
 			(data->i)++;
 		if (data->i + 1 - data->j != 0 && str[(data->i)] != '|')
 			add_token_node_at_back(tok, create_new_token_node(
 					ft_substr(str, data->j, data->i + 1 - data->j)));
-			// crazy_do_it_all_at_once(str, data, cmds, tok);
 		while (str[data->i + 1] == ' ')
 			(data->i)++;
 		data->j = (data->i) + 1;
 		(data->tokentotal)++;
 		(data->tokencount)++;
+		free(str);
 	}
 	if (str[(data->i) + 1] == '|')
 	{
-		add_cmds_node_at_back(cmds, create_new_cmds_node(*tok, data->tokencount));
+		add_cmds_node_at_back(cmds, create_new_cmds_node
+			(*tok, data->tokencount));
 		*tok = NULL;
 		data->tokencount = 0;
 	}
@@ -132,8 +131,6 @@ void	input_one_lilist(char *str, t_data *data)
 	data->tokencount = 0;
 	while (str[data->i])
 	{
-		// while (str[data->j] == ' ')
-		// 	(data->j)++;
 		check_token_flags_li(str[data->i], data);
 		inp_o_li_norm_cut(str, data, &cmds, &tok);
 		(data->i)++;
@@ -141,6 +138,5 @@ void	input_one_lilist(char *str, t_data *data)
 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok, data->tokencount));
 	if (data->qudouble == 1 || data->qusingle == 1) //handeling unclosed qutation marks as it was undefined behaviout in the pdf
 		write(1, "error: input\n", 13);
-	
 	data->cmds = cmds;
 }
