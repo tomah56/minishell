@@ -98,8 +98,8 @@ void	make_routine(t_data *data, char *temp)
 	data->j = 0;
 	data->k = 0;
 	input_one_lilist(temp, data);
-	printf("HERE\n");
 	link_expand_looper(data);
+	printf("HERE\n");
 	bypass_juntion(data);
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
@@ -150,6 +150,5 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_3array(&data.environ);
 	data.environ = NULL;
 	free_struct(&data);
-	system("leaks minishelll");
 	return (0);
 }

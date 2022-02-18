@@ -9,7 +9,7 @@ struct node {
 
 typedef struct node node_t;
 
-void printlist(node_t *head) 
+void	printlist(node_t *head) 
 {
 	node_t *temp = head;
 
@@ -21,9 +21,12 @@ void printlist(node_t *head)
 	printf("\n");
 }
 
-node_t *create_new_node(int value)  //create a function allocates the new items
+//create a function allocates the new items
+node_t	*create_new_node(int value)
 {
-	node_t *result = malloc(sizeof(node_t));
+	node_t	*result;
+
+	result = malloc(sizeof(node_t));
 	result -> value = value;
 	result -> next = NULL;
 	result -> prev = NULL;
@@ -38,23 +41,25 @@ node_t *create_new_node(int value)  //create a function allocates the new items
 // 	return (node_to_insert);
 // }
 //usign double pointer we can change the value inside the function
-node_t *inster_at_head(node_t **head, node_t *node_to_insert)
+node_t	*inster_at_head(node_t **head, node_t *node_to_insert)
 {
 	node_to_insert -> next = *head;
 	if (*head != NULL)
-		(*head) -> prev = node_to_insert;
+		(*head)-> prev = node_to_insert;
 	*head = node_to_insert;
 	node_to_insert -> prev = NULL;
 	return (node_to_insert);
 }
 
-node_t *find_node(node_t *head, int value)
+node_t	*find_node(node_t *head, int value)
 {
-	node_t *tmp = head;
+	node_t	*tmp;
+
+	tmp = head;
 	while (tmp != NULL)
 	{
 		if (tmp -> value == value)
-			return tmp;
+			return (tmp);
 		tmp = tmp -> next;
 	}
 	return NULL;
@@ -62,7 +67,7 @@ node_t *find_node(node_t *head, int value)
 
 // inserting in middle
 
-void insert_after_node(node_t *node_to_insert_after, node_t *newnode)
+void	insert_after_node(node_t *node_to_insert_after, node_t *newnode)
 {
 	newnode -> next = node_to_insert_after-> next;
 	if (newnode -> next != NULL)
@@ -73,17 +78,17 @@ void insert_after_node(node_t *node_to_insert_after, node_t *newnode)
 	node_to_insert_after -> next = newnode;
 }
 
-void	remove_node(node_t **head, node_t *node_to_remove) 
+void	remove_node(node_t **head, node_t *node_to_remove)
 {
 	if (*head == node_to_remove)
 	{
 		*head = node_to_remove -> next;
 		if (*head != NULL)
 		{
-			(*head) -> prev = NULL;
+			(*head)-> prev = NULL;
 		}
-		(*head) -> prev = NULL;
-		return;
+		(*head)-> prev = NULL;
+		return ;
 	}
 	else
 	{
@@ -105,7 +110,7 @@ void	remove_node(node_t **head, node_t *node_to_remove)
 		// temp -> next = node_to_remove -> next;
 		// node_to_remove -> next = NULL;
 	}
-	return;
+	return ;
 }
 
 

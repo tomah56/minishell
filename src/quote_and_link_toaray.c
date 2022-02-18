@@ -97,12 +97,22 @@ void	commands_link_to_array_looper(t_data *data)
 		while (temp_t != NULL)
 		{
 			temp[i] = temp_t->content;
+			// printf(">>>> %s\n", temp_t->content);
 			temp_t = temp_t->next;
 			i++;
 		}
 		temp[i] = NULL;
 		temp_c->commands = temp;
 		temp_c = temp_c->next;
-		// free(temp);
+		// ft_free_array(temp);
+		// ft_free_3array(&temp);
 	}
+	// ft_free_array(temp);
+	// ft_free_3array(&temp);
+	// i = 0;
+	// while (temp[i])
+	// {
+	// 	printf("%s\n", temp[i]);
+	// 	i++;
+	// }
 }

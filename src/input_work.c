@@ -102,14 +102,16 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		if (is_double(str[data->i], str[data->i + 1]))
 			(data->i)++;
 		if (data->i + 1 - data->j != 0 && str[(data->i)] != '|')
+		{
 			add_token_node_at_back(tok, create_new_token_node(
 					ft_substr(str, data->j, data->i + 1 - data->j)));
+			// free(str);
+		}
 		while (str[data->i + 1] == ' ')
 			(data->i)++;
 		data->j = (data->i) + 1;
 		(data->tokentotal)++;
 		(data->tokencount)++;
-		free(str);
 	}
 	if (str[(data->i) + 1] == '|')
 	{
@@ -118,6 +120,7 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		*tok = NULL;
 		data->tokencount = 0;
 	}
+	// free(str);
 }
 
 void	input_one_lilist(char *str, t_data *data)

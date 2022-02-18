@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/17 21:19:21 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/17 22:12:37 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	here_doc(char *stop, t_data *data, char *name)
 		return (-1); // bash: syntax error near unexpected token `newline'
 	}
 	fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0777);
+	free(name);
 	if (fd == FAILED)
 	{
 		write(2, "ERROR\n", 6); // temperarrly
