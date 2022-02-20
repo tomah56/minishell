@@ -5,116 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 18:08:12 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/12 23:47:43 by sreinhol         ###   ########.fr       */
+/*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/02/20 23:46:09 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	pipes(t_data *data, int flag, t_cmds *temp_c)
-{
-	if (flag == FIRST)
-		data->pipefd[READ] = temp_c->infile;
-	// if (flag != FIRST)
-	data->childfd[READ] = data->pipefd[READ];
-	if (!(flag == LAST))
-	{
-		pipe(data->pipefd);
-		write(2, "HERE\n", 5);
-	}
-	else
-	{
-		data->pipefd[WRITE] = temp_c->outfile;
-		data->pipefd[READ] = temp_c->infile;
-		write(2, "HoHo\n", 5);
-	}
-	// data->pipefd[WRITE] = temp_c->outfile;
-	data->childfd[WRITE] = data->pipefd[WRITE];
-}
-
-void	process_creator(t_data *data, t_cmds *temp_c, int flag)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == FAILED)
-		msg_exit(data, "fork process creator Error\n");
-	if (pid == CHILD)
-	{
-		write(2, "44\n", 3);
-		close(data->pipefd[READ]);
-		if (dup2(data->childfd[WRITE], STDOUT_FILENO) == FAILED
-			|| dup2(data->childfd[READ], STDIN_FILENO) == FAILED)
-		{
-			write(2, "MINI\n", 5);
-			exit(EXIT_FAILURE);
-		}
-		// if (flag != LAST)
-		// {
-		// 	if (dup2(data->childfd[WRITE], temp_c->outfile) == FAILED
-		// 		|| dup2(data->childfd[READ], temp_c->infile) == FAILED)
-		// 	{
-		// 		write(2, "MINI\n", 5);
-		// 		exit(EXIT_FAILURE);
-		// 	}
-		// }
-		// else
-		// {
-		// 	if (dup2(data->childfd[WRITE], temp_c->outfile) == FAILED
-		// 		|| dup2(data->childfd[READ], temp_c->infile) == FAILED)
-		// 	{
-		// 		write(2, "MINI\n", 5);
-		// 		exit(EXIT_FAILURE);
-		// 	}
-		// }
-		close(data->childfd[WRITE]);
-		close(data->childfd[READ]);
-		execute_cmd(data, temp_c);
-		// close(data->pipefd[WRITE]);
-	}
-	else
-	{
-		wait(0);
-		write(2, "XX\n", 3);
-		close(data->childfd[WRITE]);
-		close(data->childfd[READ]);
-	}
-}
-
-void	execute_cmd(t_data *data, t_cmds *temp_c)
-{
-	char	**command;
-	char	*path;
-	int		i;
-
-	i = 0;
-	// write(2, "35\n", 3);
-	command = malloc((count_tokens(temp_c) + 1) * sizeof(char *));
-	while (temp_c->commands[i])
-	{
-		command[i] = temp_c->commands[i];
-		i++;
-	}
-	i = 0;
-	write(2, "YO\n", 3);
-	while (data->paths[i])
-	{
-		path = ft_strjoin(data->paths[i], "/");
-		path = ft_strjoin(path, command[0]);
-		if (access(path, F_OK) == SUCCESS)
-		{
-			write(2, "SHIT\n", 5);
-			if (execve(path, &command[0], data->environ) == FAILED)
-				msg_exit(data, "execve Error\n");
-		}
-		i++;
-		free(path);
-	}
-	free(path);
-	// ft_free_array(command);
-	msg_exit(data, "Command not found\n");
-}
 
 void	ft_wait(t_data *data)
 {
@@ -127,122 +23,160 @@ void	ft_wait(t_data *data)
 		ret = wait(&wait_child);
 		if (ret == -1)
 			break ;
-		if (WIFEXITED(wait_child))
-			g_exit = WEXITSTATUS(wait_child);
-		// else if (WIFSIGNALED(wait_child))
-		// 	wait_signal(wait_child);
+		else if (ret == data->pid)
+		{
+			if (WIFEXITED(wait_child))
+				g_exit = WEXITSTATUS(wait_child);
+		}
 	}
 }
 
-void	execute(t_data	*data)
+void	execute(t_data *data)
 {
 	t_cmds	*temp_c;
-	// char	**command;
+
 	temp_c = data->cmds;
-	// command = temp_c->commands;
-	// printf(">>>>  %s\n", command[0]);
-	// printf(">>>>  %s\n", command[1]);
-	// temp_c = temp_c->next;
-	// printf(">>>>  %s\n", temp_c->commands[0]);
-	// printf(">>>>  %s\n", temp_c->commands[1]);
-	// write(2, "66\n", 3);
-	pipes(data, FIRST, temp_c);
-	process_creator(data, temp_c, FIRST);
-	temp_c = temp_c->next;
+	data->actual = data->cmds;
 	while (temp_c->next != NULL)
 	{
-		write(2, "66\n", 3);
-		pipes(data, MIDDLE, temp_c);
+		if (temp_c->heredoc != -10)
+			temp_c->infile = temp_c->heredoc;
 		process_creator(data, temp_c, MIDDLE);
 		temp_c = temp_c->next;
+		data->actual = temp_c;
 	}
-	write(2, "99\n", 3);
-	pipes(data, LAST, temp_c);
 	process_creator(data, temp_c, LAST);
 	ft_wait(data);
-	write(2, "88\n", 3);
+	free_struct(data);
 	// while (wait(NULL) != FAILED)
 	// 	continue ;
 	//free function or in main 
 }
-// void	execute_cmd(t_data *data, t_cmds *temp_c)
-// {
-// 	char	**command;
-// 	char	**paths_cmd;
-// 	char	*path;
-// 	int		i;
 
-// 	command = ft_split(*temp_c->commands, ' ');
-// 	paths_cmd = save_paths(data,);
-// 	i = 0;
-// 	while (paths_cmd[i])
+void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
+{
+	if (dup2(fd[READ], data->save_fd) == FAILED)
+		dup_exit(data, "2dup error ");
+	close(fd[WRITE]);
+	close(fd[READ]);
+	if (temp_c->infile != STDIN_FILENO)
+		close(temp_c->infile);
+	if (temp_c->outfile != STDOUT_FILENO)
+		close(temp_c->outfile);
+	close(STDOUT_FILENO);
+	if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
+		dup_exit(data, "4dup error ");
+	if (temp_c->next == NULL)
+	{
+		if (data->save_fd != STDIN_FILENO)
+			close(data->save_fd);
+	}
+}
+
+// void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
+// {
+// 	if (dup2(fd[READ], data->save_fd) == FAILED)
+// 		dup_exit(data, "2dup error ");
+// 	close(fd[WRITE]);
+// 	close(fd[READ]);
+// 	close(temp_c->infile);
+// 	close(temp_c->outfile);
+// 	close(STDOUT_FILENO);
+// 	write(2, "XX\n", 3);
+// 	if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
+// 		dup_exit(data, "4dup error ");
+// 	if (temp_c->next == NULL)
 // 	{
-// 		path = ft_strjoin(paths_cmd[i], "/");
-// 		path = ft_strjoin(path, command[0]);
-// 		if (access(path, F_OK) == SUCCESS)
-// 		{
-// 			if (execve(path, &command[0], data->environ) == FAILED)
-// 				msg_exit(data, "execve Error\n");
-// 		}
-// 		i++;
-// 		free(path);
+// 		write(2, "99\n", 3);
+// 		if (data->save_fd != STDIN_FILENO)
+// 			close(data->save_fd);
 // 	}
-// 	free(path);
-// 	ft_free_array(command);
-// 	msg_exit(data, "Command not found\n");
+// 	write(2, "11\n", 3);
 // }
 
-// void	execute(t_data	*data)
-// {
-// 	t_cmds	*temp_c;
+void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
+{
+	char	**command;
+	char	*path;
 
-// 	temp_c = data->cmds;
-// 	pipes(data, FIRST, temp_c);
-// 	process_creator(data, temp_c);
-// 	printlist_c(temp_c);
-// 	temp_c = temp_c->next;
-// 	while (temp_c != NULL)
-// 	{
-// 		printlist_c(temp_c);
-// 		pipes(data, MIDDLE, temp_c);
-// 		temp_c = temp_c->next;
-// 	}
-// 	// printf("HELLO\n");
-// 	pipes(data, LAST, temp_c);
-// 	process_creator(data, temp_c);
-// 	while (wait(NULL) != FAILED)
-// 		continue ;
-// 	//free function or in main 
-// }
+	if (temp_c->builtin == true)
+	{
+		execute_builtin(data, temp_c);
+		close(temp_c->infile);
+		close(temp_c->outfile);
+		exit(g_exit);
+	}
+	else
+	{
+		save_paths(data);
+		command = malloc((count_tokens(temp_c) + 1) * sizeof(char *));
+		while (temp_c->commands[i])
+		{
+			command[i] = temp_c->commands[i];
+			i++;
+		}
+		i = 0;
+		while (data->paths[i])
+		{
+			path = ft_strjoin(data->paths[i], "/");
+			path = ft_strjoin(path, command[0]);
+			if (access(path, F_OK) == SUCCESS)
+			{
+				if (execve(path, &command[0], data->environ) == FAILED)
+					msg_exit(data, "execve Error\n");
+			}
+			i++;
+			free(path);
+		}
+		path = NULL;
+		msg_exit(data, "Command not found\n");
+	}
+}
 
-// void	execute_one_cmd(t_data *data)
-// {
-// 	int		i;
-// 	char	*path;
-// 	char	**command;
+void	process_creator(t_data *data, t_cmds *temp_c, int flag)
+{
+	int	fd[2];
 
-// 	i = 0;
-// 	command = malloc((count_tokens(data->cmds) + 1) * sizeof(char *));
-// 	while (data->cmds->commands[i])
-// 	{
-// 		command[i] = data->cmds->commands[i];
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (data->paths[i])
-// 	{
-// 		path = ft_strjoin(data->paths[i], "/");
-// 		path = ft_strjoin(path, command[0]);
-// 		if (access(path, F_OK) == 0)
-// 		{
-// 			if (execve(path, &command[0], data->environ) == FAILED)
-// 				msg_exit(data, "execve error");
-// 		}
-// 		i++;
-// 		free(path);
-// 	}
-// 	write(2, "Command not found\n", 18);
-// 	free(path);
-// }
-
-//function that checks for builtins
+	if (temp_c->infile != STDIN_FILENO)
+	{
+		if (dup2(temp_c->infile, data->save_fd) == FAILED)
+			dup_exit(data, "5dup error ");
+	}
+	if (temp_c->builtin == true && flag == LAST && data->tokencount == 1)
+	{
+		execute_builtin(data, temp_c);
+		return ;
+	}
+	if (pipe(fd) == FAILED)
+		msg_exit(data, "pipe error\n");
+	data->pid = fork();
+	if (data->pid == FAILED)
+		msg_exit(data, "fork error\n");
+	if (data->pid == CHILD)
+	{
+		close(fd[READ]);
+		if (dup2(data->save_fd, STDIN_FILENO) == FAILED)
+			dup_exit(data, "6dup error ");
+		if (flag == LAST)
+		{
+			if (dup2(temp_c->outfile, STDOUT_FILENO) == FAILED)
+				dup_exit(data, "7dup error ");
+			close(fd[WRITE]);
+		}
+		else
+		{
+			if (dup2(fd[WRITE], STDOUT_FILENO) == FAILED)
+				dup_exit(data, "8dup error ");
+		}
+		execute_cmd(data, temp_c, 0);
+		exit(g_exit);
+	}
+	close(fd[WRITE]);
+	close(fd[READ]);
+	if (temp_c->next == NULL)
+	{
+		if (data->save_fd != STDIN_FILENO)
+			close(data->save_fd);
+	}
+	// close_fds(data, temp_c, fd);
+}

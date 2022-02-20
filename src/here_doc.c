@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/17 22:12:37 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/19 20:14:58 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,60 @@ static char	*here_doc_to_string(char *stop, t_data *data)
 	return (superholder);
 }
 
-int	here_doc(char *stop, t_data *data, char *name)
+static bool	is_last_heredoc_in_cmd(t_tok **temp_t)
+{
+	int	i;
+
+	i = 0;
+	while ((*temp_t)->next != NULL)
+	{
+		if (!(ft_strncmp((*temp_t)->content, "<<", 3)))
+		{
+			while (i != 0)
+			{
+				*temp_t = (*temp_t)->prev;
+				i--;
+			}
+			return (false);
+		}
+		*temp_t = (*temp_t)->next;
+		i++;
+	}
+	while (i != 0)
+	{
+		*temp_t = (*temp_t)->prev;
+		i--;
+	}
+	return (true);
+}
+
+void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t)
 {
 	char	*temp;
 	int		size;
-	int		fd;
+	int		heredocfd[2];
 
 	if (stop == NULL)
 	{
 		write(2, "ERROR\n", 6);
-		return (-1); // bash: syntax error near unexpected token `newline'
+		return ; // bash: syntax error near unexpected token `newline'
 	}
-	fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0777);
-	free(name);
-	if (fd == FAILED)
-	{
-		write(2, "ERROR\n", 6); // temperarrly
-		return (-1);
-	}
+	if (pipe(heredocfd) == -1)
+		msg_exit(data, "pipe error\n");
 	size = ft_strlen(stop);
-	temp = readline(">"); // how is this gets inside my linked list????????
+	temp = readline(">");
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
 		temp = no_expand_next_part_no(temp, data);
-		write(fd, temp, ft_strlen(temp));
-		write(fd, "\n", 1);
+		write(heredocfd[WRITE], temp, ft_strlen(temp));
+		write(heredocfd[WRITE], "\n", 1);
 		temp = readline(">");
 	}
-	// close(fd); closing somwhere in the end....
-	return (fd);
+	close(heredocfd[WRITE]);
+	if (is_last_heredoc_in_cmd(temp_t))
+		close(heredocfd[READ]);
+	else
+		temp_c->heredoc = heredocfd[READ];
 }
 
 // heredoc scpeials

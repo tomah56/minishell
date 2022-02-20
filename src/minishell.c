@@ -99,14 +99,13 @@ void	make_routine(t_data *data, char *temp)
 	data->k = 0;
 	input_one_lilist(temp, data);
 	link_expand_looper(data);
-	printf("HERE\n");
 	bypass_juntion(data);
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
-	commands_link_to_array_looper(data); // puts the linklist to the array
+	commands_link_to_array_looper(data);
 	// printlist(&data);
-	// execute_the_ii(&data);
-	// execute(data);
+	check_for_builtins(data);
+	execute(data);
 }
 
 void	minishell(t_data	*data)
@@ -116,24 +115,23 @@ void	minishell(t_data	*data)
 	char	**exp;
 	char	*home;
 
-	temp = "not";
-	while (temp)
+	temp = NULL;
+	data->fdin = dup(STDIN_FILENO);
+	data->fdout = dup(STDOUT_FILENO);
+	if (data->fdin == FAILED || data->fdout == FAILED)
+		dup_exit(data, "dup error ");
+	while (1)
 	{
 		data->qudouble = 0;
 		data->qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
 		add_history(temp);
-		if (!ft_strncmp(temp, "exit", 5))
+		if (temp[0] == '\0')
 		{
-			free(temp);
-			temp = NULL;
 			free_struct(data);
-			ft_free_array(data->environ);
-			data->environ = NULL;
+			continue ;
 		}
-		else
-			make_routine(data, temp);
-		free_struct(data);
+		make_routine(data, temp);
 	}
 }
 
@@ -147,6 +145,8 @@ int	main(int argc, char **argv, char **envp)
 	// signal(SIGTERM, myhandler);
 	create_environment(&data, envp);
 	minishell(&data);
+	close(data.fdin);
+	close(data.fdout);
 	ft_free_3array(&data.environ);
 	data.environ = NULL;
 	free_struct(&data);

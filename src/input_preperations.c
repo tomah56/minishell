@@ -44,23 +44,22 @@ char	*l_e_loop_sequence(char *str, t_data *data)
 	return (temp);
 }
 
-static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data, char *name)
+static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
 	if (ft_strncmp((*temp_t)->content, "<<", 3))
 	{
 		(*temp_t)->content = l_e_loop_sequence((*temp_t)->content, data); // leak danger
 		*temp_t = (*temp_t)->next;
-		free(name);
 	}
 	else
 	{
-		unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
+		// unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = -1;
-		(*temp_t)->infile
-			= here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
+		(*temp_t)->infile = -1;
+		here_doc(quote_cutter((*temp_t)->content, 0, 0), data, temp_c, temp_t);
 		*temp_t = (*temp_t)->next;
 	}
 }
@@ -69,20 +68,20 @@ void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
-	char	*name;
+	// char	*name;
 
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
-		name = hd_name_maker((unsigned long)temp_c); // one more shit to free...
+		// name = hd_name_maker((unsigned long)temp_c);
 		temp_t = temp_c->tokens;
 		while (temp_t != NULL)
 		{
 			(temp_t)->bedeleted = 0;
 			(temp_t)->infile = -1;
 			(temp_t)->outfile = -1;
-			l_e_l_norm(&temp_t, temp_c, data, name);
+			l_e_l_norm(&temp_t, temp_c, data);
 		}
 		temp_c = temp_c->next;
 	}

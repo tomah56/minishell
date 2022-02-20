@@ -80,7 +80,7 @@ char	**delete_var_env(t_data *data, char **command, int i, int j)
 	while (data->environ[j] != NULL)
 	{
 		if (ft_strncmp(data->environ[j], command[i], ft_strlen(command[i]))
-			 == 0)
+			== 0)
 		{
 			free((void *) data->environ[j]);
 			j++;

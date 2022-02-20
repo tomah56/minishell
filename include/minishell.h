@@ -70,6 +70,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;		 // stdin
 	int				outfile;	 // stdout /
+	int				heredoc;
 	int				comandcount; // number of tokens per command
 	int				heredocfile;
 	bool			builtin;
@@ -89,8 +90,10 @@ typedef struct s_data
 	int			i;
 	int			j;
 	int			k;
-	int			childfd[2];
-	int			pipefd[2];
+	int			fdin;
+	int			fdout;
+	int			save_fd;
+	int			pid;
 	char		**environ;
 	char		**paths; // dont create paths at the beginning just right before execve, bc path can be changed!
 }	t_data;
@@ -125,7 +128,7 @@ void	link_expand_looper(t_data *data);
 char	*no_expand_next_part_no(char *str, t_data *data);
 
 // here_doc
-int		here_doc(char *stop, t_data *data, char *name);
+void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t);
 
 // redirections
 void	bypass_juntion(t_data *data);
@@ -156,6 +159,9 @@ void	save_paths(t_data *data);
 
 //error + free
 void	msg_exit(t_data *data, char *msg);
+void	error_msg(char *msg);
+void	error_msg_no(char *msg);
+void	dup_exit(t_data *data, char *msg);
 void	free_struct(t_data *data);
 void	free_cmds_struct(t_cmds **cmds);
 void	free_token_struct(t_tok **token);
@@ -179,11 +185,12 @@ char	**delete_var_env(t_data *data, char **command, int i, int j);
 void	builtin_exit(t_data *data);
 void	builtin_echo(t_data *data);
 void	check_for_builtins(t_data *data);
-void	execute_builtin(t_data *data);
+void	builtins(t_data *data, t_cmds *cmds, int flag);
+void	execute_builtin(t_data *data, t_cmds *cmds);
 
 // execution
 void	execute(t_data *data);
-void	execute_cmd(t_data *data, t_cmds *temp_c);
+void	execute_cmd(t_data *data, t_cmds *temp_c, int i);
 void	process_creator(t_data *data, t_cmds *temp_c, int flag);
 void	pipes(t_data *data, int flag, t_cmds *temp_c);
 void	execute_one_cmd(t_data *data);

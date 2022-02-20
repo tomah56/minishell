@@ -39,20 +39,20 @@ void	check_for_builtins(t_data *data)
 	}
 }
 
-void	execute_builtin(t_data *data)
+void	execute_builtin(t_data *data, t_cmds *cmds)
 {
-	if (ft_strncmp(data->cmds->commands[0], "cd", 3) == SUCCESS)
+	if (ft_strncmp(cmds->commands[0], "cd", 3) == SUCCESS)
 		builtin_cd(data);
-	else if (ft_strncmp(data->cmds->commands[0], "echo", 5) == SUCCESS)
+	else if (ft_strncmp(cmds->commands[0], "echo", 5) == SUCCESS)
 		builtin_echo(data);
-	else if (ft_strncmp(data->cmds->commands[0], "env", 4) == SUCCESS)
+	else if (ft_strncmp(cmds->commands[0], "env", 4) == SUCCESS)
 		builtin_env(data);
-	else if (ft_strncmp(data->cmds->commands[0], "exit", 5) == SUCCESS)
+	else if (ft_strncmp(cmds->commands[0], "exit", 5) == SUCCESS)
 		builtin_exit(data);
-	else if (ft_strncmp(data->cmds->commands[0], "export", 7) == SUCCESS)
+	else if (ft_strncmp(cmds->commands[0], "export", 7) == SUCCESS)
 		builtin_export(data);
-	else if (ft_strncmp(data->cmds->commands[0], "pwd", 4) == SUCCESS)
+	else if (ft_strncmp(cmds->commands[0], "pwd", 4) == SUCCESS)
 		builtin_pwd(data);
-	else if (ft_strncmp(data->cmds->commands[0], "unset", 6) == SUCCESS)
+	else if (ft_strncmp(cmds->commands[0], "unset", 6) == SUCCESS)
 		builtin_unset(data);
 }
