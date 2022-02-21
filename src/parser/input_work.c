@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	check_token_flags_li(char str, t_data *data)
 {
@@ -47,34 +47,6 @@ static int	count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	return (count);
 }
 
-// int	input_one_array(char *str, t_tok *tokdat, int i, int j)
-// {
-// 	int	k;
-
-// 	k = -1;
-// 	tokdat->tokencount = count_my_tokens(str, tokdat, 0, 0);
-// 	tokdat->tokensfull = malloc((tokdat->tokencount + 2) * sizeof(char *)); // version array
-// 	if (tokdat->tokensfull == NULL)
-// 		return (0);
-// 	while (str[i])
-// 	{
-// 		// check_token_flags_li(str[i], tokdat);
-// 		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
-// 			&& tokdat->qudouble == 0 )
-// 		{
-// 			tokdat->tokensfull[++k] = ft_substr(str, j, i + 1 - j); //save the tokens acordingly
-
-// 			while (str[i + 1] == ' ')
-// 				i++;
-// 			j = i + 1;
-// 		}
-// 		i++;
-// 	}
-// 	tokdat->tokensfull[++k] = NULL;
-// 	input_two(tokdat);
-// 	return (1);
-// }
-
 int	is_double(char str, char strp1)
 {
 	if ((str == '<' || str == '>') && str == strp1)
@@ -84,13 +56,6 @@ int	is_double(char str, char strp1)
 	return (0);
 }
 
-// void	crazy_do_it_all_at_once(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
-// {
-// 	add_token_node_at_back(tok, create_new_token_node(
-// 					ft_substr(str, data->j, data->i + 1 - data->j)));
-// }
-
-//input_one_lilist_norm_cut_point
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
 	if ((ft_strchr(" <>|\0", str[data->i + 1]) != NULL

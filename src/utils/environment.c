@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 // saves all environment variables
 void	create_environment(t_data *data, char **env)
@@ -62,27 +62,3 @@ void	save_paths(t_data *data)
 	if (!data->paths)
 		msg_exit(data, "malloc error");
 }
-
-// char	**save_paths(t_data *data)
-// {
-// 	char	*path_envp;
-// 	char	**paths;
-// 	// int		i;
-
-// 	paths = NULL;
-// 	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
-// 		++data->environ;
-// 	if (*data->environ == NULL)
-// 		msg_exit(data, "error");
-// 	path_envp = (*data->environ + 5);
-// 	paths = ft_split(path_envp, ':');
-// 	// i = 0;
-// 	// while (data->paths[i])
-// 	// {
-// 	// 	printf("paths = %s\n", data->paths[i]);
-// 	// 	i++;
-// 	// }
-// 	if (!paths)
-// 		msg_exit(data, "malloc error");
-// 	return (paths);
-// }

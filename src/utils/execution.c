@@ -6,11 +6,11 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/20 23:46:09 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:19:14 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_wait(t_data *data)
 {
@@ -48,9 +48,6 @@ void	execute(t_data *data)
 	process_creator(data, temp_c, LAST);
 	ft_wait(data);
 	free_struct(data);
-	// while (wait(NULL) != FAILED)
-	// 	continue ;
-	//free function or in main 
 }
 
 void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
@@ -72,27 +69,6 @@ void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
 			close(data->save_fd);
 	}
 }
-
-// void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
-// {
-// 	if (dup2(fd[READ], data->save_fd) == FAILED)
-// 		dup_exit(data, "2dup error ");
-// 	close(fd[WRITE]);
-// 	close(fd[READ]);
-// 	close(temp_c->infile);
-// 	close(temp_c->outfile);
-// 	close(STDOUT_FILENO);
-// 	write(2, "XX\n", 3);
-// 	if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
-// 		dup_exit(data, "4dup error ");
-// 	if (temp_c->next == NULL)
-// 	{
-// 		write(2, "99\n", 3);
-// 		if (data->save_fd != STDIN_FILENO)
-// 			close(data->save_fd);
-// 	}
-// 	write(2, "11\n", 3);
-// }
 
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 {
@@ -178,5 +154,4 @@ void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 		if (data->save_fd != STDIN_FILENO)
 			close(data->save_fd);
 	}
-	// close_fds(data, temp_c, fd);
 }

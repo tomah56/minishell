@@ -6,11 +6,11 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 21:07:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/18 21:07:32 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:58:57 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 {

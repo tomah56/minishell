@@ -10,29 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-static char	*hd_name_maker(long number)
-{
-	char	*base;
-	char	*temp;
-	long	num1;
-	int		i;
+// static char	*hd_name_maker(long number)
+// {
+// 	char	*base;
+// 	char	*temp;
+// 	long	num1;
+// 	int		i;
 
-	i = 0;
-	temp = malloc(10);
-	base = "0123456789abcdef";
-	num1 = number;
-	while (num1 >= 16)
-	{
-		temp[i] = base[num1 % 16];
-		num1 = num1 / 16;
-		i++;
-	}
-	temp[i] = base[num1 % 16];
-	temp[i + 1] = '\0';
-	return (temp);
-}
+// 	i = 0;
+// 	temp = malloc(10);
+// 	base = "0123456789abcdef";
+// 	num1 = number;
+// 	while (num1 >= 16)
+// 	{
+// 		temp[i] = base[num1 % 16];
+// 		num1 = num1 / 16;
+// 		i++;
+// 	}
+// 	temp[i] = base[num1 % 16];
+// 	temp[i + 1] = '\0';
+// 	return (temp);
+// }
 
 char	*l_e_loop_sequence(char *str, t_data *data)
 {

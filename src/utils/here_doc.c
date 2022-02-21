@@ -6,11 +6,11 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/19 20:14:58 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:02:17 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static void	h_doc_to_file(int fd, char *str)
 {

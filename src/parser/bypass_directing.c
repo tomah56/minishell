@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	file_opener(char *filtogo, t_data *data)
 {
@@ -43,7 +43,7 @@ static void	by_pa_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = file_opener((*temp_t)->content, data);
-		printf("inside junction outfile: %d\n", (*temp_t)->outfile);
+		// printf("inside junction outfile: %d\n", (*temp_t)->outfile);
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 2))
 	{
@@ -51,7 +51,7 @@ static void	by_pa_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->infile = file_opener((*temp_t)->content, data);
-		printf("inside junction infile: %d\n", (*temp_t)->infile);
+		// printf("inside junction infile: %d\n", (*temp_t)->infile);
 	}
 	*temp_t = (*temp_t)->next;
 }

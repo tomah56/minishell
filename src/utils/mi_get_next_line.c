@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	check_end(char (*buf)[1 + 1])
 {
@@ -95,33 +95,3 @@ char	*get_next_line(int fd)
 	}
 	return (superholder);
 }
-
-// #include <unistd.h>
-// #include <limits.h>
-// #include <stdio.h>
-// #include <fcntl.h>
-// #include <stdlib.h>
-// int main(void)
-// {
-// 	int fd;
-// 	char *temp;
-// 
-// // fd = STDIN_FILENO;
-// 	// fd = open("test.txt",  O_RDONLY);
-// 	fd = open("pu_a_operations.c",  O_RDONLY);
-// 	if (fd == -1)
-// 		printf("error opening file");
-// 
-// 	printf("result\n");
-// 	temp = get_next_line(fd);
-// while (temp != NULL)
-// {
-// 	printf("%s", temp);
-// 	free(temp);
-// 	temp = get_next_line(fd);
-// }
-// free(temp);
-// system("leaks gnltest.out");
-// 	close(fd);
-// 	return 0;
-// }

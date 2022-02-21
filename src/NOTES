@@ -1,0 +1,10 @@
+
+ToDo:
+
+- Signal D
+- Signals in Heredoc
+- in this case for example: echo 1 | > test.txt   - we delete the second command and that will result in taht we print the 1 to the screen
+but bash is not behaving like this. we have to save the information that we had another command and execute properly
+- exit status is not handeled everywhere correctly
+- $? is not handeled
+- leaks

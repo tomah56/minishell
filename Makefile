@@ -18,7 +18,8 @@ FLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
 
 SRC_DIR := ./src/
 OBJ_DIR := ./obj/
-SRC = $(SRC_DIR)*.c ./src/linked_lists/*.c ./src/builtins/*.c
+SRC = $(SRC_DIR)*.c ./src/linked_lists/*.c ./src/builtins/*.c ./src/error/*.c \
+./src/utils/*.c ./src/expander/*.c ./src/parser/*.c
 SRCWIN = $(SRC_DIR)*.c ./src/linked_lists/*.c ./src/builtins/*.c ./libs/libft/*.c
 
 OBJS := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o, $(SRC))
