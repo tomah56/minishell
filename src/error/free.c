@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:49:12 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/21 16:49:34 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/27 23:33:25 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,12 @@ void	ft_free_3array(char ***input)
 	}
 	free(*input);
 	*input = NULL;
+}
+
+void	ft_free_2array(void **to_free)
+{
+	if (*to_free == NULL)
+		return ;
+	free(*to_free);
+	*to_free = NULL;
 }

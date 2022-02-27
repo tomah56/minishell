@@ -106,6 +106,12 @@ void	make_routine(t_data *data, char *temp)
 	// printlist(&data);
 	check_for_builtins(data);
 	execute(data);
+	// int p = 0;
+	// while (data->environ[p] != NULL)
+	// {
+	// 	printf("AFTER = %s\n", data->environ[p]);
+	// 	p++;
+	// }
 }
 
 void	minishell(t_data	*data)

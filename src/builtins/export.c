@@ -28,12 +28,9 @@ void	builtin_export(t_data *data)
 		while (command[i] != NULL)
 		{
 			if (command[i][0] == '=')
-			{
-				printf("`%s'", command[i]);
-				msg_exit(data, ": not a valid identifier");
-			}
+				msg_exit(data, "not a valid identifier");
 			if (ft_strchr(command[i], '=') != NULL)
-				save_variable_in_environ(data, command);
+				save_variable_in_environ(data, command, i);
 			i++;
 		}
 	}
@@ -41,31 +38,42 @@ void	builtin_export(t_data *data)
 		msg_exit(data, "no input");
 }
 
-void	save_variable_in_environ(t_data *data, char **command)
+static void	copy_to_environ(t_data *data, char **new_environ)
+{
+	int	i;
+
+	i = 0;
+	while (new_environ[i])
+	{
+		data->environ[i] = new_environ[i];
+		i++;
+	}
+}
+
+void	save_variable_in_environ(t_data *data, char **command, int i)
 {
 	char	*var;
 	char	**new_environ;
-	int		i;
 	int		len;
+	int		j;
 
 	len = 0;
-	i = 0;
 	while (data->environ[len])
 		len++;
 	var = ft_substr(command[i], 0, ft_strlen(command[i]));
 	new_environ = ft_calloc(len + 2, sizeof(char *));
 	if (var == NULL || new_environ == NULL)
 		msg_exit(data, "malloc error");
-	while (data->environ[i] != NULL)
+	j = 0;
+	while (data->environ[j] != NULL)
 	{
-		new_environ[i] = data->environ[i];
-		i++;
+		new_environ[j] = data->environ[j];
+		j++;
 	}
-	new_environ[i] = ft_strdup(var);
-	new_environ[i + 1] = NULL;
-	ft_free_array(data->environ);
-	data->environ = new_environ;
+	new_environ[j] = ft_strdup(var);
+	new_environ[j + 1] = NULL;
 	free(var);
+	copy_to_environ(data, new_environ);
 	g_exit = 0;
 }
 
@@ -96,55 +104,4 @@ char	**sort_env(char **env)
 		i++;
 	}
 	return (env);
-}
-
-void	export_only(t_data *data)
-{
-	char	**exp;
-	int		i;
-
-	if (data->environ[0] == NULL)
-		return ;
-	else
-	{
-		exp = ft_calloc(ft_strlen_double(data->environ) + 1, sizeof(char *));
-		if (exp == NULL)
-			msg_exit(data, "malloc error");
-		i = 0;
-		while (data->environ[i])
-		{
-			exp[i] = ft_strdup(data->environ[i]);
-			i++;
-		}
-		exp = sort_env(exp);
-	}
-	print_export(data, exp);
-	ft_free_array(exp);
-	g_exit = 0;
-}
-
-void	print_export(t_data *data, char **exp)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*var_name;
-	char	*var;
-
-	i = 0;
-	while (exp[i] != NULL)
-	{
-		len = ft_strlen(exp[i]);
-		j = 0;
-		while (exp[i][j] && exp[i][j] != '=')
-			j++;
-		j = j + 1;
-		var_name = ft_substr(exp[i], 0, j);
-		var = ft_substr(exp[i], j, (len - j));
-		printf("%s", var_name);
-		printf("\"%s\"\n", var);
-		free(var_name);
-		free(var);
-		i++;
-	}
 }

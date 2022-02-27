@@ -23,21 +23,18 @@ void	builtin_unset(t_data *data)
 	current_cmd = data->actual;
 	command = current_cmd->commands;
 	if (current_cmd->comandcount == 1)
-		msg_exit(data, "not enough arguments");
+		error_msg_no("not enough arguments\n");
 	else if (current_cmd->comandcount > 1)
 	{
 		while (command[i] != NULL)
 		{
 			if (ft_strchr(command[i], '=') != NULL)
-			{
-				printf("`%s'", command[i]);
-				msg_exit(data, ": not a valid identifier");
-			}
+				msg_exit(data, "not a valid identifier\n");
 			i++;
 		}
 		to_delete = check_valid_var(data, command);
 		if (to_delete != FAILED)
-			data->environ = delete_var_env(data, command, to_delete, 0);
+			delete_var_env(data, command, to_delete);
 	}
 }
 
@@ -65,31 +62,24 @@ int	check_valid_var(t_data *data, char **command)
 	return (-1);
 }
 
-char	**delete_var_env(t_data *data, char **command, int i, int j)
+void	delete_var_env(t_data *data, char **command, int i)
 {
-	char	**new_environ;
-	int		len;
-	int		k;
+	int		j;
 
-	while (data->environ[len])
-		len++;
-	k = 0;
-	new_environ = ft_calloc(len - 1, sizeof(char *));
-	if (new_environ == NULL)
-		msg_exit(data, "malloc error");
+	j = 0;
 	while (data->environ[j] != NULL)
 	{
 		if (ft_strncmp(data->environ[j], command[i], ft_strlen(command[i]))
 			== 0)
 		{
-			free((void *) data->environ[j]);
-			j++;
+			ft_free_2array((void **) &data->environ[j]);
+			while (data->environ[j + 1] != NULL)
+			{
+				data->environ[j] = data->environ[j + 1];
+				j++;
+			}
+			data->environ[j] = NULL;
 		}
-		new_environ[k] = data->environ[j];
 		j++;
-		k++;
 	}
-	new_environ[k + 1] = NULL;
-	free(data->environ);
-	return (new_environ);
 }
