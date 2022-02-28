@@ -37,3 +37,10 @@ void	dup_exit(t_data *data, char *msg)
 	perror("");
 	exit(EXIT_FAILURE);
 }
+
+void	cmd_not_found_error(t_data *data, char *msg)
+{
+	free_struct(data);
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	exit(127);
+}

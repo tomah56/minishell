@@ -50,7 +50,7 @@ void	save_paths(t_data *data)
 	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
 		++data->environ;
 	if (*data->environ == NULL)
-		msg_exit(data, "error");
+		msg_exit(data, "No such file or directory\n");
 	path_envp = (*data->environ + 5);
 	data->paths = ft_split(path_envp, ':');
 	// i = 0;
