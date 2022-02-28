@@ -74,6 +74,7 @@ typedef struct s_cmds
 	int				comandcount; // number of tokens per command
 	int				heredocfile;
 	bool			builtin;
+	char			*defpath;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -87,6 +88,7 @@ typedef struct s_data
 	int			qusingle;
 	int			tokentotal;
 	int			tokencount;
+	int			dpflag;
 	int			falg;
 	int			i;
 	int			j;

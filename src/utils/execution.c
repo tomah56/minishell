@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/27 23:47:06 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:19:14 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	execute(t_data *data)
 void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
 {
 	if (dup2(fd[READ], data->save_fd) == FAILED)
-		dup_exit(data, "dup error ");
+		dup_exit(data, "2dup error ");
 	close(fd[WRITE]);
 	close(fd[READ]);
 	if (temp_c->infile != STDIN_FILENO)
@@ -62,7 +62,7 @@ void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
 		close(temp_c->outfile);
 	close(STDOUT_FILENO);
 	if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
-		dup_exit(data, "dup error ");
+		dup_exit(data, "4dup error ");
 	if (temp_c->next == NULL)
 	{
 		if (data->save_fd != STDIN_FILENO)
@@ -92,20 +92,32 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 			i++;
 		}
 		i = 0;
-		while (data->paths[i])
+		if (data->dpflag == 0)
 		{
-			path = ft_strjoin(data->paths[i], "/");
-			path = ft_strjoin(path, command[0]);
+			while (data->paths[i])
+			{
+				path = ft_strjoin(data->paths[i], "/");
+				path = ft_strjoin(path, command[0]);
+				if (access(path, F_OK) == SUCCESS)
+				{
+					if (execve(path, &command[0], data->environ) == FAILED)
+						msg_exit(data, "execve Error\n");
+				}
+				i++;
+				free(path);
+			}
+			path = NULL;
+		}
+		else
+		{
+			path = temp_c->defpath;
 			if (access(path, F_OK) == SUCCESS)
 			{
 				if (execve(path, &command[0], data->environ) == FAILED)
-					msg_exit(data, "execve Error\n");
+					msg_exit(data, "execve Error 2\n");
 			}
-			i++;
-			free(path);
 		}
-		path = NULL;
-		cmd_not_found_error(data, "Command not found\n");
+		msg_exit(data, "Command not found\n");
 	}
 }
 
@@ -116,9 +128,9 @@ void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 	if (temp_c->infile != STDIN_FILENO)
 	{
 		if (dup2(temp_c->infile, data->save_fd) == FAILED)
-			dup_exit(data, "dup error ");
+			dup_exit(data, "5dup error ");
 	}
-	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1) //&& data->tokencount == 1
+	if (temp_c->builtin == true && flag == LAST && data->tokencount == 1)
 	{
 		execute_builtin(data, temp_c);
 		return ;
@@ -132,17 +144,17 @@ void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 	{
 		close(fd[READ]);
 		if (dup2(data->save_fd, STDIN_FILENO) == FAILED)
-			dup_exit(data, "dup error ");
+			dup_exit(data, "6dup error ");
 		if (flag == LAST)
 		{
 			if (dup2(temp_c->outfile, STDOUT_FILENO) == FAILED)
-				dup_exit(data, "dup error ");
+				dup_exit(data, "7dup error ");
 			close(fd[WRITE]);
 		}
 		else
 		{
 			if (dup2(fd[WRITE], STDOUT_FILENO) == FAILED)
-				dup_exit(data, "dup error ");
+				dup_exit(data, "8dup error ");
 		}
 		execute_cmd(data, temp_c, 0);
 		exit(g_exit);

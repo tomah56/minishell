@@ -97,9 +97,11 @@ void	bypass_juntion(t_data *data)
 
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
+	data->dpflag = 0;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
+		temp_c->defpath = NULL;
 		while (temp_t != NULL)
 		{
 			by_pa_norm(&temp_t, temp_c, data);
