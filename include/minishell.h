@@ -70,7 +70,7 @@ typedef struct s_cmds
 	t_tok			*tokens;
 	int				infile;		 // stdin
 	int				outfile;	 // stdout /
-	int				heredoc;
+	int				heredoc; //-10 its not a herdoc
 	int				comandcount; // number of tokens per command
 	int				heredocfile;
 	bool			builtin;
@@ -87,6 +87,7 @@ typedef struct s_data
 	int			qusingle;
 	int			tokentotal;
 	int			tokencount;
+	int			falg;
 	int			i;
 	int			j;
 	int			k;

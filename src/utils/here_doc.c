@@ -91,12 +91,16 @@ void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t)
 		msg_exit(data, "pipe error\n");
 	size = ft_strlen(stop);
 	temp = readline(">");
+	if (temp == NULL)
+		return ;
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
 		temp = no_expand_next_part_no(temp, data);
 		write(heredocfd[WRITE], temp, ft_strlen(temp));
 		write(heredocfd[WRITE], "\n", 1);
 		temp = readline(">");
+		if (temp == NULL)
+			return ;
 	}
 	close(heredocfd[WRITE]);
 	if (is_last_heredoc_in_cmd(temp_t))

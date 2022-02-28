@@ -97,15 +97,17 @@ void	make_routine(t_data *data, char *temp)
 	data->i = 0;
 	data->j = 0;
 	data->k = 0;
+	data->falg = 1;
 	input_one_lilist(temp, data);
 	link_expand_looper(data);
+	// printlist(data);
 	bypass_juntion(data);
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
 	commands_link_to_array_looper(data);
-	// printlist(&data);
 	check_for_builtins(data);
-	execute(data);
+	if (data->falg == 1)
+		execute(data);
 }
 
 void	minishell(t_data	*data)
@@ -125,6 +127,13 @@ void	minishell(t_data	*data)
 		data->qudouble = 0;
 		data->qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
+		if (temp == NULL)
+		{
+			write(2, "\x1b[1A", 4);
+			write(2, "\x1b[19C", 5);
+			write(2, " exit\n", 6);
+			exit(EXIT_SUCCESS);
+		}
 		add_history(temp);
 		if (temp[0] == '\0')
 		{

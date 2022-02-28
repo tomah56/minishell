@@ -18,7 +18,10 @@ static t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 
 	temp_t = NULL;
 	if (count_commands(data) == 1)
-		exit(EXIT_SUCCESS);
+	{
+		data->falg = 0;
+		return (NULL); // possible segfoults when dlete in the end.
+	}
 	remove_node_c(&data->cmds, temp_c);
 	return (temp_t);
 }

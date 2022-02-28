@@ -75,7 +75,7 @@ static char	*next_part(char **str, t_data *data)
 
 	temp = *str;
 	len = size_dollar_point(str, data);
-	if (*temp == '$' && data->qusingle == 0)
+	if (*temp == '$' && data->qusingle == 0 && len > 1)
 	{
 		buf = expand_clean_dollar(ft_substr(temp, 0, len), data);
 	}
