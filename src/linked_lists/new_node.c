@@ -22,8 +22,8 @@ t_cmds	*create_new_cmds_node(t_tok *tokdat, int count)
 	list->tokens = tokdat;
 	list->next = NULL;
 	list->prev = NULL;
-	list->infile = STDIN_FILENO;
-	list->outfile = STDOUT_FILENO;
+	// list->infile = STDIN_FILENO;
+	// list->outfile = STDOUT_FILENO;
 	list->commands = NULL;
 	list->heredoc = -10;
 	list->comandcount = count;

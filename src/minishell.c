@@ -42,6 +42,7 @@ void printlist(t_data *data)
 		temp_t = temp_c->tokens;
 		printf("CMDS %d  number of tokens: %d\n", j, count_tokens(temp_c));
 		printf("infile %d  outfile: %d\n", temp_c->infile, temp_c->outfile);
+		printf("type %d  \n", temp_c->type);
 		while (temp_t != NULL)
 		{
 			printf("%s[---]", temp_t->content);
@@ -103,7 +104,7 @@ void	make_routine(t_data *data, char *temp)
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
 	commands_link_to_array_looper(data);
-	// printlist(&data);
+	// printlist(data);
 	check_for_builtins(data);
 	execute(data);
 	// int p = 0;

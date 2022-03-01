@@ -65,12 +65,14 @@ int	check_valid_var(t_data *data, char **command)
 void	delete_var_env(t_data *data, char **command, int i)
 {
 	int		j;
+	int		len;
 
 	j = 0;
+	len = ft_strlen(command[i]);
 	while (data->environ[j] != NULL)
 	{
-		if (ft_strncmp(data->environ[j], command[i], ft_strlen(command[i]))
-			== 0)
+		if (ft_strncmp(data->environ[j], command[i], len) == 0
+			&& data->environ[j][len] == '=')
 		{
 			ft_free_2array((void **) &data->environ[j]);
 			while (data->environ[j + 1] != NULL)
