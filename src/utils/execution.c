@@ -81,7 +81,7 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 	{
 		execute_builtin(data, temp_c);
 		close(temp_c->infile);
-		close(temp_c->outfile);
+		// close(temp_c->outfile);
 		exit(g_exit);
 	}
 	else
@@ -94,16 +94,29 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 			i++;
 		}
 		i = 0;
-		while (data->paths[i])
+		if (data->dpflag == 0)
 		{
-			path = ft_strjoin(data->paths[i], "/");
-			path = ft_strjoin(path, command[0]);
+			while (data->paths[i])
+			{
+				path = ft_strjoin(data->paths[i], "/");
+				path = ft_strjoin(path, command[0]);
+				if (access(path, F_OK) == SUCCESS)
+				{
+					if (execve(path, &command[0], data->environ) == FAILED)
+						msg_exit(data, "execve Error\n");
+				}
+				i++;
+				free(path);
+			}
+		}
+		else
+		{
+			path = temp_c->defpath;
 			if (access(path, F_OK) == SUCCESS)
 			{
 				if (execve(path, &command[0], data->environ) == FAILED)
-					msg_exit(data, "execve Error\n");
+					msg_exit(data, "execve Error 2\n");
 			}
-			i++;
 			free(path);
 		}
 		path = NULL;
