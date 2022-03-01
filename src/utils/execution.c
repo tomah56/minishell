@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/27 23:47:06 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/01 20:13:44 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	execute(t_data *data)
 
 	temp_c = data->cmds;
 	data->actual = data->cmds;
+	if (dup2(data->fdin, STDIN_FILENO) == FAILED)
+		dup_exit(data, "dup error ");
 	while (temp_c->next != NULL)
 	{
 		if (temp_c->heredoc != -10)
@@ -50,25 +52,25 @@ void	execute(t_data *data)
 	free_struct(data);
 }
 
-void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
-{
-	if (dup2(fd[READ], data->save_fd) == FAILED)
-		dup_exit(data, "dup error ");
-	close(fd[WRITE]);
-	close(fd[READ]);
-	if (temp_c->infile != STDIN_FILENO)
-		close(temp_c->infile);
-	if (temp_c->outfile != STDOUT_FILENO)
-		close(temp_c->outfile);
-	close(STDOUT_FILENO);
-	if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
-		dup_exit(data, "dup error ");
-	if (temp_c->next == NULL)
-	{
-		if (data->save_fd != STDIN_FILENO)
-			close(data->save_fd);
-	}
-}
+// void	close_fds(t_data *data, t_cmds *temp_c, int fd[2])
+// {
+// 	if (dup2(fd[READ], data->save_fd) == FAILED)
+// 		dup_exit(data, "dup error ");
+// 	close(fd[WRITE]);
+// 	close(fd[READ]);
+// 	if (temp_c->infile != STDIN_FILENO)
+// 		close(temp_c->infile);
+// 	if (temp_c->outfile != STDOUT_FILENO)
+// 		close(temp_c->outfile);
+// 	close(STDOUT_FILENO);
+// 	if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
+// 		dup_exit(data, "dup error ");
+// 	if (temp_c->next == NULL)
+// 	{
+// 		if (data->save_fd != STDIN_FILENO)
+// 			close(data->save_fd);
+// 	}
+// }
 
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 {
@@ -113,12 +115,16 @@ void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 {
 	int	fd[2];
 
-	if (temp_c->infile != STDIN_FILENO)
+	if (temp_c->infile != -5)
 	{
-		if (dup2(temp_c->infile, data->save_fd) == FAILED)
-			dup_exit(data, "dup error ");
+		if (dup2(temp_c->infile, data->fdin) == FAILED)
+			dup_exit(data, "1dup error ");
 	}
-	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1) //&& data->tokencount == 1
+	// if (temp_c->infile == -5)
+	// 	temp_c->infile = STDIN_FILENO;
+	// if (temp_c->outfile == -5)
+	// 	temp_c->outfile = STDOUT_FILENO;
+	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1)
 	{
 		execute_builtin(data, temp_c);
 		return ;
@@ -131,27 +137,90 @@ void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 	if (data->pid == CHILD)
 	{
 		close(fd[READ]);
-		if (dup2(data->save_fd, STDIN_FILENO) == FAILED)
-			dup_exit(data, "dup error ");
+		if (dup2(data->fdin, STDIN_FILENO) == FAILED)
+			dup_exit(data, "2dup error ");
 		if (flag == LAST)
 		{
-			if (dup2(temp_c->outfile, STDOUT_FILENO) == FAILED)
-				dup_exit(data, "dup error ");
+			if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
+				dup_exit(data, "3dup error ");
 			close(fd[WRITE]);
 		}
-		else
+		else if (temp_c->next != NULL)
 		{
 			if (dup2(fd[WRITE], STDOUT_FILENO) == FAILED)
-				dup_exit(data, "dup error ");
+				dup_exit(data, "4dup error ");
 		}
 		execute_cmd(data, temp_c, 0);
 		exit(g_exit);
 	}
 	close(fd[WRITE]);
 	close(fd[READ]);
-	if (temp_c->next == NULL)
-	{
-		if (data->save_fd != STDIN_FILENO)
-			close(data->save_fd);
-	}
+	// if (temp_c->next == NULL)
+	// {
+	// 	if (data->save_fd != STDIN_FILENO)
+	// 		close(data->save_fd);
+	// }
 }
+
+// void	process_creator(t_data *data, t_cmds *temp_c, int flag)
+// {
+// 	int	fd[2];
+
+// 	if (temp_c->infile != -5)
+// 	{
+// 		if (dup2(temp_c->infile, data->fdin) == FAILED)
+// 			dup_exit(data, "1dup error ");
+// 	}
+// 	if (temp_c->outfile != -5)
+// 	{
+// 		if (dup2(temp_c->outfile, data->fdout) == FAILED)
+// 			dup_exit(data, "1.2dup error ");
+// 	}
+// 	// if (temp_c->infile == -5)
+// 	// 	temp_c->infile = STDIN_FILENO;
+// 	// if (temp_c->outfile == -5)
+// 	// 	temp_c->outfile = STDOUT_FILENO;
+// 	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1)
+// 	{
+// 		execute_builtin(data, temp_c);
+// 		return ;
+// 	}
+// 	if (!(flag == LAST))
+// 	{
+// 		if (pipe(fd) == FAILED)
+// 			msg_exit(data, "pipe error\n");
+// 	}
+// 	data->pid = fork();
+// 	if (data->pid == FAILED)
+// 		msg_exit(data, "fork error\n");
+// 	if (data->pid == CHILD)
+// 	{
+// 		close(fd[READ]);
+// 		if (dup2(data->fdin, STDIN_FILENO) == FAILED)
+// 			dup_exit(data, "2dup error ");
+// 		if (flag == LAST)
+// 		{
+// 			if (dup2(data->fdout, STDOUT_FILENO) == FAILED)
+// 				dup_exit(data, "3dup error ");
+// 			close(data->fdin);
+// 			close(data->fdout);
+// 		}
+// 		else if (temp_c->next != NULL)
+// 		{
+// 			if (dup2(fd[WRITE], STDOUT_FILENO) == FAILED)
+// 				dup_exit(data, "4dup error ");
+// 		}
+// 		execute_cmd(data, temp_c, 0);
+// 		exit(g_exit);
+// 	}
+// 	else
+// 	{
+// 		close(data->fdin);
+// 		close(data->fdout);
+// 	}
+// 	// if (temp_c->next == NULL)
+// 	// {
+// 	// 	if (data->save_fd != STDIN_FILENO)
+// 	// 		close(data->save_fd);
+// 	// }
+// }

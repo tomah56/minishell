@@ -24,10 +24,11 @@ enum e_enum
 {
 	WORD = 1,
 	METACHAR = 2,
-	RED_IN = 3,			//  <
-	RED_OUT_TRUNC = 4,	//  >
-	HEREDOC = 5,		//  <<
-	RED_OUT_APPEND = 6, //  >>
+	RED_IN = -1,			//  <
+	RED_OUT_TRUNC = -2,	//  >
+	HEREDOC = -3,		//  <<
+	RED_OUT_APPEND = -4, //  >>
+	PIPE = -5,
 	NOQUOTE = 0,
 	QUSINGLE = 1,
 	QUDOUBLE = 2,
@@ -75,6 +76,7 @@ typedef struct s_cmds
 	int				heredocfile;
 	bool			builtin;
 	char			*defpath;
+	int				type;
 	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -95,7 +97,7 @@ typedef struct s_data
 	int			k;
 	int			fdin;
 	int			fdout;
-	int			save_fd;
+	// int			save_fd;
 	int			pid;
 	char		**environ;
 	char		**paths; // dont create paths at the beginning just right before execve, bc path can be changed!
@@ -135,6 +137,10 @@ void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t);
 
 // redirections
 void	bypass_juntion(t_data *data);
+int		bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail);
+int		red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t);
+int		red_outfile_append(t_data *data, t_cmds *temp_c, t_tok **temp_t);
+int		red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t);
 
 void	remove_linklist_file_looper(t_data *data);
 
