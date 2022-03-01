@@ -107,3 +107,23 @@ char	*expand_next_part(char *str, t_data *data)
 	}
 	return (superholder);
 }
+
+// void	save_paths(t_data *data)
+// {
+// 	char	*path_envp;
+// 	// int		i;
+
+// 	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
+// 		++data->environ;
+// 	if (*data->environ == NULL && data->dpflag == 0)
+// 		msg_exit(data, "No such file or directory\n");
+// 	if (data->dpflag == 1)
+// 		data->paths = NULL;
+// 	else
+// 	{
+// 		path_envp = (*data->environ + 5);
+// 		data->paths = ft_split(path_envp, ':');
+// 		if (!data->paths)
+// 			msg_exit(data, "malloc error");
+// 	}
+// }
