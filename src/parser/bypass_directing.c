@@ -50,9 +50,11 @@ void	bypass_juntion(t_data *data)
 	fail = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
+	data->dpflag = 0;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
+		temp_c->defpath = NULL;
 		while (temp_t != NULL)
 		{
 			fail = bypass_helper(&temp_t, temp_c, data, fail);
@@ -163,23 +165,23 @@ void	bypass_juntion(t_data *data)
 // 		*temp_t = (*temp_t)->next;
 // }
 
-void	bypass_juntion(t_data *data)
-{
-	t_tok	*temp_t;
-	t_cmds	*temp_c;
+// void	bypass_juntion(t_data *data)
+// {
+// 	t_tok	*temp_t;
+// 	t_cmds	*temp_c;
 
-	temp_t = data->cmds->tokens;
-	temp_c = data->cmds;
-	data->dpflag = 0;
-	while (temp_c != NULL)
-	{
-		temp_t = temp_c->tokens;
-		temp_c->defpath = NULL;
-		while (temp_t != NULL)
-		{
-			by_pa_norm(&temp_t, temp_c, data);
-		}
-		temp_c = temp_c->next;
-	}
-}
+// 	temp_t = data->cmds->tokens;
+// 	temp_c = data->cmds;
+// 	data->dpflag = 0;
+// 	while (temp_c != NULL)
+// 	{
+// 		temp_t = temp_c->tokens;
+// 		temp_c->defpath = NULL;
+// 		while (temp_t != NULL)
+// 		{
+// 			by_pa_norm(&temp_t, temp_c, data);
+// 		}
+// 		temp_c = temp_c->next;
+// 	}
+// }
 // }
