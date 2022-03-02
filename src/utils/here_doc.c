@@ -76,12 +76,26 @@ static bool	is_last_heredoc_in_cmd(t_tok **temp_t)
 	return (true);
 }
 
+static void	rec_sig_doc(int num)
+{
+	rl_on_new_line();
+	rl_redisplay();
+	write(2, "  \b\b", 5);
+	if (num == 2)
+	{
+		write(2, "\n", 1);
+		rl_on_new_line();
+	}
+	close(STDIN_FILENO);
+}
+
 void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t)
 {
 	char	*temp;
 	int		size;
 	int		heredocfd[2];
 
+	signal(SIGINT, rec_sig_doc);
 	if (stop == NULL)
 	{
 		write(2, "ERROR\n", 6);

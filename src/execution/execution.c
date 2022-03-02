@@ -72,11 +72,33 @@ void	execute(t_data *data)
 // 	}
 // }
 
+static void	rec_sig_execute(int num)
+{
+	if (num == 2)
+	{
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	if (num == 3)
+	{
+			rl_on_new_line();
+	rl_redisplay();
+		write(2, "\nQuit: 3\n", 9);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 {
 	char	**command;
 	char	*path;
 
+	signal(SIGQUIT, rec_sig_execute);
+	signal(SIGINT, rec_sig_execute);
 	if (temp_c->builtin == true)
 	{
 		execute_builtin(data, temp_c);

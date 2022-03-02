@@ -50,11 +50,9 @@ void	bypass_juntion(t_data *data)
 	fail = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
-	data->dpflag = 0;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
-		temp_c->defpath = NULL;
 		while (temp_t != NULL)
 		{
 			fail = bypass_helper(&temp_t, temp_c, data, fail);

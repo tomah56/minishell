@@ -128,6 +128,7 @@ char	*expand_clean_dollar(char *str, t_data *data);
 void	check_token_flags_li(char str, t_data *data);
 char	*expand_next_part(char *str, t_data *data);
 void	link_expand_looper(t_data *data);
+void	sytax_looper(t_data *data);
 
 // expand heredoc no quotes
 char	*no_expand_next_part_no(char *str, t_data *data);

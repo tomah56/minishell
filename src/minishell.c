@@ -87,10 +87,6 @@ static void	rec_sig(int num)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	// if (num == 3)
-	// 	exit(EXIT_FAILURE);
-	if (num == 15)
-		exit(EXIT_FAILURE);
 }
 
 void	make_routine(t_data *data, char *temp)
@@ -105,6 +101,7 @@ void	make_routine(t_data *data, char *temp)
 	bypass_juntion(data);
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
+	sytax_looper(data);
 	commands_link_to_array_looper(data);
 	// printlist(data);
 	check_for_builtins(data);
@@ -150,10 +147,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	signal(SIGQUIT, rec_sig);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, rec_sig);
-	// signal(SIGINT, myhandler);
-	// signal(SIGTERM, myhandler);
 	create_environment(&data, envp);
 	minishell(&data);
 	close(data.fdin);
