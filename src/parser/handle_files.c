@@ -6,32 +6,11 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:31:08 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/01 20:06:27 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/02 22:09:05 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// int	file_opener(char *filtogo, t_data *data, int flag)
-// {
-// 	char	*temp;
-// 	int		size;
-// 	int		fd;
-
-// 	// close(fd); // when we loop over to find the latest one we close the previous ones
-// 	if (filtogo == NULL)
-// 	{
-// 		write(2, "ERROR\n", 6);
-// 		return (-1); // bash: syntax error near unexpected token `newline'
-// 	}
-// 	fd = open(filtogo, O_WRONLY | O_CREAT | O_APPEND, 0644); // which mode do we need? 0777
-// 	if (fd == FAILED)
-// 	{
-// 		write(2, "ERROR\n", 6); // temperarrly
-// 		return (-1);
-// 	}
-// 	return (fd);
-// }
 
 int	red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t)
 {

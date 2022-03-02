@@ -30,7 +30,7 @@ int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
 		(*temp_t)->bedeleted = 1;
 		fail = red_infile(data, temp_c, temp_t);
 	}
-	else if (!ft_strncmp((*temp_t)->content, "<<", 3))
+	else if (!ft_strncmp((*temp_t)->content, ">>", 3))
 	{
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;
