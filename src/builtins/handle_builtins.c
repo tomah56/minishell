@@ -39,7 +39,7 @@ void	check_for_builtins(t_data *data)
 	}
 }
 
-void	execute_builtin(t_data *data, t_cmds *cmds)
+void	exec_builtins(t_data *data, t_cmds *cmds)
 {
 	if (ft_strncmp(cmds->commands[0], "cd", 3) == SUCCESS)
 		builtin_cd(data);
@@ -55,4 +55,24 @@ void	execute_builtin(t_data *data, t_cmds *cmds)
 		builtin_pwd(data);
 	else if (ft_strncmp(cmds->commands[0], "unset", 6) == SUCCESS)
 		builtin_unset(data);
+}
+
+void	execute_builtin(t_data *data, t_cmds *cmds)
+{
+	int	temp_in;
+	int	temp_out;
+
+	temp_in = ft_dup(data, STDIN_FILENO);
+	temp_out = ft_dup(data, STDOUT_FILENO);
+	//heredoc?
+	if (cmds->infile != STDIN_FILENO && cmds->infile != -5)
+		ft_dup2(data, cmds->infile, STDIN_FILENO);
+	if (cmds->outfile != STDOUT_FILENO && cmds->outfile != -5)
+		ft_dup2(data, cmds->outfile, STDOUT_FILENO);
+	exec_builtins(data, cmds);
+	ft_dup2(data, temp_in, STDIN_FILENO);
+	ft_dup2(data, temp_out, STDOUT_FILENO);
+	ft_close(data, temp_in);
+	ft_close(data, temp_out);
+	exit(g_exit);
 }

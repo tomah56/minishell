@@ -77,7 +77,7 @@ typedef struct s_cmds
 	bool			builtin;
 	char			*defpath;
 	int				type;
-	char			**commands; // not sure the functinality here ? ->this will be the string we have to give execve (we create it after parsing)
+	char			**commands;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
 }	t_cmds;
@@ -85,7 +85,7 @@ typedef struct s_cmds
 typedef struct s_data
 {
 	t_cmds		*cmds;
-	t_cmds		*actual; // keeps track of current command -> when going to the next cmd always do cmds->next
+	t_cmds		*actual;
 	int			qudouble;
 	int			qusingle;
 	int			tokentotal;
@@ -95,12 +95,13 @@ typedef struct s_data
 	int			i;
 	int			j;
 	int			k;
-	int			fdin;
-	int			fdout;
-	// int			save_fd;
-	int			pid;
+	// int			fdin;
+	// int			fdout;
+	int			fd[2];
+	int			save_fd;
+	pid_t		pid;
 	char		**environ;
-	char		**paths; // dont create paths at the beginning just right before execve, bc path can be changed!
+	char		**paths;
 }	t_data;
 
 typedef struct s_size
@@ -198,13 +199,19 @@ void	builtin_echo(t_data *data);
 void	check_for_builtins(t_data *data);
 void	builtins(t_data *data, t_cmds *cmds, int flag);
 void	execute_builtin(t_data *data, t_cmds *cmds);
+void	exec_builtins(t_data *data, t_cmds *cmds);
 
 // execution
 void	execute(t_data *data);
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i);
-void	process_creator(t_data *data, t_cmds *temp_c, int flag);
+void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag);
 void	pipes(t_data *data, int flag, t_cmds *temp_c);
 void	execute_one_cmd(t_data *data);
+int		ft_dup(t_data *data, int fd);
+void	ft_dup2(t_data *data, int fd1, int fd2);
+void	ft_close(t_data	*data, int fd);
+void	ft_pipe(t_data *data, int *fd);
+void	ft_fork(t_data *data);
 
 void	execute_the_ii(t_data *data);
 

@@ -112,7 +112,7 @@ void	make_routine(t_data *data, char *temp)
 		execute(data);
 }
 
-void	minishell(t_data	*data)
+void	minishell(t_data *data)
 {
 	t_tok	tokdat;
 	char	*temp;
@@ -120,10 +120,7 @@ void	minishell(t_data	*data)
 	char	*home;
 
 	temp = NULL;
-	data->fdin = dup(STDIN_FILENO);
-	data->fdout = dup(STDOUT_FILENO);
-	if (data->fdin == FAILED || data->fdout == FAILED)
-		dup_exit(data, "dup error ");
+	data->save_fd = ft_dup(data, STDIN_FILENO);
 	while (1)
 	{
 		data->qudouble = 0;
@@ -156,8 +153,7 @@ int	main(int argc, char **argv, char **envp)
 	// signal(SIGTERM, myhandler);
 	create_environment(&data, envp);
 	minishell(&data);
-	close(data.fdin);
-	close(data.fdout);
+	close(data.save_fd);
 	ft_free_3array(&data.environ);
 	data.environ = NULL;
 	free_struct(&data);
