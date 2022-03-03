@@ -103,21 +103,23 @@ void	execute(t_data *data)
 
 static void	rec_sig_execute(int num)
 {
+	// printf("HELLO --------- %d\n", num);
 	if (num == 2)
 	{
+	write(2,"hello 58\n", 10);
 		write(2, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
+		// rl_redisplay();
 	}
 	if (num == 3)
 	{
-			rl_on_new_line();
-	rl_redisplay();
-		write(2, "\nQuit: 3\n", 9);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+	// 		rl_on_new_line();
+	// rl_redisplay();
+		write(2, "Quit: 3\n", 9);
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
+		// rl_redisplay();
 	}
 }
 
@@ -126,8 +128,6 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 	char	**command;
 	char	*path;
 
-	signal(SIGQUIT, rec_sig_execute);
-	signal(SIGINT, rec_sig_execute);
 	if (temp_c->builtin == true)
 		execute_builtin(data, temp_c);
 	else
@@ -168,8 +168,6 @@ int	is_pipe(t_cmds *temp_c)
 
 void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 {
-	//do we need diffrent signals here?
-	// do we need to consider heredoc here?
 	if (temp_c->infile != -5)
 		ft_dup2(data, temp_c->infile, STDIN_FILENO);
 	else
@@ -187,6 +185,8 @@ void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 
 void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 {
+	signal(SIGQUIT, rec_sig_execute);
+	// signal(SIGINT, SIG_IGN);
 	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1)
 	{
 		exec_builtins(data, temp_c);
@@ -200,6 +200,7 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 	}
 	if (data->pid)
 	{
+		// sleep(5);
 		ft_close(data, data->fd[WRITE]);
 		ft_close(data, data->save_fd);
 		data->save_fd = ft_dup(data, data->fd[READ]);
