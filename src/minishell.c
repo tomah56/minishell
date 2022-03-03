@@ -117,12 +117,12 @@ void	minishell(t_data *data)
 	char	*home;
 
 	temp = NULL;
-	data->save_fd = ft_dup(data, STDIN_FILENO);
 	while (1)
 	{
 		data->qudouble = 0;
 		data->qusingle = 0;
 		temp = readline("HAKUNA MATATA 0.42$ ");
+		data->save_fd = ft_dup(data, STDIN_FILENO);
 		if (temp == NULL)
 		{
 			write(2, "\x1b[1A", 4);

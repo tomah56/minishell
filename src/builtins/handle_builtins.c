@@ -26,7 +26,10 @@ void	check_for_builtins(t_data *data)
 		else if (ft_strncmp(cmd->commands[0], "env", 4) == SUCCESS)
 			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "exit", 5) == SUCCESS)
+		{
 			cmd->builtin = true;
+			cmd->exit = true;
+		}
 		else if (ft_strncmp(cmd->commands[0], "export", 7) == SUCCESS)
 			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "pwd", 4) == SUCCESS)

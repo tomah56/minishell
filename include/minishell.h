@@ -69,6 +69,7 @@ typedef struct s_token_data
 typedef struct s_cmds
 {
 	t_tok			*tokens;
+	bool			exit;
 	int				infile;		 // stdin
 	int				outfile;	 // stdout /
 	int				heredoc; //-10 its not a herdoc

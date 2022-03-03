@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/02 22:07:56 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:47:15 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,8 @@ void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 
 void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 {
-	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1)
+	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1
+		&& temp_c->exit == true)
 	{
 		exec_builtins(data, temp_c);
 		return ;
