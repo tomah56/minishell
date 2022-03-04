@@ -53,6 +53,7 @@ void	bypass_juntion(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
+		temp_c->type = 0;
 		while (temp_t != NULL)
 		{
 			fail = bypass_helper(&temp_t, temp_c, data, fail);

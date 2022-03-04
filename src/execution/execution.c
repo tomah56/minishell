@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/03 22:40:47 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:27:00 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,8 +189,9 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 	signal(SIGINT, rec_sig_execute);
 	// signal(SIGINT, SIG_IGN);
 	// signal(SIGINT, SIG_DFL);
+	// && temp_c->exit == true
 	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1
-		&& temp_c->exit == true)
+		&& temp_c->type == 0)
 	{
 		exec_builtins(data, temp_c);
 		return ;
@@ -210,3 +211,12 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 		ft_close(data, data->fd[READ]);
 	}
 }
+
+
+// AKUNA MATATA 0.42$ cat << he < test.txt | grep t
+// >ge
+// >he
+// execve Error
+
+// HAKUNA MATATA 0.42$ echo bobo | grep b | > test2.txt 
+// bobo
