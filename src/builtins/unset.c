@@ -36,6 +36,12 @@ void	builtin_unset(t_data *data)
 		if (to_delete != FAILED)
 			delete_var_env(data, command, to_delete);
 	}
+	// i = 0;
+	// while (i < 5)
+	// {
+	// 	printf("333 = %s\n", data->environ[i]);
+	// 	i++;
+	// }
 }
 
 int	check_valid_var(t_data *data, char **command)

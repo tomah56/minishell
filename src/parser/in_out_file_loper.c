@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 21:07:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/21 16:58:57 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:20:00 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	in_out_file_looper(t_data *data)
 			}
 			if (temp_t->hd_file != NULL)
 			{
-				unlink(temp_c->cm_hd_file);
+				// unlink(temp_c->cm_hd_file);
 				temp_c->cm_hd_file = temp_t->hd_file;
 			}
 			temp_t = temp_t->next;

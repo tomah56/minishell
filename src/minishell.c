@@ -109,7 +109,12 @@ void	make_routine(t_data *data, char *temp)
 	if (data->falg == 1)
 		execute(data);
 	// del_temp_looper(data); // segfaults
-	
+	// int i = 0;
+	// while (i < 5)
+	// {
+	// 	printf("env = %s\n", data->environ[i]);
+	// 	i++;
+	// }
 }
 
 void	minishell(t_data *data)
