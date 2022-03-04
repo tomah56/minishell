@@ -56,6 +56,7 @@ int	red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t)
 
 	fail = 0;
 	temp_c->type = RED_IN;
+	printf("conent: %s \n", (*temp_t)->content);
 	if (access((*temp_t)->content, F_OK) != SUCCESS)
 	{
 		error_msg((*temp_t)->content);
