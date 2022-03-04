@@ -104,7 +104,7 @@ void	make_routine(t_data *data, char *temp)
 	sytax_looper(data);
 	commands_link_to_array_looper(data);
 	// printlist(data);
-	printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
+	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 	check_for_builtins(data);
 	if (data->falg == 1)
 		execute(data);
