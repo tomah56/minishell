@@ -80,6 +80,7 @@ typedef struct s_cmds
 	char			*defpath;
 	char			*cm_hd_file; // unlink file after execution.
 	int				type;
+	bool			last;
 	char			**commands;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;

@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 21:07:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/04 21:19:08 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/04 23:32:55 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,13 @@ void	remove_linklist_file_looper(t_data *data)
 
 	temp_c = data->cmds;
 	temp_t = data->cmds->tokens;
+	while (temp_c->next != NULL)
+	{
+		temp_c->last = false;
+		temp_c = temp_c->next;
+	}
+	temp_c->last = true;
+	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;

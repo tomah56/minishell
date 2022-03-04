@@ -42,6 +42,7 @@ void printlist(t_data *data)
 		temp_t = temp_c->tokens;
 		printf("CMDS %d  number of tokens: %d\n", j, count_tokens(temp_c));
 		printf("infile %d  outfile: %d\n", temp_c->infile, temp_c->outfile);
+		printf("LAST %d", temp_c->last);
 		printf("type %d  \n", temp_c->type);
 		while (temp_t != NULL)
 		{

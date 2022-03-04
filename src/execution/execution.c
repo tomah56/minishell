@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/04 21:36:29 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/04 23:47:05 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 	// 	ft_dup2(data, temp_c->heredoc, STDIN_FILENO);
 	else
 		ft_dup2(data, data->save_fd, STDIN_FILENO);
-	if (flag != LAST)
+	if (flag != LAST || (temp_c->last == false && flag == LAST))
 		ft_dup2(data, data->fd[WRITE], STDOUT_FILENO);
 	else if (temp_c->outfile != -5)
 		ft_dup2(data, temp_c->outfile, STDOUT_FILENO);
@@ -211,7 +211,6 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 		ft_close(data, data->fd[READ]);
 	}
 }
-
 
 // AKUNA MATATA 0.42$ cat << he < test.txt | grep t
 // >ge
