@@ -64,7 +64,7 @@ static void l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data) // lversion
 	else
 	{
 		name = hd_name_maker((unsigned long)temp_c); //version save file
-		// unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
+		unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
