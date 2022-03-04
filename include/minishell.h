@@ -116,7 +116,7 @@ typedef struct s_size
 	int	j;
 }	t_s;
 
-extern int g_exit;
+extern int g_exit; // check this?
 
 // input
 char	*get_next_line(int fd);

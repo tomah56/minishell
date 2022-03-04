@@ -53,14 +53,22 @@ static int	size_dollar_point(char **str, t_data *data)
 	len = 0;
 	if ((**str == '$' && data->qusingle == 0))
 	{
-			len++;
-			(*str)++;
-
-		while (ft_isalnum(**str) == 1 && **str != '\0')
+		len++;
+		(*str)++;
+		if (**str == '?')
 		{
 			len++;
 			(*str)++;
 		}
+		else
+		{
+			while (ft_isalnum(**str) == 1 && **str != '\0')
+			{
+				len++;
+				(*str)++;
+			}
+		}
+
 	}
 	else
 	{
@@ -82,9 +90,15 @@ static char	*next_part(char **str, t_data *data)
 
 	temp = *str;
 	len = size_dollar_point(str, data);
+	// printf("%s \n", temp);
 	if (*temp == '$' && data->qusingle == 0 && len > 1)
 	{
-		buf = expand_clean_dollar(ft_substr(temp, 0, len), data);
+		if (temp[1] == '?')
+		{
+			buf = ft_itoa(g_exit);
+		}
+		else
+			buf = expand_clean_dollar(ft_substr(temp, 0, len), data);
 	}
 	else
 		buf = ft_substr(temp, 0, len);
