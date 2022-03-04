@@ -6,24 +6,13 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:54:40 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/21 17:02:17 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/02/12 14:38:24 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	h_doc_to_file(int fd, char *str)
-{
-	if (fd == -2)
-		fd = open("temp.txt", O_WRONLY | O_CREAT | O_APPEND, 0777);
-	else
-	{
-		write(fd, &str, ft_strlen(str));
-		write(fd, "\n", 1);
-	}
-}
-
-static char	*here_doc_to_string(char *stop, t_data *data)
+static char	*here_doc_to_string(char *stop, t_data * data)
 {
 	char	*temp;
 	char	*superholder;
@@ -49,78 +38,62 @@ static char	*here_doc_to_string(char *stop, t_data *data)
 	return (superholder);
 }
 
-static bool	is_last_heredoc_in_cmd(t_tok **temp_t)
-{
-	int	i;
-
-	i = 0;
-	while ((*temp_t)->next != NULL)
-	{
-		if (!(ft_strncmp((*temp_t)->content, "<<", 3)))
-		{
-			while (i != 0)
-			{
-				*temp_t = (*temp_t)->prev;
-				i--;
-			}
-			return (false);
-		}
-		*temp_t = (*temp_t)->next;
-		i++;
-	}
-	while (i != 0)
-	{
-		*temp_t = (*temp_t)->prev;
-		i--;
-	}
-	return (true);
-}
 
 static void	rec_sig_doc(int num)
 {
+
+	// write(2, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
 	write(2, "  \b\b", 5);
 	if (num == 2)
 	{
-		write(2, "\n", 1);
+		write(2, " ", 1);
 		rl_on_new_line();
+		close(STDIN_FILENO); // this shit should work
 	}
-	close(STDIN_FILENO);
 }
 
-void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t)
+int	old_here_doc(char *stop, t_data *data, char *name)
 {
 	char	*temp;
 	int		size;
-	int		heredocfd[2];
-
+	int		fd;
 	signal(SIGINT, rec_sig_doc);
 	if (stop == NULL)
 	{
 		write(2, "ERROR\n", 6);
-		return ; // bash: syntax error near unexpected token `newline'
+		return (-1); // bash: syntax error near unexpected token `newline'
 	}
-	if (pipe(heredocfd) == -1)
-		msg_exit(data, "pipe error\n");
+	fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0777);
+	// fd = open("./temp/test.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
+	if (fd == FAILED)
+	{
+		write(2, "ERROR\n", 6); // temperarrly
+		return (-1);
+	}
 	size = ft_strlen(stop);
-	temp = readline(">");
+	temp = readline(">"); // how is this gets inside my linked list????????
 	if (temp == NULL)
-		return ;
+	{
+		close(fd);
+		return (-1);
+	}
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
 		temp = no_expand_next_part_no(temp, data);
-		write(heredocfd[WRITE], temp, ft_strlen(temp));
-		write(heredocfd[WRITE], "\n", 1);
+		write(fd, temp, ft_strlen(temp));
+		write(fd, "\n", 1);
 		temp = readline(">");
 		if (temp == NULL)
-			return ;
+		{
+			close(fd);
+			return (-1);
+		}
 	}
-	close(heredocfd[WRITE]);
-	if (is_last_heredoc_in_cmd(temp_t))
-		close(heredocfd[READ]);
-	else
-		temp_c->heredoc = heredocfd[READ];
+	close(fd); //closing somwhere in the end....
+	fd = open(name, O_RDONLY, 0777); // so apperantly its matter hof you open a file, good to know
+	return (fd);
 }
 
 // heredoc scpeials

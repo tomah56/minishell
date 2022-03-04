@@ -40,6 +40,12 @@ char	*expand_clean_dollar(char *str, t_data *data)
 	return (NULL);
 }
 
+// static int exit_coder_questionmark(char **str)
+// {
+
+// 	return (1);
+// }
+
 static int	size_dollar_point(char **str, t_data *data)
 {
 	int	len;
@@ -49,6 +55,7 @@ static int	size_dollar_point(char **str, t_data *data)
 	{
 			len++;
 			(*str)++;
+
 		while (ft_isalnum(**str) == 1 && **str != '\0')
 		{
 			len++;

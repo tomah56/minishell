@@ -86,6 +86,11 @@ void	in_out_file_looper(t_data *data)
 					close(temp_c->outfile);
 				temp_c->outfile = temp_t->outfile;
 			}
+			if (temp_t->hd_file != NULL)
+			{
+				unlink(temp_c->cm_hd_file);
+				temp_c->cm_hd_file = temp_t->hd_file;
+			}
 			temp_t = temp_t->next;
 		}
 		temp_c = temp_c->next;

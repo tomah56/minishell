@@ -52,6 +52,7 @@ typedef struct s_token_data
 	int					type;
 	char				*content; // *echo ---- > *conent hello  ---- > *content aother
 	int					quote_type;
+	char				*hd_file;
 	// needs to save all fd is not enoguh to update always the latest one.
 	int					infile;	 // execution order issue
 	int					outfile; //
@@ -77,6 +78,7 @@ typedef struct s_cmds
 	int				heredocfile;
 	bool			builtin;
 	char			*defpath;
+	char			*cm_hd_file; // unlink file after execution.
 	int				type;
 	char			**commands;
 	struct s_cmds	*next;
@@ -137,6 +139,8 @@ char	*no_expand_next_part_no(char *str, t_data *data);
 
 // here_doc
 void	here_doc(char *stop, t_data *data, t_cmds *temp_c, t_tok **temp_t);
+int		old_here_doc(char *stop, t_data *data, char *name);
+void	del_temp_looper(t_data *data);
 
 // redirections
 void	bypass_juntion(t_data *data);

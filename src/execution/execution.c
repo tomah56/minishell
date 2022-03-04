@@ -103,23 +103,13 @@ void	execute(t_data *data)
 
 static void	rec_sig_execute(int num)
 {
-	// printf("HELLO --------- %d\n", num);
 	if (num == 2)
 	{
-	write(2,"hello 58\n", 10);
 		write(2, "\n", 1);
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
-		// rl_redisplay();
 	}
 	if (num == 3)
 	{
-	// 		rl_on_new_line();
-	// rl_redisplay();
 		write(2, "Quit: 3\n", 9);
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
-		// rl_redisplay();
 	}
 }
 
@@ -186,7 +176,9 @@ void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 {
 	signal(SIGQUIT, rec_sig_execute);
+	signal(SIGINT, rec_sig_execute);
 	// signal(SIGINT, SIG_IGN);
+	// signal(SIGINT, SIG_DFL);
 	if (temp_c->builtin == true && flag == LAST && count_commands(data) == 1
 		&& temp_c->exit == true)
 	{

@@ -104,9 +104,12 @@ void	make_routine(t_data *data, char *temp)
 	sytax_looper(data);
 	commands_link_to_array_looper(data);
 	// printlist(data);
+	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 	check_for_builtins(data);
 	if (data->falg == 1)
 		execute(data);
+	// del_temp_looper(data); // segfaults
+	
 }
 
 void	minishell(t_data *data)
@@ -115,14 +118,19 @@ void	minishell(t_data *data)
 	char	*temp;
 	char	**exp;
 	char	*home;
+	int		save_in;
 
+	save_in = dup(STDIN_FILENO);
 	temp = NULL;
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, rec_sig);
 		data->qudouble = 0;
 		data->qusingle = 0;
+		dup2(save_in, STDIN_FILENO);
+		data->save_fd = ft_dup(data, STDIN_FILENO); // what is this do?
 		temp = readline("HAKUNA MATATA 0.42$ ");
-		data->save_fd = ft_dup(data, STDIN_FILENO);
 		if (temp == NULL)
 		{
 			write(2, "\x1b[1A", 4);
@@ -144,8 +152,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, rec_sig);
+
 	create_environment(&data, envp);
 	minishell(&data);
 	close(data.save_fd);
