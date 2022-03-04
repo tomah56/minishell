@@ -103,18 +103,12 @@ void	make_routine(t_data *data, char *temp)
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
 	commands_link_to_array_looper(data);
-	// printlist(data);
+	printlist(data);
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 	check_for_builtins(data);
 	if (data->falg == 1)
 		execute(data);
 	// del_temp_looper(data); // segfaults
-	// int i = 0;
-	// while (i < 5)
-	// {
-	// 	printf("env = %s\n", data->environ[i]);
-	// 	i++;
-	// }
 }
 
 void	minishell(t_data *data)

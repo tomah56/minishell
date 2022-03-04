@@ -28,7 +28,7 @@ enum e_enum
 	RED_OUT_TRUNC = -2,	//  >
 	HEREDOC = -3,		//  <<
 	RED_OUT_APPEND = -4, //  >>
-	PIPE = -5,
+	PIPE = -8,
 	NOQUOTE = 0,
 	QUSINGLE = 1,
 	QUDOUBLE = 2,
