@@ -29,7 +29,6 @@ int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		fail = red_infile(data, temp_c, temp_t);
-		printf("inside redirect in: %d out: %d\n", (*temp_t)->infile, (*temp_t)->outfile);
 	}
 	else if (!ft_strncmp((*temp_t)->content, ">>", 3))
 	{
