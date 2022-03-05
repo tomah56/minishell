@@ -68,7 +68,6 @@ static int	size_dollar_point(char **str, t_data *data)
 				(*str)++;
 			}
 		}
-
 	}
 	else
 	{

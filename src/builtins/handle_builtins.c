@@ -26,10 +26,7 @@ void	check_for_builtins(t_data *data)
 		else if (ft_strncmp(cmd->commands[0], "env", 4) == SUCCESS)
 			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "exit", 5) == SUCCESS)
-		{
 			cmd->builtin = true;
-			cmd->exit = true;
-		}
 		else if (ft_strncmp(cmd->commands[0], "export", 7) == SUCCESS)
 			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "pwd", 4) == SUCCESS)
@@ -67,7 +64,6 @@ void	execute_builtin(t_data *data, t_cmds *cmds)
 
 	temp_in = ft_dup(data, STDIN_FILENO);
 	temp_out = ft_dup(data, STDOUT_FILENO);
-	//heredoc?
 	if (cmds->infile != STDIN_FILENO && cmds->infile != -5)
 		ft_dup2(data, cmds->infile, STDIN_FILENO);
 	if (cmds->outfile != STDOUT_FILENO && cmds->outfile != -5)

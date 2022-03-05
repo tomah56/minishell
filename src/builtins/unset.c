@@ -29,19 +29,16 @@ void	builtin_unset(t_data *data)
 		while (command[i] != NULL)
 		{
 			if (ft_strchr(command[i], '=') != NULL)
-				msg_exit(data, "not a valid identifier\n");
+			{
+				g_exit = 1;
+				error_msg_no("not a valid identifier\n");
+			}
 			i++;
 		}
 		to_delete = check_valid_var(data, command);
 		if (to_delete != FAILED)
 			delete_var_env(data, command, to_delete);
 	}
-	// i = 0;
-	// while (i < 5)
-	// {
-	// 	printf("333 = %s\n", data->environ[i]);
-	// 	i++;
-	// }
 }
 
 int	check_valid_var(t_data *data, char **command)

@@ -65,7 +65,8 @@ void	builtin_exit(t_data *data)
 	if (data->actual->comandcount == 2)
 		exit_status = ft_atoi_long_long(cmd_array[1]);
 	free_struct(data);
-	ft_free_array(data->environ);
+	if (data->environ != NULL)
+		ft_free_array(data->environ);
 	data->environ = NULL;
 	g_exit = exit_status;
 	exit(exit_status);
