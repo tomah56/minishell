@@ -12,10 +12,7 @@
 
 #include "../include/minishell.h"
 
-// void myhandler(int num)
-// {
-// 	write(STDOUT_FILENO, " I will never die!\n", 18);
-// }
+
 
 void printlist(t_data *data)
 {
@@ -27,15 +24,9 @@ void printlist(t_data *data)
 
 	temp = data;
 	i = 0;
-	// issue looping over can be fixed with deleting mother linked list elements if the toen is NULL
+	
 	temp_c = data->cmds;
-	// while (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
-	// {
-	// 	if (temp_c != NULL)
-	// 		temp_c = temp_c->next;
-	// }
-	// if (temp_c->tokens == NULL) // this one segfaulted when list elements were deleted
-	// 	return ;
+
 	temp_t = temp_c->tokens;
 	while (temp_c != NULL)
 	{

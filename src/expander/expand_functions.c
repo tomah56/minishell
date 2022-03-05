@@ -89,7 +89,6 @@ static char	*next_part(char **str, t_data *data)
 
 	temp = *str;
 	len = size_dollar_point(str, data);
-	// printf("%s \n", temp);
 	if (*temp == '$' && data->qusingle == 0 && len > 1)
 	{
 		if (temp[1] == '?')
