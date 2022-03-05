@@ -12,33 +12,6 @@
 
 #include "../../include/minishell.h"
 
-// static char	*here_doc_to_string(char *stop, t_data * data)
-// {
-// 	char	*temp;
-// 	char	*superholder;
-// 	int		size;
-
-// 	if (stop == NULL)
-// 		return (NULL); // bash: syntax error near unexpected token `newline'
-// 	superholder = NULL;
-// 	size = ft_strlen(stop);
-// 	temp = readline(">");
-// 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
-// 	{
-// 		if (superholder == NULL)
-// 		{
-// 			superholder = ft_strdup(temp);
-// 		}
-// 		else
-// 			superholder = ft_strjoin(superholder, temp);
-// 			//question should we save the new lines too???? curently it oes not do that
-// 			//also maybe is not enough to save it in a string it needs a file descriptor?
-// 		temp = readline(">");
-// 	}
-// 	return (superholder);
-// }
-
-
 static void	rec_sig_doc(int num)
 {
 
@@ -50,7 +23,7 @@ static void	rec_sig_doc(int num)
 	{
 		write(2, " ", 1);
 		rl_on_new_line();
-		close(STDIN_FILENO); // this shit should work
+		close(STDIN_FILENO);
 	}
 }
 

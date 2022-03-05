@@ -51,10 +51,9 @@ char	*l_e_loop_sequence(char *str, t_data *data)
 	return (temp);
 }
 
-// static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
-static void l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data) // lversion save file
+static void l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
-	char	*name;  // version savfile
+	char	*name;
 
 	if (ft_strncmp((*temp_t)->content, "<<", 3))
 	{
@@ -70,11 +69,11 @@ static void l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data) // lversion
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = -1;
 		(*temp_t)->hd_file = name;
-		(*temp_t)->infile = old_here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name); // version save file
-		// (*temp_t)->infile = open("./t/test.txt", O_RDONLY, 0777);
-		// here_doc(quote_cutter((*temp_t)->content, 0, 0), data, temp_c, temp_t);
+		(*temp_t)->infile = old_here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
+	//  system("leaks minishelll");
+	//   	fscanf(stdin, "c");
 }
 
 void	link_expand_looper(t_data *data)
@@ -95,7 +94,6 @@ void	link_expand_looper(t_data *data)
 			(temp_t)->outfile = -1;
 			(temp_t)->hd_file = NULL;
 			l_e_l_norm(&temp_t, temp_c, data);
-			// l_e_l_norm(&temp_t, temp_c, data);
 		}
 		temp_c = temp_c->next;
 	}

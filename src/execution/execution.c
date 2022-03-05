@@ -53,66 +53,6 @@ void	execute(t_data *data)
 	free_struct(data);
 }
 
-// void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
-// {
-// 	char	**command;
-// 	char	*path;
-
-// 	if (temp_c->builtin == true)
-// 		execute_builtin(data, temp_c);
-// 	else
-// 	{
-// 		save_paths(data);
-// 		command = malloc((count_tokens(temp_c) + 1) * sizeof(char *));
-// 		while (temp_c->commands[i])
-// 		{
-// 			command[i] = temp_c->commands[i];
-// 			i++;
-// 		}
-// 		i = 0;
-// 		if (data->dpflag == 0)
-// 		{
-// 			while (data->paths[i])
-// 			{
-// 				path = ft_strjoin(data->paths[i], "/");
-// 				path = ft_strjoin(path, command[0]);
-// 				if (access(path, F_OK) == SUCCESS)
-// 				{
-// 					if (execve(path, &command[0], data->environ) == FAILED)
-// 						msg_exit(data, "execve Error\n");
-// 				}
-// 				i++;
-// 				free(path);
-// 			}
-// 			free(path);
-// 		}
-// 		else
-// 		{
-// 			path = temp_c->defpath;
-// 			if (access(path, F_OK) == SUCCESS)
-// 			{
-// 				if (execve(path, &command[0], data->environ) == FAILED)
-// 					msg_exit(data, "execve Error 2\n");
-// 			}
-// 			free(path);
-// 		}
-// 		path = NULL;
-// 		cmd_not_found_error(data, "Command not found\n");
-// 	}
-// }
-
-static void	rec_sig_execute(int num)
-{
-	if (num == 2)
-	{
-		write(2, "\n", 1);
-	}
-	if (num == 3)
-	{
-		write(2, "Quit: 3\n", 9);
-	}
-}
-
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 {
 	char	**command;
@@ -130,22 +70,80 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 			i++;
 		}
 		i = 0;
-		while (data->paths[i])
+		if (data->dpflag == 0)
 		{
-			path = ft_strjoin(data->paths[i], "/");
-			path = ft_strjoin(path, command[0]);
+			while (data->paths[i])
+			{
+				path = slash_join(data->paths[i], command[0]);
+				if (access(path, F_OK) == SUCCESS)
+				{
+					if (execve(path, &command[0], data->environ) == FAILED)
+						msg_exit(data, "execve Error\n");
+				}
+				i++;
+				free(path);
+			}
+		}
+		else
+		{
+			path = temp_c->defpath;
 			if (access(path, F_OK) == SUCCESS)
 			{
 				if (execve(path, &command[0], data->environ) == FAILED)
-					msg_exit(data, "execve Error\n");
+					msg_exit(data, "execve Error 2\n");
+				free(path);
 			}
-			i++;
-			free(path);
 		}
 		path = NULL;
 		cmd_not_found_error(data, "Command not found\n");
 	}
 }
+
+static void	rec_sig_execute(int num)
+{
+	if (num == 2)
+	{
+		write(2, "\n", 1);
+	}
+	if (num == 3)
+	{
+		write(2, "Quit: 3\n", 9);
+	}
+}
+
+// void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
+// {
+// 	char	**command;
+// 	char	*path;
+
+// 	if (temp_c->builtin == true)
+// 		execute_builtin(data, temp_c);
+// 	else
+// 	{
+// 		save_paths(data);
+// 		command = malloc((count_tokens(temp_c) + 1) * sizeof(char *));
+// 		while (temp_c->commands[i])
+// 		{
+// 			command[i] = temp_c->commands[i];
+// 			i++;
+// 		}
+// 		i = 0;
+// 		while (data->paths[i])
+// 		{
+// 			path = ft_strjoin(data->paths[i], "/");
+// 			path = ft_strjoin(path, command[0]);
+// 			if (access(path, F_OK) == SUCCESS)
+// 			{
+// 				if (execve(path, &command[0], data->environ) == FAILED)
+// 					msg_exit(data, "execve Error\n");
+// 			}
+// 			i++;
+// 			free(path);
+// 		}
+// 		path = NULL;
+// 		cmd_not_found_error(data, "Command not found\n");
+// 	}
+// }
 
 int	is_pipe(t_cmds *temp_c)
 {	
@@ -156,13 +154,6 @@ int	is_pipe(t_cmds *temp_c)
 	return (0);
 }
 
-// void	exec_heredoc(t_data *data, t_cmds *temp_c)
-// {
-// 	int	pipe[2];
-
-// 	ft_pipe(data, pipe);
-	
-// }
 
 void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 {
@@ -204,7 +195,6 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 	}
 	if (data->pid)
 	{
-		// sleep(5);
 		ft_close(data, data->fd[WRITE]);
 		ft_close(data, data->save_fd);
 		data->save_fd = ft_dup(data, data->fd[READ]);

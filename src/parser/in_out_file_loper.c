@@ -26,20 +26,6 @@ static t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 	return (temp_t);
 }
 
-// it fails in these cases.. Why???
-
-// HAKUNA MATATA 0.42$ >ju.txt | < juk jsj | < why.txt 
-// CMDS 1  number of tokens: 1
-// jsj[---]
-// jsj
-// HAKUNA MATATA 0.42$ >ju.txt | < juk jsj | < why.txt  | >bik.txt
-// CMDS 1  number of tokens: 1
-// jsj[---]
-// CMDS 2  number of tokens: 2
-// >[---]bik.txt[---]
-// jsj
-// >
-// bik.txt
 
 static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
