@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:31:08 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/04 21:55:29 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:33:07 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t)
 	if ((*temp_t)->infile == FAILED)
 	{
 		error_msg((*temp_t)->content);
+		(*temp_t)->infile = -5;
+		fail = 1;
 		g_exit = 1;
 	}
 	return (fail);

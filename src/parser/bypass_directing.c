@@ -50,6 +50,7 @@ void	bypass_juntion(t_data *data)
 	fail = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
+	temp_c->fail = 0;
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
@@ -57,6 +58,8 @@ void	bypass_juntion(t_data *data)
 		while (temp_t != NULL)
 		{
 			fail = bypass_helper(&temp_t, temp_c, data, fail);
+			if (fail == 1)
+				temp_c->fail = 1;
 		}
 		if (temp_c->next != NULL)
 			temp_c->type = PIPE;

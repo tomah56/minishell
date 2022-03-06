@@ -21,8 +21,8 @@ void	builtin_echo(t_data *data)
 	cmd_array = data->actual->commands;
 	i = 0;
 	newline = true;
-	if (cmd_array[1]
-		&& !ft_strncmp(cmd_array[1], "-n", 3))
+	while (cmd_array[1 + i]
+		&& !ft_strncmp(cmd_array[1 + i], "-n", 3))
 	{
 		newline = false;
 		i++;
