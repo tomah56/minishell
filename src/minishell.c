@@ -119,7 +119,7 @@ void	minishell(t_data *data)
 		data->qudouble = 0;
 		data->qusingle = 0;
 		// dup2(save_in, STDIN_FILENO);
-		data->save_fd = ft_dup(data, STDIN_FILENO); // what is this do?
+		data->save_fd = ft_dup(data, STDIN_FILENO);
 		temp = readline("HAKUNA MATATA 0.42$ ");
 		if (temp == NULL)
 		{
@@ -141,7 +141,6 @@ void	minishell(t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-
 
 	create_environment(&data, envp);
 	minishell(&data);

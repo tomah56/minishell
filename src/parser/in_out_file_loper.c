@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 21:07:28 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/04 23:32:55 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:53:35 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 	remove_node_c(&data->cmds, temp_c);
 	return (temp_t);
 }
-
 
 static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
@@ -48,6 +47,32 @@ static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 		*temp_t = (*temp_t)->next;
 }
 
+static t_cmds	*in_out_helper(t_cmds **temp_c, t_tok **temp_t)
+{
+	while ((*temp_t) != NULL)
+	{
+		if ((*temp_t)->infile != -1)
+		{
+			if ((*temp_c)->infile != 0)
+				close((*temp_c)->infile);
+			(*temp_c)->infile = (*temp_t)->infile;
+		}
+		if ((*temp_t)->outfile != -1)
+		{
+			if ((*temp_c)->outfile != 1)
+				close((*temp_c)->outfile);
+			(*temp_c)->outfile = (*temp_t)->outfile;
+		}
+		if ((*temp_t)->hd_file != NULL)
+		{
+			unlink((*temp_c)->cm_hd_file);
+			(*temp_c)->cm_hd_file = (*temp_t)->hd_file;
+		}
+		(*temp_t) = (*temp_t)->next;
+	}
+	return (*temp_c);
+}
+
 void	in_out_file_looper(t_data *data)
 {
 	t_tok	*temp_t;
@@ -58,27 +83,7 @@ void	in_out_file_looper(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
-		while (temp_t != NULL)
-		{
-			if (temp_t->infile != -1)
-			{
-				if (temp_c->infile != 0)
-					close(temp_c->infile);
-				temp_c->infile = temp_t->infile;
-			}
-			if (temp_t->outfile != -1)
-			{
-				if (temp_c->outfile != 1)
-					close(temp_c->outfile);
-				temp_c->outfile = temp_t->outfile;
-			}
-			if (temp_t->hd_file != NULL)
-			{
-				unlink(temp_c->cm_hd_file);
-				temp_c->cm_hd_file = temp_t->hd_file;
-			}
-			temp_t = temp_t->next;
-		}
+		temp_c = in_out_helper(&temp_c, &temp_t);
 		temp_c = temp_c->next;
 	}
 }

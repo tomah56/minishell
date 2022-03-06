@@ -21,7 +21,6 @@ void	sytax_looper(t_data *data)
 	}
 }
 
-
 void	del_temp_looper(t_data *data)
 {
 	t_tok	*temp_t;

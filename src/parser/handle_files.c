@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:31:08 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/06 15:33:07 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:13:27 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,3 @@ int	red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t)
 	}
 	return (fail);
 }
-
-//deletes if condition that heredoc with redirection and pipe is working
-	// if (temp_c->next == NULL && fail == 0)
-	// {
-	// 	if ((*temp_t)->infile != -1)
-	// 		close((*temp_t)->infile);
-	// 	(*temp_t)->infile = open((*temp_t)->content, O_RDONLY);
-	// 	if ((*temp_t)->infile == FAILED)
-	// 	{
-	// 		error_msg((*temp_t)->content);
-	// 		g_exit = 1;
-	// 	}
-	// }
-	// return (fail);

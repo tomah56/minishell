@@ -65,7 +65,6 @@ void	builtin_exit(t_data *data)
 	else
 		exit_status = exit_errors(data, cmd_array);
 	free_struct(data);
-	// ft_free_array(data->environ);
 	data->environ = NULL;
 	g_exit = exit_status;
 	exit(g_exit);

@@ -12,12 +12,12 @@
 
 #include "../../include/minishell.h"
 
-static char *hd_name_maker(long number)
+static char	*hd_name_maker(long number)
 {
-	char *base;
-	char *temp;
-	long num1;
-	int i;
+	char	*base;
+	char	*temp;
+	long	num1;
+	int		i;
 
 	temp = malloc(17);
 	base = "0123456789abcdef";
@@ -51,7 +51,7 @@ char	*l_e_loop_sequence(char *str, t_data *data)
 	return (temp);
 }
 
-static void l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
+static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
 	char	*name;
 
@@ -62,14 +62,14 @@ static void l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 	}
 	else
 	{
-		name = hd_name_maker((unsigned long)temp_c); //version save file
+		name = hd_name_maker((unsigned long)temp_c);
 		unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = -1;
 		(*temp_t)->hd_file = name;
-		(*temp_t)->infile = old_here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
+		(*temp_t)->infile = here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
 	//  system("leaks minishelll");

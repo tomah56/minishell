@@ -44,12 +44,6 @@ void	builtin_cd(t_data *data)
 		change_var_env(data, "PWD=", new);
 		g_exit = 0;
 	}
-	// int i = 0;
-	// while (i < 28)
-	// {
-	// 	printf("222 = %s\n", data->environ[i]);
-	// 	i++;
-	// }
 }
 
 void	cd_only(t_data *data)

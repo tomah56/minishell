@@ -6,11 +6,30 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/06 15:53:39 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:47:40 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_wait(t_data *data)
+{
+	pid_t	ret;
+	int		wait_child;
+
+	ret = 0;
+	while (ret != -1)
+	{
+		ret = wait(&wait_child);
+		if (ret == -1)
+			break ;
+		else if (ret == data->pid)
+		{
+			if (WIFEXITED(wait_child))
+				g_exit = WEXITSTATUS(wait_child);
+		}
+	}
+}
 
 void	execute(t_data *data)
 {
@@ -87,24 +106,5 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 		ft_close(data, data->save_fd);
 		data->save_fd = ft_dup(data, data->fd[READ]);
 		ft_close(data, data->fd[READ]);
-	}
-}
-
-void	ft_wait(t_data *data)
-{
-	pid_t	ret;
-	int		wait_child;
-
-	ret = 0;
-	while (ret != -1)
-	{
-		ret = wait(&wait_child);
-		if (ret == -1)
-			break ;
-		else if (ret == data->pid)
-		{
-			if (WIFEXITED(wait_child))
-				g_exit = WEXITSTATUS(wait_child);
-		}
 	}
 }
