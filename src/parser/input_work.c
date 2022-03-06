@@ -31,7 +31,6 @@ static int	count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 	count = 0;
 	while (str[i])
 	{
-		// check_token_flags_li(str[i], tokdat);
 		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
 			&& tokdat->qudouble == 0)
 		{
@@ -67,11 +66,8 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		if (is_double(str[data->i], str[data->i + 1]))
 			(data->i)++;
 		if (data->i + 1 - data->j != 0 && str[(data->i)] != '|')
-		{
 			add_token_node_at_back(tok, create_new_token_node(
 					ft_substr(str, data->j, data->i + 1 - data->j)));
-			// free(str);
-		}
 		while (str[data->i + 1] == ' ')
 			(data->i)++;
 		data->j = (data->i) + 1;
@@ -85,7 +81,6 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		*tok = NULL;
 		data->tokencount = 0;
 	}
-	// free(str);
 }
 
 void	input_one_lilist(char *str, t_data *data)
@@ -104,7 +99,7 @@ void	input_one_lilist(char *str, t_data *data)
 		(data->i)++;
 	}
 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok, data->tokencount));
-	if (data->qudouble == 1 || data->qusingle == 1) //handeling unclosed qutation marks as it was undefined behaviout in the pdf
+	if (data->qudouble == 1 || data->qusingle == 1)
 		write(1, "error: input\n", 13);
 	data->cmds = cmds;
 }

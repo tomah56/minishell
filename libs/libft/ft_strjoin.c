@@ -32,6 +32,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strlcpy(str, s1, len);
 		ft_strlcat(str, s2, len);
 	}
-	// free((void *) s2);
 	return (str);
 }
