@@ -108,9 +108,9 @@ void	minishell(t_data *data)
 	char	*temp;
 	char	**exp;
 	char	*home;
-	int		save_in;
+	// int		save_in;
 
-	save_in = dup(STDIN_FILENO);
+	// save_in = dup(STDIN_FILENO);
 	temp = NULL;
 	while (1)
 	{
@@ -118,7 +118,7 @@ void	minishell(t_data *data)
 		signal(SIGINT, rec_sig);
 		data->qudouble = 0;
 		data->qusingle = 0;
-		dup2(save_in, STDIN_FILENO);
+		// dup2(save_in, STDIN_FILENO);
 		data->save_fd = ft_dup(data, STDIN_FILENO); // what is this do?
 		temp = readline("HAKUNA MATATA 0.42$ ");
 		if (temp == NULL)
