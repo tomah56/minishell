@@ -215,6 +215,7 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i);
 void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag);
 void	pipes(t_data *data, int flag, t_cmds *temp_c);
 void	execute_one_cmd(t_data *data);
+void	ft_wait(t_data *data);
 int		ft_dup(t_data *data, int fd);
 void	ft_dup2(t_data *data, int fd1, int fd2);
 void	ft_close(t_data	*data, int fd);

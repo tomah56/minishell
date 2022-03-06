@@ -12,8 +12,6 @@
 
 #include "../include/minishell.h"
 
-
-
 void printlist(t_data *data)
 {
 	t_data *temp;
