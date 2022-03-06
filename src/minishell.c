@@ -101,7 +101,6 @@ void	make_routine(t_data *data, char *temp)
 	if (data->falg == 1)
 		execute(data);
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
-	// del_temp_looper(data); // segfaults
 }
 
 void	minishell(t_data *data)
