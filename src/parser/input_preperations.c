@@ -80,7 +80,9 @@ void	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
+		int		save_in;
 
+save_in = dup(STDIN_FILENO);
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
@@ -94,6 +96,7 @@ void	link_expand_looper(t_data *data)
 			(temp_t)->outfile = -1;
 			(temp_t)->hd_file = NULL;
 			l_e_l_norm(&temp_t, temp_c, data);
+			dup2(save_in, STDIN_FILENO);
 		}
 		temp_c = temp_c->next;
 	}

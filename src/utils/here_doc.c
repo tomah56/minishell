@@ -32,7 +32,11 @@ int	old_here_doc(char *stop, t_data *data, char *name)
 	char	*temp;
 	int		size;
 	int		fd;
+	// int		save_in;
+
 	signal(SIGINT, rec_sig_doc);
+
+	// save_in = dup(STDIN_FILENO);
 	if (stop == NULL)
 	{
 		write(2, "ERROR\n", 6);
@@ -54,6 +58,7 @@ int	old_here_doc(char *stop, t_data *data, char *name)
 	}
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
+		// dup2(save_in, STDIN_FILENO);
 		temp = no_expand_next_part_no(temp, data);
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
