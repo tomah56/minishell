@@ -33,7 +33,8 @@ void	free_cmds_struct(t_cmds **cmds)
 	while (*cmds)
 	{
 		temp_c = *cmds;
-		*cmds = (*cmds)->next;
+		unlink(temp_c->cm_hd_file);
+		*cmds = (*cmds)->next; // why stepping imidiatly in to the next one is working?
 		if (temp_c->tokens != NULL)
 			free_token_struct(&(temp_c->tokens));
 		if (temp_c->commands != NULL)

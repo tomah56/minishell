@@ -130,7 +130,6 @@ char	*no_expand_next_part_no(char *str, t_data *data);
 
 // here_doc
 int		here_doc(char *stop, t_data *data, char *name);
-void	del_temp_looper(t_data *data);
 
 // redirections
 void	bypass_juntion(t_data *data);
