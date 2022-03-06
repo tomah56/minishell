@@ -12,29 +12,32 @@
 
 #include "../../include/minishell.h"
 
+// static void check_next_syntax()
+
+static void short_tre(t_tok **temp_t)
+{
+	(*temp_t)->bedeleted = 1;
+	*temp_t = (*temp_t)->next;
+	(*temp_t)->bedeleted = 1;
+}
+
 int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
 {
 	temp_c->outfile = -5;
 	temp_c->infile = -5;
 	if (!ft_strncmp((*temp_t)->content, ">", 2))
 	{
-		(*temp_t)->bedeleted = 1;
-		*temp_t = (*temp_t)->next;
-		(*temp_t)->bedeleted = 1;
+		short_tre(temp_t);
 		fail = red_outfile_trunc(data, temp_c, temp_t);
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 2))
 	{
-		(*temp_t)->bedeleted = 1;
-		*temp_t = (*temp_t)->next;
-		(*temp_t)->bedeleted = 1;
+		short_tre(temp_t);
 		fail = red_infile(data, temp_c, temp_t);
 	}
 	else if (!ft_strncmp((*temp_t)->content, ">>", 3))
 	{
-		(*temp_t)->bedeleted = 1;
-		*temp_t = (*temp_t)->next;
-		(*temp_t)->bedeleted = 1;
+		short_tre(temp_t);
 		fail = red_outfile_append(data, temp_c, temp_t);
 	}
 	*temp_t = (*temp_t)->next;

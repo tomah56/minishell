@@ -88,8 +88,11 @@ void	make_routine(t_data *data, char *temp)
 	input_one_lilist(temp, data);
 	link_expand_looper(data);
 	// printlist(data);
+	printf("hello 1\n");
 	bypass_juntion(data);
+	printf("hello 2\n");
 	in_out_file_looper(data);
+	printf("hello 3\n");
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
 	commands_link_to_array_looper(data);
