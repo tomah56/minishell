@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = gcc
-NAME = minishelll
+NAME = minishellll
 HEADER_DIR := ./include/
 FLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
 #debug flag use
