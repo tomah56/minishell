@@ -72,7 +72,7 @@ static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		(*temp_t)->infile = here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
-	//  system("leaks minishelll");
+	//  system("leaks minishellll");
 	//   	fscanf(stdin, "c");
 }
 

@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:49:12 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/06 17:05:16 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:51:21 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_cmds_struct(t_cmds **cmds)
 	{
 		temp_c = *cmds;
 		unlink(temp_c->cm_hd_file);
-		*cmds = (*cmds)->next; // why stepping imidiatly in to the next one is working?
+		*cmds = (*cmds)->next;
 		if (temp_c->tokens != NULL)
 			free_token_struct(&(temp_c->tokens));
 		if (temp_c->commands != NULL)

@@ -40,17 +40,8 @@ char	*expand_clean_dollar(char *str, t_data *data)
 	return (NULL);
 }
 
-// static int exit_coder_questionmark(char **str)
-// {
-
-// 	return (1);
-// }
-
-static int	size_dollar_point(char **str, t_data *data)
+static int	size_dollar_point(char **str, t_data *data, int len)
 {
-	int	len;
-
-	len = 0;
 	if ((**str == '$' && data->qusingle == 0))
 	{
 		len++;
@@ -88,7 +79,7 @@ static char	*next_part(char **str, t_data *data)
 	int		len;
 
 	temp = *str;
-	len = size_dollar_point(str, data);
+	len = size_dollar_point(str, data, 0);
 	if (*temp == '$' && data->qusingle == 0 && len > 1)
 	{
 		if (temp[1] == '?')
@@ -126,23 +117,3 @@ char	*expand_next_part(char *str, t_data *data)
 	}
 	return (superholder);
 }
-
-// void	save_paths(t_data *data)
-// {
-// 	char	*path_envp;
-// 	// int		i;
-
-// 	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
-// 		++data->environ;
-// 	if (*data->environ == NULL && data->dpflag == 0)
-// 		msg_exit(data, "No such file or directory\n");
-// 	if (data->dpflag == 1)
-// 		data->paths = NULL;
-// 	else
-// 	{
-// 		path_envp = (*data->environ + 5);
-// 		data->paths = ft_split(path_envp, ':');
-// 		if (!data->paths)
-// 			msg_exit(data, "malloc error");
-// 	}
-// }
