@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 20:48:49 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/05 23:20:10 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:33:42 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,10 @@ int	is_pipe(t_cmds *temp_c)
 	return (0);
 }
 
-
 void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 {
+	if (temp_c->fail == 1)
+		exit(g_exit);
 	if (temp_c->infile != -5)
 		ft_dup2(data, temp_c->infile, STDIN_FILENO);
 	// else if (temp_c->heredoc != -10)
