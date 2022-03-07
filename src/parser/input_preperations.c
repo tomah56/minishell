@@ -78,13 +78,8 @@ static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 			= here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
-<<<<<<< HEAD
-	 system("leaks minishellll");
-	  	fscanf(stdin, "c");
-=======
 	//  system("leaks minishellll");
 	//   	fscanf(stdin, "c");
->>>>>>> 17777f5492dae2d4bd64eb7e2fad85677c255d07
 	return (0);
 }
 

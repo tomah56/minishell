@@ -119,5 +119,6 @@ char	*expand_next_part(char *str, t_data *data)
 				superholder = ft_strjoin(superholder, buf);
 		}
 	}
+	free(buf);
 	return (superholder);
 }
