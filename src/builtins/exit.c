@@ -64,8 +64,12 @@ void	builtin_exit(t_data *data)
 		g_exit = exit_status;
 	else
 		exit_status = exit_errors(data, cmd_array);
+	ft_free_3array(&data->environ);
+	data->environ = NULL;
 	free_struct(data);
 	data->environ = NULL;
 	g_exit = exit_status;
+	system("leaks minishellll");
+	fscanf(stdin, "c");
 	exit(g_exit);
 }

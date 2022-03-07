@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 17:11:03 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/07 17:12:47 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:03:36 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	sytax_looper(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp_t = temp_c->tokens;
-		// temp_c->defpath = ft_strjoin("./", temp_c->commands[0]); // not in the rigth place...  // version for inside the place
 		temp_c->defpath = NULL;
 		temp_c = temp_c->next;
 	}

@@ -32,13 +32,6 @@ void	create_environment(t_data *data, char **env)
 			msg_exit(data, "malloc error");
 		i++;
 	}
-	// printf("len = %d\n", len);
-	// i = 0;
-	// while (i < 28)
-	// {
-	// 	printf("env = %s\n", data->environ[i]);
-	// 	i++;
-	// }
 }
 
 // finds path in envp and saves it

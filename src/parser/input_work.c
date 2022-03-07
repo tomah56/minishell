@@ -12,18 +12,6 @@
 
 #include "../../include/minishell.h"
 
-void	check_token_flags_li(char str, t_data *data)
-{
-	if (str == '"' && data->qudouble == 0 && data->qusingle == 0)
-		data->qudouble = 1;
-	else if (str == '"' && data->qudouble == 1 && data->qusingle == 0)
-		data->qudouble = 0;
-	if (str == '\'' && data->qusingle == 0 && data->qudouble == 0)
-		data->qusingle = 1;
-	else if (str == '\'' && data->qusingle == 1 && data->qudouble == 0)
-		data->qusingle = 0;
-}
-
 static int	count_my_tokens(char *str, t_tok *tokdat, int i, int j)
 {
 	int	count;
@@ -55,8 +43,6 @@ int	is_double(char str, char strp1)
 	return (0);
 }
 
-
-
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
 	if ((ft_strchr(" <>|\0", str[data->i + 1]) != NULL
@@ -85,7 +71,7 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 	}
 }
 
-static int cut_first_pipie(char *str)
+static int	cut_first_pipie(char *str)
 {
 	int	i;
 

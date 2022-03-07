@@ -113,9 +113,7 @@ void	minishell(t_data *data)
 	char	*temp;
 	char	**exp;
 	char	*home;
-	// int		save_in;
 
-	// save_in = dup(STDIN_FILENO);
 	temp = NULL;
 	while (1)
 	{
@@ -123,7 +121,6 @@ void	minishell(t_data *data)
 		signal(SIGINT, rec_sig);
 		data->qudouble = 0;
 		data->qusingle = 0;
-		// dup2(save_in, STDIN_FILENO);
 		data->save_fd = ft_dup(data, STDIN_FILENO);
 		temp = readline("HAKUNA MATATA 0.42$ ");
 		if (temp == NULL)
@@ -140,6 +137,8 @@ void	minishell(t_data *data)
 			continue ;
 		}
 		make_routine(data, temp);
+		// system("leaks minishellll");
+		// fscanf(stdin, "c");
 	}
 }
 
@@ -153,5 +152,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_3array(&data.environ);
 	data.environ = NULL;
 	free_struct(&data);
+	printf("HERE\n");
 	return (0);
 }
