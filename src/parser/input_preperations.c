@@ -44,10 +44,14 @@ static char	*hd_name_maker(long number)
 char	*l_e_loop_sequence(char *str, t_data *data)
 {
 	char	*temp;
+	char	*temp1;
 
 	temp = expand_next_part(str, data);
+	temp1 = temp;
 	free(str);
-	temp = quote_cutter(temp, 0, 0);
+	free(temp);
+	temp = quote_cutter(temp1, 0, 0);
+	
 	return (temp);
 }
 
@@ -74,9 +78,9 @@ static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		(*temp_t)->infile = here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
+	 system("leaks minishellll");
+	  	fscanf(stdin, "c");
 	return (0);
-	//  system("leaks minishellll");
-	//   	fscanf(stdin, "c");
 }
 
 int	link_expand_looper(t_data *data)

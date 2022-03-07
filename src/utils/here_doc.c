@@ -65,5 +65,6 @@ int	here_doc(char *stop, t_data *data, char *name)
 		if (temp == NULL && unlink_close(data, fd, name))
 			return (-1);
 	}
+	free(stop);
 	return (norm_fin_cut(name, temp, fd));
 }
