@@ -19,6 +19,8 @@ void	check_for_builtins(t_data *data)
 	cmd = data->cmds;
 	while (cmd)
 	{
+		if (cmd->commands[0] == NULL)
+			return ;
 		if (ft_strncmp(cmd->commands[0], "cd", 3) == SUCCESS)
 			cmd->builtin = true;
 		else if (ft_strncmp(cmd->commands[0], "echo", 5) == SUCCESS)

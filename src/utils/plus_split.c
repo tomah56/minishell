@@ -55,6 +55,17 @@ static void	rec(char const *s, char *ref, char **result, unsigned int index)
 	free(copy);
 }
 
+static char *malo_extra()
+{
+	char	*temp;
+
+	temp = malloc(3);
+	temp[0] = '.';
+	temp[1] = '/';
+	temp[2] = '\0';
+	return (temp);
+}
+
 char	**plus_split(char const *s, char c)
 {
 	char			**arrayofstrings;
@@ -70,10 +81,10 @@ char	**plus_split(char const *s, char c)
 	ref[1] = '\0';
 	piece = 2;
 	piece = recurlen(s, ref);
-	arrayofstrings = (char **)malloc((piece + 1) * sizeof(char *));
+	arrayofstrings = (char **)malloc((piece + 1 + 1) * sizeof(char *));
 	if (arrayofstrings == NULL)
 		return (NULL);
-	arrayofstrings[piece] = "./";
+	arrayofstrings[piece] = malo_extra();
 	arrayofstrings[piece + 1] = NULL;
 	if (piece > 0)
 		rec(s, ref, arrayofstrings, 0);

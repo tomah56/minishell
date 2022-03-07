@@ -14,7 +14,6 @@
 
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 {
-	// char	**command; // why do we need this ??
 	char	*path;
 
 	if (temp_c->builtin == true)
@@ -22,23 +21,14 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 	else
 	{
 		save_paths(data);
-		// printf("%d\n", count_tokens(temp_c));
-		// command = malloc((count_tokens(temp_c) + 1) * sizeof(char *));   // why all this is here????
-		// while (temp_c->commands[i])
-		// {
-		// 	command[i] = temp_c->commands[i];
-		// 	printf("inside\n");
-		// 	i++;
-		// }
-		// printf("%s\n", command[1]);
 		i = 0;
 		if (data->dpflag == 0)
 		{
 			while (data->paths[i])
-				i = exec_cmd_helper(data, temp_c->commands, i); //whitout
+				i = exec_cmd_helper(data, temp_c->commands, i);
 		}
 		else
-			exec_cmd_helper_2(data, temp_c, temp_c->commands); // path
+			exec_cmd_helper_2(data, temp_c, temp_c->commands);
 		cmd_not_found_error(data, "Command not found\n");
 	}
 }

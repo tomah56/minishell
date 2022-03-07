@@ -93,17 +93,17 @@ void	make_routine(t_data *data, char *temp)
 	// printf("hello 1\n");
 	if (bypass_juntion(data))
 		return ;
-	// printf("hello 2\n");
 	in_out_file_looper(data);
-	// printf("hello 3\n");
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
 	commands_link_to_array_looper(data);
 	// printlist(data);
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 	check_for_builtins(data);
+	// printf("hello 2\n");
 	if (data->falg == 1)
 		execute(data);
+	// printf("hello 3\n");
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 }
 
