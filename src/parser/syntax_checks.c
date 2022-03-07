@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_checks.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 17:11:03 by sreinhol          #+#    #+#             */
+/*   Updated: 2022/03/07 17:12:47 by sreinhol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	sytax_looper(t_data *data)
@@ -13,21 +25,18 @@ void	sytax_looper(t_data *data)
 		temp_t = temp_c->tokens;
 		// temp_c->defpath = ft_strjoin("./", temp_c->commands[0]); // not in the rigth place...  // version for inside the place
 		temp_c->defpath = NULL;
-		// while (temp_t != NULL)
-		// {
-
-		// }
 		temp_c = temp_c->next;
 	}
 }
 
-int syntax_rutine(t_tok **temp_t)
+int	syntax_rutine(t_tok **temp_t)
 {
-	if ((*temp_t) && (*temp_t)->content && ft_strchr("<>", (*temp_t)->content[0]))
+	if ((*temp_t) && (*temp_t)->content
+		&& ft_strchr("<>", (*temp_t)->content[0]))
 	{
 		write(STDERR_FILENO, "syntax error near unexpected token `", 36);
-		write(STDERR_FILENO, &(*temp_t)->content[0] , 1);
-		write(STDERR_FILENO, "'\n" , 2);
+		write(STDERR_FILENO, &(*temp_t)->content[0], 1);
+		write(STDERR_FILENO, "'\n", 2);
 		g_exit = 258;
 		return (-1);
 	}

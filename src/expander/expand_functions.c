@@ -40,6 +40,17 @@ char	*expand_clean_dollar(char *str, t_data *data)
 	return (NULL);
 }
 
+static int	size_dollar_point_helper(char **str, t_data *data, int len)
+{
+	while ((**str != '$' && **str != '\0' ) || data->qusingle == 1)
+	{
+		check_token_flags_li(**str, data);
+		len++;
+		(*str)++;
+	}
+	return (len);
+}
+
 static int	size_dollar_point(char **str, t_data *data, int len)
 {
 	if ((**str == '$' && data->qusingle == 0))
@@ -61,14 +72,7 @@ static int	size_dollar_point(char **str, t_data *data, int len)
 		}
 	}
 	else
-	{
-		while ((**str != '$' && **str != '\0' ) || data->qusingle == 1)
-		{
-			check_token_flags_li(**str, data);
-			len++;
-			(*str)++;
-		}
-	}
+		len = size_dollar_point_helper(str, data, len);
 	return (len);
 }
 

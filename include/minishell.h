@@ -134,7 +134,7 @@ int		here_doc(char *stop, t_data *data, char *name);
 char	**plus_split(char const *s, char c);
 
 // redirections
-int		bypass_juntion(t_data *data);
+int		bypass_juntion(t_data *data, int fail);
 int		bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail);
 int		red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t);
 int		red_outfile_append(t_data *data, t_cmds *temp_c, t_tok **temp_t);
@@ -144,7 +144,7 @@ void	remove_linklist_file_looper(t_data *data);
 char	*l_e_loop_sequence(char *str, t_data *data);
 void	in_out_file_looper(t_data *data);
 
-int syntax_rutine(t_tok **temp_t);
+int		syntax_rutine(t_tok **temp_t);
 
 // linked list functions
 t_cmds	*create_new_cmds_node(t_tok *tokdat, int count);
