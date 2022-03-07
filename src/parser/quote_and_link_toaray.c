@@ -61,23 +61,23 @@ char	*quote_cutter(char *str, int qusig, int qudou)
 	return (temp);
 }
 
-void	looper_next(t_data *data, void (*f)(char *))
-{
-	if (data->cmds == NULL)
-	{
-		printf("STOP HERE\n");
-		return ;
-	}
-	while (data->cmds != NULL)
-	{
-		while (data->cmds->tokens != NULL)
-		{
-			(*f)(data->cmds->tokens->content);
-			data->cmds->tokens = data->cmds->tokens->next;
-		}
-		data->cmds = data->cmds->next;
-	}
-}
+// void	looper_next(t_data *data, void (*f)(char *))
+// {
+// 	if (data->cmds == NULL)
+// 	{
+// 		printf("STOP HERE\n");
+// 		return ;
+// 	}
+// 	while (data->cmds != NULL)
+// 	{
+// 		while (data->cmds->tokens != NULL)
+// 		{
+// 			(*f)(data->cmds->tokens->content);
+// 			data->cmds->tokens = data->cmds->tokens->next;
+// 		}
+// 		data->cmds = data->cmds->next;
+// 	}
+// }
 
 static char	*cut_path_off(char *srt, t_cmds	*temp_c, t_data *data)
 {
@@ -118,9 +118,7 @@ void	commands_link_to_array_looper(t_data *data)
 		while (temp_t != NULL)
 		{
 			if (i == 0 && temp_t->content[0] == '/')
-			{
 				temp[i] = cut_path_off(temp_t->content, temp_c, data);
-			}
 			else
 				temp[i] = temp_t->content;
 			temp_t = temp_t->next;
