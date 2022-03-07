@@ -25,6 +25,22 @@ static void	rec_sig_doc(int num)
 	}
 }
 
+static int	unlink_close(t_data *data, int fd, char *name)
+{
+	unlink(name);
+	if (close(fd) == FAILED)
+		msg_exit(data, "close error\n");
+	return (1);
+}
+
+static int norm_fin_cut(char *name, char *temp, int fd)
+{
+	free(temp);
+	close(fd);
+	fd = open(name, O_RDONLY, 0777);
+	return (fd);
+}
+
 int	here_doc(char *stop, t_data *data, char *name)
 {
 	char	*temp;
@@ -32,37 +48,22 @@ int	here_doc(char *stop, t_data *data, char *name)
 	int		fd;
 
 	signal(SIGINT, rec_sig_doc);
-	if (stop == NULL)
-	{
-		write(2, "ERROR\n", 6);
-		return (-1); // bash: syntax error near unexpected token `newline'
-	}
 	fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0777);
 	if (fd == FAILED)
-	{
-		write(2, "ERROR\n", 6); // temperarrly
 		return (-1);
-	}
 	size = ft_strlen(stop);
 	temp = readline(">");
-	if (temp == NULL)
-	{
-		ft_close(data, fd);
+	if (temp == NULL && unlink_close(data, fd, name))
 		return (-1);
-	}
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
-		temp = no_expand_next_part_no(temp, data);
+		temp = no_expand_next_part_no(temp, data); // leak danger
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
+		free(temp);
 		temp = readline(">");
-		if (temp == NULL)
-		{
-			close(fd);
+		if (temp == NULL && unlink_close(data, fd, name))
 			return (-1);
-		}
 	}
-	close(fd);
-	fd = open(name, O_RDONLY, 0777);
-	return (fd);
+	return (norm_fin_cut(name, temp, fd));
 }

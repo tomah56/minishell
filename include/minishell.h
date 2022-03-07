@@ -131,6 +131,8 @@ char	*no_expand_next_part_no(char *str, t_data *data);
 // here_doc
 int		here_doc(char *stop, t_data *data, char *name);
 
+char	**plus_split(char const *s, char c);
+
 // redirections
 int		bypass_juntion(t_data *data);
 int		bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail);
@@ -203,7 +205,7 @@ void	execute_one_cmd(t_data *data);
 void	ft_wait(t_data *data);
 int		ft_dup(t_data *data, int fd);
 void	ft_dup2(t_data *data, int fd1, int fd2);
-void	ft_close(t_data	*data, int fd);
+int		ft_close(t_data	*data, int fd);
 void	ft_pipe(t_data *data, int *fd);
 void	ft_fork(t_data *data);
 

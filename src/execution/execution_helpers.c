@@ -28,10 +28,11 @@ void	ft_dup2(t_data *data, int fd1, int fd2)
 		dup_exit(data, "dup2 error ");
 }
 
-void	ft_close(t_data *data, int fd)
+int	ft_close(t_data *data, int fd)
 {
 	if (close(fd) == FAILED)
 		msg_exit(data, "close error\n");
+	return (1);
 }
 
 void	ft_pipe(t_data *data, int *fd)

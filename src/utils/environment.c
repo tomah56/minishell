@@ -56,7 +56,7 @@ void	save_paths(t_data *data)
 	else
 	{
 		path_envp = (*data->environ + 5);
-		data->paths = ft_split(path_envp, ':');
+		data->paths = plus_split(path_envp, ':');
 		if (!data->paths)
 			msg_exit(data, "malloc error");
 	}
