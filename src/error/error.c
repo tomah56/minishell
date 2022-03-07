@@ -20,7 +20,7 @@ void	error_msg_no(char *msg)
 void	error_msg(char *msg)
 {
 	write(STDERR_FILENO, msg, ft_strlen(msg));
-	perror("");
+	perror(" "); //priting it twice
 }
 
 void	msg_exit(t_data *data, char *msg)

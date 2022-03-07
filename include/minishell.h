@@ -115,7 +115,7 @@ extern int	g_exit;
 
 // input
 char	*get_next_line(int fd);
-void	input_one_lilist(char *str, t_data *data);
+int		input_one_lilist(char *str, t_data *data);
 void	looper_next(t_data *data, void (*f)(char *));
 char	*quote_cutter(char *str, int qusig, int qudou);
 void	commands_link_to_array_looper(t_data *data);
@@ -123,7 +123,7 @@ void	commands_link_to_array_looper(t_data *data);
 char	*expand_clean_dollar(char *str, t_data *data);
 void	check_token_flags_li(char str, t_data *data);
 char	*expand_next_part(char *str, t_data *data);
-void	link_expand_looper(t_data *data);
+int		link_expand_looper(t_data *data);
 void	sytax_looper(t_data *data);
 char	*slash_join(char const *s1, char const *s2);
 char	*no_expand_next_part_no(char *str, t_data *data);
@@ -132,7 +132,7 @@ char	*no_expand_next_part_no(char *str, t_data *data);
 int		here_doc(char *stop, t_data *data, char *name);
 
 // redirections
-void	bypass_juntion(t_data *data);
+int		bypass_juntion(t_data *data);
 int		bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail);
 int		red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t);
 int		red_outfile_append(t_data *data, t_cmds *temp_c, t_tok **temp_t);
@@ -141,6 +141,8 @@ int		red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t);
 void	remove_linklist_file_looper(t_data *data);
 char	*l_e_loop_sequence(char *str, t_data *data);
 void	in_out_file_looper(t_data *data);
+
+int syntax_rutine(t_tok **temp_t);
 
 // linked list functions
 t_cmds	*create_new_cmds_node(t_tok *tokdat, int count);

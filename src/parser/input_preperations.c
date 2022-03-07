@@ -51,7 +51,7 @@ char	*l_e_loop_sequence(char *str, t_data *data)
 	return (temp);
 }
 
-static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
+static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
 	char	*name;
 
@@ -63,26 +63,29 @@ static void	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 	else
 	{
 		name = hd_name_maker((unsigned long)temp_c);
-		unlink(name); // if multiple heredoc in one command it always start with clean file... need separate name for separate commands problem
+		unlink(name);
 		(*temp_t)->bedeleted = 1;
 		*temp_t = (*temp_t)->next;
+		if (syntax_rutine(temp_t) == -1)
+			return (-1);
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = -1;
 		(*temp_t)->hd_file = name;
 		(*temp_t)->infile = here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
+	return (0);
 	//  system("leaks minishellll");
 	//   	fscanf(stdin, "c");
 }
 
-void	link_expand_looper(t_data *data)
+int	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
 		int		save_in;
 
-save_in = dup(STDIN_FILENO);
+	save_in = dup(STDIN_FILENO);
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
@@ -95,9 +98,11 @@ save_in = dup(STDIN_FILENO);
 			(temp_t)->infile = -1;
 			(temp_t)->outfile = -1;
 			(temp_t)->hd_file = NULL;
-			l_e_l_norm(&temp_t, temp_c, data);
+			if (l_e_l_norm(&temp_t, temp_c, data) == -1)
+				return (1);
 			dup2(save_in, STDIN_FILENO);
 		}
 		temp_c = temp_c->next;
 	}
+	return (0);
 }

@@ -20,3 +20,22 @@ void	sytax_looper(t_data *data)
 		temp_c = temp_c->next;
 	}
 }
+
+int syntax_rutine(t_tok **temp_t)
+{
+	if ((*temp_t) && (*temp_t)->content && ft_strchr("<>", (*temp_t)->content[0]))
+	{
+		write(STDERR_FILENO, "syntax error near unexpected token `", 36);
+		write(STDERR_FILENO, &(*temp_t)->content[0] , 1);
+		write(STDERR_FILENO, "'\n" , 2);
+		g_exit = 258;
+		return (-1);
+	}
+	if (!(*temp_t))
+	{
+		write(STDERR_FILENO, "syntax error near unexpected token\n", 35);
+		g_exit = 258;
+		return (-1);
+	}
+	return (0);
+}

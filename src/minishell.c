@@ -85,14 +85,17 @@ void	make_routine(t_data *data, char *temp)
 	data->j = 0;
 	data->k = 0;
 	data->falg = 1;
-	input_one_lilist(temp, data);
-	link_expand_looper(data);
+	if (input_one_lilist(temp, data))
+		return ;
+	if (link_expand_looper(data))
+		return ;
 	// printlist(data);
-	printf("hello 1\n");
-	bypass_juntion(data);
-	printf("hello 2\n");
+	// printf("hello 1\n");
+	if (bypass_juntion(data))
+		return ;
+	// printf("hello 2\n");
 	in_out_file_looper(data);
-	printf("hello 3\n");
+	// printf("hello 3\n");
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
 	commands_link_to_array_looper(data);

@@ -14,11 +14,14 @@
 
 // static void check_next_syntax()
 
-static void short_tre(t_tok **temp_t)
+static int short_tre(t_tok **temp_t)
 {
 	(*temp_t)->bedeleted = 1;
 	*temp_t = (*temp_t)->next;
+	if (syntax_rutine(temp_t) == -1)
+		return (-1);
 	(*temp_t)->bedeleted = 1;
+	return (0);
 }
 
 int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
@@ -27,24 +30,31 @@ int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
 	temp_c->infile = -5;
 	if (!ft_strncmp((*temp_t)->content, ">", 2))
 	{
-		short_tre(temp_t);
-		fail = red_outfile_trunc(data, temp_c, temp_t);
+		fail = short_tre(temp_t);
+		if (fail == 0)
+			fail = red_outfile_trunc(data, temp_c, temp_t);
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 2))
 	{
-		short_tre(temp_t);
-		fail = red_infile(data, temp_c, temp_t);
+		fail = short_tre(temp_t);
+		if (fail == 0)
+			fail = red_infile(data, temp_c, temp_t);
 	}
 	else if (!ft_strncmp((*temp_t)->content, ">>", 3))
 	{
-		short_tre(temp_t);
-		fail = red_outfile_append(data, temp_c, temp_t);
+		fail = short_tre(temp_t);
+		if (fail == 0)
+			fail = red_outfile_append(data, temp_c, temp_t);
+	}
+	if (fail == -1)
+	{
+		return (-1);
 	}
 	*temp_t = (*temp_t)->next;
 	return (fail);
 }
 
-void	bypass_juntion(t_data *data)
+int	bypass_juntion(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
@@ -58,7 +68,7 @@ void	bypass_juntion(t_data *data)
 	{
 		temp_t = temp_c->tokens;
 		temp_c->type = 0;
-		while (temp_t != NULL)
+		while (temp_t != NULL && fail != -1)
 		{
 			fail = bypass_helper(&temp_t, temp_c, data, fail);
 			if (fail == 1)
@@ -69,6 +79,7 @@ void	bypass_juntion(t_data *data)
 		if (fail == 0)
 			temp_c = temp_c->next;
 		else
-			break ;
+			return (1);
 	}
+	return (0);
 }

@@ -55,6 +55,8 @@ int	is_double(char str, char strp1)
 	return (0);
 }
 
+
+
 void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 {
 	if ((ft_strchr(" <>|\0", str[data->i + 1]) != NULL
@@ -83,7 +85,23 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 	}
 }
 
-void	input_one_lilist(char *str, t_data *data)
+static int cut_first_pipie(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '	')
+		i++;
+	if (str[i] == '|')
+	{
+		write(STDERR_FILENO, "syntax error near unexpected token `|'\n", 39);
+		g_exit = 258;
+		return (1);
+	}
+	return (0);
+}
+
+int	input_one_lilist(char *str, t_data *data)
 {
 	t_cmds	*cmds;
 	t_tok	*tok;
@@ -92,6 +110,8 @@ void	input_one_lilist(char *str, t_data *data)
 	tok = NULL;
 	data->tokentotal = 0;
 	data->tokencount = 0;
+	if (cut_first_pipie(str))
+		return (1);
 	while (str[data->i])
 	{
 		check_token_flags_li(str[data->i], data);
@@ -102,4 +122,5 @@ void	input_one_lilist(char *str, t_data *data)
 	if (data->qudouble == 1 || data->qusingle == 1)
 		write(1, "error: input\n", 13);
 	data->cmds = cmds;
+	return (0);
 }
