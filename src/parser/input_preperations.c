@@ -44,10 +44,13 @@ static char	*hd_name_maker(long number)
 char	*l_e_loop_sequence(char *str, t_data *data)
 {
 	char	*temp;
+	char	*temp1;
 
 	temp = expand_next_part(str, data);
+	temp1 = temp;
 	free(str);
-	temp = quote_cutter(temp, 0, 0);
+	free(temp);
+	temp = quote_cutter(temp1, 0, 0);
 	return (temp);
 }
 
@@ -57,7 +60,7 @@ static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 
 	if (ft_strncmp((*temp_t)->content, "<<", 3))
 	{
-		(*temp_t)->content = l_e_loop_sequence((*temp_t)->content, data); // leak danger
+		(*temp_t)->content = l_e_loop_sequence((*temp_t)->content, data);
 		*temp_t = (*temp_t)->next;
 	}
 	else
@@ -71,19 +74,20 @@ static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = -1;
 		(*temp_t)->hd_file = name;
-		(*temp_t)->infile = here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
+		(*temp_t)->infile
+			= here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
 		*temp_t = (*temp_t)->next;
 	}
-	return (0);
 	//  system("leaks minishellll");
 	//   	fscanf(stdin, "c");
+	return (0);
 }
 
 int	link_expand_looper(t_data *data)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
-		int		save_in;
+	int		save_in;
 
 	save_in = dup(STDIN_FILENO);
 	temp_t = data->cmds->tokens;
@@ -105,4 +109,16 @@ int	link_expand_looper(t_data *data)
 		temp_c = temp_c->next;
 	}
 	return (0);
+}
+
+void	check_token_flags_li(char str, t_data *data)
+{
+	if (str == '"' && data->qudouble == 0 && data->qusingle == 0)
+		data->qudouble = 1;
+	else if (str == '"' && data->qudouble == 1 && data->qusingle == 0)
+		data->qudouble = 0;
+	if (str == '\'' && data->qusingle == 0 && data->qudouble == 0)
+		data->qusingle = 1;
+	else if (str == '\'' && data->qusingle == 1 && data->qudouble == 0)
+		data->qusingle = 0;
 }
