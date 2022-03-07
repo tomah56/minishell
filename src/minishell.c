@@ -85,6 +85,7 @@ void	make_routine(t_data *data, char *temp)
 	data->j = 0;
 	data->k = 0;
 	data->falg = 1;
+	// printf("---1 %p \n",temp);
 	if (input_one_lilist(temp, data))
 		return ;
 	if (link_expand_looper(data))
@@ -122,6 +123,8 @@ void	minishell(t_data *data)
 		data->qudouble = 0;
 		data->qusingle = 0;
 		data->save_fd = ft_dup(data, STDIN_FILENO);
+		if (temp != NULL)
+			free(temp);
 		temp = readline("HAKUNA MATATA 0.42$ ");
 		if (temp == NULL)
 		{
