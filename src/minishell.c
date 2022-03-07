@@ -91,7 +91,7 @@ void	make_routine(t_data *data, char *temp)
 		return ;
 	// printlist(data);
 	// printf("hello 1\n");
-	if (bypass_juntion(data))
+	if (bypass_juntion(data, 0))
 		return ;
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);

@@ -45,7 +45,6 @@ void	create_environment(t_data *data, char **env)
 void	save_paths(t_data *data)
 {
 	char	*path_envp;
-	// int		i;
 
 	while (*data->environ != NULL && ft_strncmp(*data->environ, "PATH=", 5))
 		++data->environ;

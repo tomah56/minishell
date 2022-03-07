@@ -14,7 +14,7 @@
 
 // static void check_next_syntax()
 
-static int short_tre(t_tok **temp_t)
+static int	short_tre(t_tok **temp_t)
 {
 	(*temp_t)->bedeleted = 1;
 	*temp_t = (*temp_t)->next;
@@ -47,20 +47,16 @@ int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
 			fail = red_outfile_append(data, temp_c, temp_t);
 	}
 	if (fail == -1)
-	{
 		return (-1);
-	}
 	*temp_t = (*temp_t)->next;
 	return (fail);
 }
 
-int	bypass_juntion(t_data *data)
+int	bypass_juntion(t_data *data, int fail)
 {
 	t_tok	*temp_t;
 	t_cmds	*temp_c;
-	int		fail;
 
-	fail = 0;
 	temp_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	temp_c->fail = 0;
