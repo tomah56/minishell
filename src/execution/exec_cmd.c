@@ -51,7 +51,6 @@ void	exec_cmd_helper_2(t_data *data, t_cmds *temp_c, char **command)
 	char	*path;
 
 	path = temp_c->defpath;
-	free(temp_c->defpath);
 	if (access(path, F_OK) == SUCCESS)
 	{
 		if (execve(path, &command[0], data->environ) == FAILED)

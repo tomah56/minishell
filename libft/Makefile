@@ -28,13 +28,13 @@ ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 all: $(NAME)
 
 $(NAME):
-	${CC} $(FLAGS) -c $(SRC)
-	ar -crs $(NAME) $(SRC:.c=.o)
+	@${CC} $(FLAGS) -c $(SRC)
+	@ar -crs $(NAME) $(SRC:.c=.o)
 
 clean:
-	rm -f *.o
+	@rm -f *.o
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
