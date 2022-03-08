@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:49:12 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/06 18:51:21 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/08 18:40:29 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	free_struct_hd(t_data *data)
 		unlink(data->cmds->cm_hd_file);
 		while (data->cmds->tokens != NULL)
 		{
-
 			free(data->cmds->tokens);
 			data->cmds->tokens = data->cmds->tokens->next;
 		}

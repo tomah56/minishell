@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int g_exit = 0;
+int	g_exit = 0;
 
 static void	rec_sig(int num)
 {
