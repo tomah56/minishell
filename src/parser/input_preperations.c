@@ -57,6 +57,7 @@ char	*l_e_loop_sequence(char *str, t_data *data)
 static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 {
 	char	*name;
+	char	*stop;
 
 	if (ft_strncmp((*temp_t)->content, "<<", 3))
 	{
@@ -74,9 +75,11 @@ static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		(*temp_t)->bedeleted = 1;
 		(*temp_t)->outfile = -1;
 		(*temp_t)->hd_file = name;
+		stop = quote_cutter((*temp_t)->content, 0, 0);
 		(*temp_t)->infile
-			= here_doc(quote_cutter((*temp_t)->content, 0, 0), data, name);
+			= here_doc(stop, data, name);
 		*temp_t = (*temp_t)->next;
+		free(stop);
 	}
 	return (0);
 }
