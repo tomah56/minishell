@@ -70,6 +70,6 @@ void	builtin_exit(t_data *data)
 	data->environ = NULL;
 	g_exit = exit_status;
 	system("leaks minishellll");
-	fscanf(stdin, "c");
+		fscanf(stdin, "c");
 	exit(g_exit);
 }

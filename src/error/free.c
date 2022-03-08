@@ -12,50 +12,71 @@
 
 #include "../../include/minishell.h"
 
+void	free_struct_hd(t_data *data)
+{
+	if (data->paths != NULL)
+		ft_free_array(data->paths);
+	if (data->cmds != NULL)
+	{
+		unlink(data->cmds->cm_hd_file);
+		// printf( "--1--  %p\n",data->cmds->cm_hd_file);
+		// if (data->cmds->cm_hd_file != NULL)
+		// free(data->cmds->cm_hd_file);
+		while (data->cmds->tokens != NULL)
+		{
+		// printf( "--2--  %p\n",data->cmds->tokens);
+		// printf("one\n");
+			free(data->cmds->tokens);
+			data->cmds->tokens = data->cmds->tokens->next;
+		}
+		if (data->cmds->commands != NULL)
+		{
+			printf("one\n");
+
+			// ft_free_array(data->cmds->commands);
+		}
+			// ft_free_array(data->cmds->commands);
+	
+		free(data->cmds->defpath);
+		printf("one\n");
+		free(data->cmds);
+		
+	}
+	// free(data->cmds);
+	data->paths = NULL;
+	data->actual = NULL;
+}
 void	free_struct(t_data *data)
 {
-	if (data != NULL)
-	{
+		printf("one S\n");
 		if (data->paths != NULL)
 			ft_free_array(data->paths);
-		if (data->cmds != NULL)
-			free_cmds_struct(&data->cmds);
-	}
+		while (data->cmds && data != NULL && data->tokentotal != 0)
+		{
+			if (data->cmds != NULL)
+			{
+				unlink(data->cmds->cm_hd_file);
+				
+				if (data->cmds->cm_hd_file != NULL)
+					free(data->cmds->cm_hd_file);
+				while (data->cmds->tokens != NULL)
+				{
+					free(data->cmds->tokens);
+					data->cmds->tokens = data->cmds->tokens->next;
+				}
+				
+				if (data->cmds->commands != NULL)
+					ft_free_array(data->cmds->commands);
+				free(data->cmds->defpath);
+				free(data->cmds);
+				data->cmds = data->cmds->next;
+			}
+		}
 	data->paths = NULL;
 	data->cmds = NULL;
 	data->actual = NULL;
 }
 
-void	free_cmds_struct(t_cmds **cmds)
-{
-	t_cmds	*temp_c;
-
-	while (*cmds)
-	{
-		temp_c = *cmds;
-		unlink(temp_c->cm_hd_file);
-		*cmds = (*cmds)->next;
-		if (temp_c->tokens != NULL)
-			free_token_struct(&(temp_c->tokens));
-		if (temp_c->commands != NULL)
-			ft_free_array(temp_c->commands);
-	}
-	temp_c->commands = NULL;
-}
-
-void	free_token_struct(t_tok **token)
-{
-	t_tok	*temp_t;
-
-	while (*token)
-	{
-		temp_t = *token;
-		*token = (*token)->next;
-		if (temp_t->tokensfull != NULL)
-			ft_free_array(temp_t->tokensfull);
-	}
-	temp_t->tokensfull = NULL;
-}
 
 void	ft_free_3array(char ***input)
 {

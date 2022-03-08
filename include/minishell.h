@@ -20,7 +20,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-# include "../libs/libft/libft.h"
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -48,7 +48,6 @@ enum e_enum
 
 typedef struct s_token_data
 {
-	char				**tokensfull;
 	int					qudouble;
 	int					qusingle;
 	int					tokencount;
@@ -167,8 +166,7 @@ void	error_msg_no(char *msg);
 void	dup_exit(t_data *data, char *msg);
 void	cmd_not_found_error(t_data *data, char *msg);
 void	free_struct(t_data *data);
-void	free_cmds_struct(t_cmds **cmds);
-void	free_token_struct(t_tok **token);
+void	free_struct_hd(t_data *data);
 void	ft_free_3array(char ***input);
 void	ft_free_2array(void **to_free);
 

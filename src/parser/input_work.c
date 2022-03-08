@@ -94,6 +94,7 @@ int	input_one_lilist(char *str, t_data *data)
 
 	cmds = NULL;
 	tok = NULL;
+	printf("input\n");
 	data->tokentotal = 0;
 	data->tokencount = 0;
 	if (cut_first_pipie(str))

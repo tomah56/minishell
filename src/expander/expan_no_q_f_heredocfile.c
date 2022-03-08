@@ -76,6 +76,8 @@ char	*no_expand_next_part_no(char *str, t_data *data)
 			else
 				superholder = ft_strjoin(superholder, buf);
 		}
+		printf("hi %p\n", buf);
 	}
+	// free(buf);
 	return (superholder);
 }

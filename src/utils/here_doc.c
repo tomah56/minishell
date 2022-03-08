@@ -44,6 +44,7 @@ static int norm_fin_cut(char *name, char *temp, int fd)
 int	here_doc(char *stop, t_data *data, char *name)
 {
 	char	*temp;
+	char	*temp1;
 	int		size;
 	int		fd;
 
@@ -57,7 +58,9 @@ int	here_doc(char *stop, t_data *data, char *name)
 		return (-1);
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
-		temp = no_expand_next_part_no(temp, data); // leak danger
+		temp1 = temp;
+		free(temp);
+		temp = no_expand_next_part_no(temp1, data); // leak danger
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
 		free(temp);

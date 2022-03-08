@@ -57,28 +57,9 @@ char	*quote_cutter(char *str, int qusig, int qudou)
 			temp[j++] = str[i];
 		i++;
 	}
-	// free(str);
 	temp[j] = '\0';
 	return (temp);
 }
-
-// void	looper_next(t_data *data, void (*f)(char *))
-// {
-// 	if (data->cmds == NULL)
-// 	{
-// 		printf("STOP HERE\n");
-// 		return ;
-// 	}
-// 	while (data->cmds != NULL)
-// 	{
-// 		while (data->cmds->tokens != NULL)
-// 		{
-// 			(*f)(data->cmds->tokens->content);
-// 			data->cmds->tokens = data->cmds->tokens->next;
-// 		}
-// 		data->cmds = data->cmds->next;
-// 	}
-// }
 
 static char *cut_path_off(char *srt, t_cmds	*temp_c, t_data *data)
 {
@@ -114,6 +95,7 @@ void	commands_link_to_array_looper(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp = malloc((temp_c->comandcount + 1) * sizeof(char *));
+		printf("kiki %p\n", temp);
 		temp_t = temp_c->tokens;
 		i = 0;
 		while (temp_t != NULL)

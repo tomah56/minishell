@@ -21,20 +21,15 @@ ft_memmove.c ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c ft_
 ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c \
 ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 ft_putdecimal_fd.c ft_decimaltohexup.c ft_decimaltohexlow.c ft_free_array.c ft_atoi_long.c ft_strlen_double.c \
-ft_strcmp.c ft_atoi_long_long.c ft_is_plus_minus.c
-
-BNS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
- ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+ft_strcmp.c ft_atoi_long_long.c ft_is_plus_minus.c \
+ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
 all: $(NAME)
 
 $(NAME):
 	${CC} $(FLAGS) -c $(SRC)
 	ar -crs $(NAME) $(SRC:.c=.o)
-
-bonus: 
-	${CC} ${FLAGS} -c ${BNS}
-	ar rc ${NAME} *.o
 
 clean:
 	rm -f *.o

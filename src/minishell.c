@@ -94,6 +94,7 @@ void	make_routine(t_data *data, char *temp)
 	// printf("hello 1\n");
 	if (bypass_juntion(data, 0))
 		return ;
+	printf("hello 0\n");
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
@@ -110,10 +111,7 @@ void	make_routine(t_data *data, char *temp)
 
 void	minishell(t_data *data)
 {
-	t_tok	tokdat;
 	char	*temp;
-	char	**exp;
-	char	*home;
 
 	temp = NULL;
 	while (1)
@@ -122,6 +120,7 @@ void	minishell(t_data *data)
 		signal(SIGINT, rec_sig);
 		data->qudouble = 0;
 		data->qusingle = 0;
+		data->tokentotal = 0;
 		data->save_fd = ft_dup(data, STDIN_FILENO);
 		if (temp != NULL)
 			free(temp);
@@ -156,5 +155,7 @@ int	main(int argc, char **argv, char **envp)
 	data.environ = NULL;
 	free_struct(&data);
 	printf("HERE\n");
+	(void)argc;
+	(void)argv;
 	return (0);
 }
