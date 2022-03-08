@@ -55,6 +55,9 @@ void	free_struct(t_data *data)
 		{
 			if (data->cmds != NULL)
 			{
+
+
+			// hello
 				unlink(data->cmds->cm_hd_file);
 				// if (data->cmds->cm_hd_file != NULL)  //antileaks in << he cat case
 				// 	free(data->cmds->cm_hd_file);
