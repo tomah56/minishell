@@ -57,7 +57,7 @@ void	exec_cmd_helper_2(t_data *data, t_cmds *temp_c, char **command)
 	if (access(path, F_OK) == SUCCESS)
 	{
 		if (execve(path, &command[0], data->environ) == FAILED)
-			msg_exit(data, "execve Error 2\n");
+			msg_exit(data, "execve Error\n");
 		free(path);
 	}
 	path = NULL;

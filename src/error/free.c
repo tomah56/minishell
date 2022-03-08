@@ -31,44 +31,64 @@ void	free_struct_hd(t_data *data)
 		}
 		free(data->cmds->defpath);
 		free(data->cmds);
-		
 	}
 	data->paths = NULL;
 	data->actual = NULL;
 }
-void	free_struct(t_data *data)
+
+int	free_struct(t_data *data)
 {
-		if (data->paths != NULL)
-			ft_free_array(data->paths);
-		while (data->cmds && data != NULL && data->tokentotal != 0)
+	if (data->paths != NULL)
+		ft_free_array(data->paths);
+	while (data->cmds && data != NULL && data->tokentotal != 0)
+	{
+		if (data->cmds != NULL)
 		{
-			if (data->cmds != NULL)
+			unlink(data->cmds->cm_hd_file);
+			while (data->cmds->tokens != NULL)
 			{
-
-
-			// hello
-				unlink(data->cmds->cm_hd_file);
-				// if (data->cmds->cm_hd_file != NULL)  //antileaks in << he cat case
-				// 	free(data->cmds->cm_hd_file);
-				while (data->cmds->tokens != NULL)
-				{
-					printf("toke 0\n");
-					// t_tok *temp;
-					// temp = data->cmds->tokens;
-					free(data->cmds->tokens);
-					// data->cmds->tokens = temp->next;
-					data->cmds->tokens = data->cmds->tokens->next;
-				}
-				if (data->cmds->commands != NULL)
-					ft_free_array(data->cmds->commands);
-				free(data->cmds->defpath);
-				free(data->cmds);
-				data->cmds = data->cmds->next;
+				free(data->cmds->tokens);
+				data->cmds->tokens = data->cmds->tokens->next;
 			}
+			if (data->cmds->commands != NULL)
+				ft_free_array(data->cmds->commands);
+			free(data->cmds->defpath);
+			free(data->cmds);
+			data->cmds = data->cmds->next;
 		}
+	}
 	data->paths = NULL;
 	data->cmds = NULL;
 	data->actual = NULL;
+	return (1);
+}
+
+int	free_struct_sig(t_data *data)
+{
+	if (data->paths != NULL)
+		ft_free_array(data->paths);
+	while (data->cmds && data != NULL && data->tokentotal != 0)
+	{
+		if (data->cmds != NULL)
+		{
+			unlink(data->cmds->cm_hd_file);
+			while (data->cmds->tokens != NULL)
+			{
+				free(data->cmds->tokens->content);
+				free(data->cmds->tokens);
+				data->cmds->tokens = data->cmds->tokens->next;
+			}
+			if (data->cmds->commands != NULL)
+				ft_free_array(data->cmds->commands);
+			free(data->cmds->defpath);
+			free(data->cmds);
+			data->cmds = data->cmds->next;
+		}
+	}
+	data->paths = NULL;
+	data->cmds = NULL;
+	data->actual = NULL;
+	return (1);
 }
 
 void	ft_free_3array(char ***input)

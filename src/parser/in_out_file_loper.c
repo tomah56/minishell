@@ -21,9 +21,8 @@ static t_tok	*only_heredoc(t_data *data, t_cmds	*temp_c)
 	{
 		data->falg = 0;
 		free_struct_hd(data);
-		return (NULL); // possible segfoults when dlete in the end.
+		return (NULL);
 	}
-	// free(temp_c->cm_hd_file); //maybe
 	remove_node_c(&data->cmds, temp_c);
 	return (temp_t);
 }
@@ -118,5 +117,3 @@ void	in_out_file_looper(t_data *data)
 		temp_c = temp_c->next;
 	}
 }
-
-

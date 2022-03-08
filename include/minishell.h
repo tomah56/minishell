@@ -165,9 +165,9 @@ void	error_msg(char *msg);
 void	error_msg_no(char *msg);
 void	dup_exit(t_data *data, char *msg);
 void	cmd_not_found_error(t_data *data, char *msg);
-void	free_struct(t_data *data);
+int		free_struct(t_data *data);
 void	free_struct_hd(t_data *data);
-void	free_struct_sig(t_data *data);
+int		free_struct_sig(t_data *data);
 void	ft_free_3array(char ***input);
 void	ft_free_2array(void **to_free);
 

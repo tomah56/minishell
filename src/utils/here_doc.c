@@ -41,24 +41,20 @@ static int	norm_fin_cut(char *name, char *temp, int fd)
 	return (fd);
 }
 
-int	here_doc(char *stop, t_data *data, char *name)
+int	here_doc(char *s, t_data *data, char *name)
 {
 	char	*temp;
 	char	*temp1;
-	int		size;
 	int		fd;
 
 	signal(SIGINT, rec_sig_doc);
 	fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0777);
 	if (fd == FAILED)
 		return (-1);
-	size = ft_strlen(stop);
 	temp = readline(">");
 	if (temp == NULL && unlink_close(data, fd, name))
-	{
 		return (-1);
-	}
-	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
+	while (ft_strncmp(temp, s, ft_strlen(s)) || temp[ft_strlen(s)] != '\0')
 	{
 		temp1 = temp;
 		free(temp);

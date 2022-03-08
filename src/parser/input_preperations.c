@@ -76,8 +76,7 @@ static int	l_e_l_norm(t_tok **temp_t, t_cmds *temp_c, t_data *data)
 		(*temp_t)->outfile = -1;
 		(*temp_t)->hd_file = name;
 		stop = quote_cutter((*temp_t)->content, 0, 0);
-		(*temp_t)->infile
-			= here_doc(stop, data, name);
+		(*temp_t)->infile = here_doc(stop, data, name);
 		*temp_t = (*temp_t)->next;
 		free(stop);
 	}

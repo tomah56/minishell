@@ -12,38 +12,7 @@
 
 #include "../include/minishell.h"
 
-void printlist(t_data *data)
-{
-	t_data *temp;
-	t_tok *temp_t;
-	t_cmds *temp_c;
-	int i = 1;
-	int j = 1;
-
-	temp = data;
-	i = 0;
-	
-	temp_c = data->cmds;
-
-	temp_t = temp_c->tokens;
-	while (temp_c != NULL)
-	{
-		temp_t = temp_c->tokens;
-		printf("CMDS %d  number of tokens: %d\n", j, count_tokens(temp_c));
-		printf("infile %d  outfile: %d\n", temp_c->infile, temp_c->outfile);
-		printf("LAST %d", temp_c->last);
-		printf("type %d  \n", temp_c->type);
-		while (temp_t != NULL)
-		{
-			printf("%s[---]", temp_t->content);
-			temp_t = temp_t->next;
-			i++;
-		}
-		temp_c = temp_c->next;
-		j++;
-		printf("\n");
-	}
-}
+int g_exit = 0;
 
 static void	print_command_array(t_data *data)
 {
@@ -63,8 +32,6 @@ static void	print_command_array(t_data *data)
 	}
 }
 
-int g_exit = 0;
-
 static void	rec_sig(int num)
 {
 	rl_on_new_line();
@@ -79,38 +46,34 @@ static void	rec_sig(int num)
 	}
 }
 
-void	make_routine(t_data *data, char *temp)
+static int	make_routine(t_data *data, char *temp)
 {
 	data->i = 0;
 	data->j = 0;
 	data->k = 0;
+	data->qudouble = 0;
+	data->qusingle = 0;
+	data->tokentotal = 0;
 	data->falg = 1;
-	// printf("---1 %p \n",temp);
 	if (input_one_lilist(temp, data))
-		return ;
+		return (free_struct_sig(data));
 	if (link_expand_looper(data))
-		return ;
-	// printlist(data);
+		return (free_struct_sig(data));
 	if (bypass_juntion(data, 0))
-		return ;
-	printf("hello 1\n");
+		return (free_struct_sig(data));
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
 	commands_link_to_array_looper(data);
-	// printlist(data);
-	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 	check_for_builtins(data);
 	if (data->falg == 1)
 		execute(data);
 	if (data->cmds != NULL)
 		free(data->cmds->commands);
-	printf("hello 0\n");
-	// printf("hello 3\n");
-	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
+	return (0);
 }
 
-void	minishell(t_data *data)
+static void	minishell(t_data *data)
 {
 	char	*temp;
 
@@ -119,13 +82,10 @@ void	minishell(t_data *data)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, rec_sig);
-		data->qudouble = 0;
-		data->qusingle = 0;
-		data->tokentotal = 0;
 		data->save_fd = ft_dup(data, STDIN_FILENO);
 		if (temp != NULL)
 			free(temp);
-		temp = readline("HAKUNA MATATA 0.42$ ");
+		temp = readline("HAKUNA MATATA 4.2$ ");
 		if (temp == NULL)
 		{
 			write(2, "\x1b[1A", 4);
@@ -134,14 +94,9 @@ void	minishell(t_data *data)
 			exit(EXIT_SUCCESS);
 		}
 		add_history(temp);
-		if (temp[0] == '\0')
-		{
-			free_struct(data);
+		if (temp[0] == '\0' && free_struct(data))
 			continue ;
-		}
 		make_routine(data, temp);
-		// system("leaks minishellll");
-		// fscanf(stdin, "c");
 	}
 }
 
@@ -155,7 +110,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_free_3array(&data.environ);
 	data.environ = NULL;
 	free_struct(&data);
-	printf("HERE\n");
 	(void)argc;
 	(void)argv;
 	return (0);
