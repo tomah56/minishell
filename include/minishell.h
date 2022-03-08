@@ -134,10 +134,9 @@ char	**plus_split(char const *s, char c);
 
 // redirections
 int		bypass_juntion(t_data *data, int fail);
-int		bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail);
-int		red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t);
-int		red_outfile_append(t_data *data, t_cmds *temp_c, t_tok **temp_t);
-int		red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t);
+int		red_outfile_trunc(t_cmds *temp_c, t_tok **temp_t);
+int		red_outfile_append(t_cmds *temp_c, t_tok **temp_t);
+int		red_infile(t_cmds *temp_c, t_tok **temp_t);
 
 void	remove_linklist_file_looper(t_data *data);
 char	*l_e_loop_sequence(char *str, t_data *data);
@@ -178,7 +177,7 @@ void	builtin_export(t_data *data);
 void	export_only(t_data *data);
 void	save_variable_in_environ(t_data *data, char **command, int i);
 char	**sort_env(char **env);
-void	print_export(t_data *data, char **exp);
+void	print_export(char **exp);
 void	builtin_cd(t_data *data);
 void	cd_only(t_data *data);
 char	*get_home(t_data *data);
@@ -198,7 +197,7 @@ void	execute(t_data *data);
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i);
 int		exec_cmd_helper(t_data *data, char **command, int i);
 void	exec_cmd_helper_2(t_data *data, t_cmds *temp_c, char **command);
-void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag);
+void	process_creator(t_data *data, t_cmds *temp_c, int flag);
 void	pipes(t_data *data, int flag, t_cmds *temp_c);
 void	execute_one_cmd(t_data *data);
 void	ft_wait(t_data *data);
@@ -208,6 +207,4 @@ int		ft_close(t_data	*data, int fd);
 void	ft_pipe(t_data *data, int *fd);
 void	ft_fork(t_data *data);
 
-// to delete later
-void	printlist(t_data *data);
 #endif

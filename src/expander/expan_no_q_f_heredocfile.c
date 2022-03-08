@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static int	no_size_dollar_point(char **str, t_data *data)
+static int	no_size_dollar_point(char **str)
 {
 	int	len;
 
@@ -45,7 +45,7 @@ static char	*no_next_part(char **str, t_data *data)
 	int		len;
 
 	temp = *str;
-	len = no_size_dollar_point(str, data);
+	len = no_size_dollar_point(str);
 	if (*temp == '$')
 	{
 		buf = expand_clean_dollar(ft_substr(temp, 0, len), data);

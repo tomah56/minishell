@@ -24,7 +24,7 @@ static int	short_tre(t_tok **temp_t)
 	return (0);
 }
 
-int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
+static int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, int fail)
 {
 	temp_c->outfile = -5;
 	temp_c->infile = -5;
@@ -32,19 +32,19 @@ int	bypass_helper(t_tok **temp_t, t_cmds *temp_c, t_data *data, int fail)
 	{
 		fail = short_tre(temp_t);
 		if (fail == 0)
-			fail = red_outfile_trunc(data, temp_c, temp_t);
+			fail = red_outfile_trunc(temp_c, temp_t);
 	}
 	else if (!ft_strncmp((*temp_t)->content, "<", 2))
 	{
 		fail = short_tre(temp_t);
 		if (fail == 0)
-			fail = red_infile(data, temp_c, temp_t);
+			fail = red_infile(temp_c, temp_t);
 	}
 	else if (!ft_strncmp((*temp_t)->content, ">>", 3))
 	{
 		fail = short_tre(temp_t);
 		if (fail == 0)
-			fail = red_outfile_append(data, temp_c, temp_t);
+			fail = red_outfile_append(temp_c, temp_t);
 	}
 	if (fail == -1)
 		return (-1);
@@ -66,7 +66,7 @@ int	bypass_juntion(t_data *data, int fail)
 		temp_c->type = 0;
 		while (temp_t != NULL && fail != -1)
 		{
-			fail = bypass_helper(&temp_t, temp_c, data, fail);
+			fail = bypass_helper(&temp_t, temp_c, fail);
 			if (fail == 1)
 				temp_c->fail = 1;
 		}

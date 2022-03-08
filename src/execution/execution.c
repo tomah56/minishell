@@ -43,12 +43,12 @@ void	execute(t_data *data)
 	{
 		if (temp_c->heredoc != -10)
 			temp_c->infile = temp_c->heredoc;
-		process_creator(data, temp_c, cmd_count, MIDDLE);
+		process_creator(data, temp_c, MIDDLE);
 		temp_c = temp_c->next;
 		data->actual = temp_c;
 		cmd_count++;
 	}
-	process_creator(data, temp_c, cmd_count, LAST);
+	process_creator(data, temp_c, LAST);
 	ft_wait(data);
 	free_struct(data);
 }
@@ -65,7 +65,7 @@ static void	rec_sig_execute(int num)
 	}
 }
 
-void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
+static void	child_process(t_data *data, t_cmds *temp_c, int flag)
 {
 	if (temp_c->fail == 1)
 		exit(g_exit);
@@ -84,7 +84,7 @@ void	child_process(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 	exit(g_exit);
 }
 
-void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
+void	process_creator(t_data *data, t_cmds *temp_c, int flag)
 {
 	signal(SIGQUIT, rec_sig_execute);
 	signal(SIGINT, rec_sig_execute);
@@ -98,7 +98,7 @@ void	process_creator(t_data *data, t_cmds *temp_c, int cmd_count, int flag)
 	data->pid = fork();
 	if (!data->pid)
 	{
-		child_process(data, temp_c, cmd_count, flag);
+		child_process(data, temp_c, flag);
 	}
 	if (data->pid)
 	{

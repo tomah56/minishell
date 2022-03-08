@@ -12,28 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static int	count_my_tokens(char *str, t_tok *tokdat, int i, int j)
-{
-	int	count;
-
-	count = 0;
-	while (str[i])
-	{
-		if (ft_strchr(" <>|\0", str[i + 1]) != NULL && tokdat->qusingle == 0
-			&& tokdat->qudouble == 0)
-		{
-			while (str[i + 1] == ' ')
-				i++;
-			j = i + 1;
-			count++;
-		}
-		i++;
-	}
-	tokdat->qudouble = 0;
-	tokdat->qusingle = 0;
-	return (count);
-}
-
 int	is_double(char str, char strp1)
 {
 	if ((str == '<' || str == '>') && str == strp1)

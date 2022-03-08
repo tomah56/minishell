@@ -1,9 +1,7 @@
 CC = gcc
 NAME = minishellll
-HEADER_DIR := ./include/
-FLAGS = -Wall -Wextra -Werror -g -I$(HEADER_DIR)
+FLAGS = -Wall -Wextra -Werror -g -I ./include/
 SRC_DIR := ./src/
-OBJ_DIR := ./obj/
 SRC = ./src/builtins/cd.c\
 ./src/builtins/echo.c\
 ./src/builtins/env.c\
@@ -39,12 +37,11 @@ SRC = ./src/builtins/cd.c\
 
 SRCWIN = $(SRC_DIR)*.c ./src/linked_lists/*.c ./src/builtins/*.c ./libs/libft/*.c
 
-OBJS := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o, $(SRC))
+OBJS = $(SRC:.c=.o)
 
-HEADERS := $(HEADER_DIR)*.h
-LIBFT_DIR := /libft/
+HEADER = ./include/minishell.h
+LIBFT_DIR := ./libft/
 LIBFT := $(LIBFT_DIR)libft.a
-LIBFT_OBJS := $(LIBFT_DIR)*.o
 GREEN := \033[0;32m
 YELLOW := \033[1;33m
 RED := \033[1;31m
@@ -54,22 +51,17 @@ LFRC = -I$$HOME/.brew/opt/readline/include
 
 all: $(NAME)
 
-link:
-	@make -C $(LIBFT_DIR)
-
-$(NAME) : $(OBJ_DIR) $(OBJS) $(HEADERS) link $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $@
+%.o: %.c
+	@$(CC) $(LFRC) -c $(FLAGS) $^ -o $@
+	
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(LIBFT) $(LFR) $(LFRC) $^ -o $@
 	@echo "\n$(GREEN)$(NAME) created$(DEFAULT)"
 
-	
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(FLAGS) -c $< -o $@
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
 
 clean:
-	@rm -f $(OBJ_DIR)*.o
 	@make clean -C $(LIBFT_DIR)
 	@echo "\n$(YELLOW)object files deleted!$(DEFAULT)"
 

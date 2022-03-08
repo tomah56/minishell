@@ -32,12 +32,12 @@ void	export_only(t_data *data)
 		}
 		exp = sort_env(exp);
 	}
-	print_export(data, exp);
+	print_export(exp);
 	ft_free_array(exp);
 	g_exit = 0;
 }
 
-void	print_export(t_data *data, char **exp)
+void	print_export(char **exp)
 {
 	int		i;
 	int		j;

@@ -14,8 +14,6 @@
 
 void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 {
-	char	*path;
-
 	if (temp_c->builtin == true)
 		execute_builtin(data, temp_c);
 	else

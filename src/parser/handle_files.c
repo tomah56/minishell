@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t)
+int	red_outfile_trunc(t_cmds *temp_c, t_tok **temp_t)
 {
 	int	fail;
 
@@ -31,7 +31,7 @@ int	red_outfile_trunc(t_data *data, t_cmds *temp_c, t_tok **temp_t)
 	return (fail);
 }
 
-int	red_outfile_append(t_data *data, t_cmds *temp_c, t_tok **temp_t)
+int	red_outfile_append(t_cmds *temp_c, t_tok **temp_t)
 {
 	int	fail;
 
@@ -50,7 +50,7 @@ int	red_outfile_append(t_data *data, t_cmds *temp_c, t_tok **temp_t)
 	return (fail);
 }
 
-int	red_infile(t_data *data, t_cmds *temp_c, t_tok **temp_t)
+int	red_infile(t_cmds *temp_c, t_tok **temp_t)
 {
 	int	fail;
 

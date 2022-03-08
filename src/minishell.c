@@ -14,24 +14,6 @@
 
 int g_exit = 0;
 
-static void	print_command_array(t_data *data)
-{
-	t_cmds	*temp_c;
-	int		i;
-
-	temp_c = data->cmds;
-	while (temp_c != NULL)
-	{
-		i = 0;
-		while (temp_c->commands[i] != NULL)
-		{
-			printf("%s\n", temp_c->commands[i]);
-			i++;
-		}
-		temp_c = temp_c->next;
-	}
-}
-
 static void	rec_sig(int num)
 {
 	rl_on_new_line();

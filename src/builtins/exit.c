@@ -52,7 +52,6 @@ int	exit_errors(t_data *data, char **cmd_array)
 void	builtin_exit(t_data *data)
 {
 	int		exit_status;
-	int		nbr_cmds;
 	char	**cmd_array;
 
 	exit_status = g_exit;
