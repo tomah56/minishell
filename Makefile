@@ -1,5 +1,5 @@
 CC = gcc
-NAME = minishellll
+NAME = minishell
 FLAGS = -Wall -Wextra -Werror -g -I ./include/
 SRC_DIR := ./src/
 SRC = ./src/builtins/cd.c\
@@ -63,6 +63,8 @@ $(LIBFT):
 
 clean:
 	@make clean -C $(LIBFT_DIR)
+	@rm -f ./*/*/*.o
+	@rm -f ./*/*.o
 	@echo "\n$(YELLOW)object files deleted!$(DEFAULT)"
 
 fclean: clean
