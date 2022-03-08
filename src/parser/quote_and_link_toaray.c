@@ -63,8 +63,8 @@ char	*quote_cutter(char *str, int qusig, int qudou)
 
 static char *cut_path_off(char *srt, t_cmds	*temp_c, t_data *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	temp_c->defpath = srt;
