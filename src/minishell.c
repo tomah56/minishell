@@ -105,6 +105,8 @@ void	make_routine(t_data *data, char *temp)
 	// printf("hello 2\n");
 	if (data->falg == 1)
 		execute(data);
+	if (data->cmds != NULL)
+		free(data->cmds->commands);
 	// printf("hello 3\n");
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 }

@@ -98,7 +98,7 @@ static t_cmds	*in_out_helper(t_cmds **temp_c, t_tok **temp_t)
 		if ((*temp_t)->hd_file != NULL)
 		{
 			unlink((*temp_c)->cm_hd_file);
-			free((*temp_c)->cm_hd_file);
+			// free((*temp_c)->cm_hd_file);
 			(*temp_c)->cm_hd_file = (*temp_t)->hd_file;
 		}
 		(*temp_t) = (*temp_t)->next;

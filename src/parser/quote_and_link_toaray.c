@@ -95,11 +95,13 @@ void	commands_link_to_array_looper(t_data *data)
 	while (temp_c != NULL)
 	{
 		temp = malloc((temp_c->comandcount + 1) * sizeof(char *));
-		printf("kiki %p\n", temp);
+		// printf("kiki %p\n", temp);
 		temp_t = temp_c->tokens;
 		i = 0;
+		// printf("cmd %p\n", temp_c);
 		while (temp_t != NULL)
 		{
+		// printf("tok %p\n", temp_t);
 			if (i == 0 && temp_t->content[0] == '/')
 				temp[i] = cut_path_off(temp_t->content, temp_c, data);
 			else

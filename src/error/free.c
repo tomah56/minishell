@@ -33,7 +33,7 @@ void	free_struct_hd(t_data *data)
 		{
 			printf("one\n");
 
-			// ft_free_array(data->cmds->commands);
+			ft_free_array(data->cmds->commands);
 		}
 			// ft_free_array(data->cmds->commands);
 	
@@ -56,15 +56,17 @@ void	free_struct(t_data *data)
 			if (data->cmds != NULL)
 			{
 				unlink(data->cmds->cm_hd_file);
-				
-				if (data->cmds->cm_hd_file != NULL)
-					free(data->cmds->cm_hd_file);
+				// if (data->cmds->cm_hd_file != NULL)  //antileaks in << he cat case
+				// 	free(data->cmds->cm_hd_file);
 				while (data->cmds->tokens != NULL)
 				{
+					printf("toke 0\n");
+					// t_tok *temp;
+					// temp = data->cmds->tokens;
 					free(data->cmds->tokens);
+					// data->cmds->tokens = temp->next;
 					data->cmds->tokens = data->cmds->tokens->next;
 				}
-				
 				if (data->cmds->commands != NULL)
 					ft_free_array(data->cmds->commands);
 				free(data->cmds->defpath);

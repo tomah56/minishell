@@ -60,7 +60,7 @@ int	here_doc(char *stop, t_data *data, char *name)
 	{
 		temp1 = temp;
 		free(temp);
-		temp = no_expand_next_part_no(temp1, data); // leak danger
+		temp = no_expand_next_part_no(temp1, data);
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
 		free(temp);
