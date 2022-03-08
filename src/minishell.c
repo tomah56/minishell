@@ -91,10 +91,9 @@ void	make_routine(t_data *data, char *temp)
 	if (link_expand_looper(data))
 		return ;
 	// printlist(data);
-	// printf("hello 1\n");
 	if (bypass_juntion(data, 0))
 		return ;
-	printf("hello 0\n");
+	printf("hello 1\n");
 	in_out_file_looper(data);
 	remove_linklist_file_looper(data);
 	sytax_looper(data);
@@ -102,11 +101,11 @@ void	make_routine(t_data *data, char *temp)
 	// printlist(data);
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 	check_for_builtins(data);
-	// printf("hello 2\n");
 	if (data->falg == 1)
 		execute(data);
 	if (data->cmds != NULL)
 		free(data->cmds->commands);
+	printf("hello 0\n");
 	// printf("hello 3\n");
 	// printf("in: %d, out %d\n", data->cmds->infile, data->cmds->outfile);
 }

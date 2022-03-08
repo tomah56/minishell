@@ -19,36 +19,25 @@ void	free_struct_hd(t_data *data)
 	if (data->cmds != NULL)
 	{
 		unlink(data->cmds->cm_hd_file);
-		// printf( "--1--  %p\n",data->cmds->cm_hd_file);
-		// if (data->cmds->cm_hd_file != NULL)
-		// free(data->cmds->cm_hd_file);
 		while (data->cmds->tokens != NULL)
 		{
-		// printf( "--2--  %p\n",data->cmds->tokens);
-		// printf("one\n");
+
 			free(data->cmds->tokens);
 			data->cmds->tokens = data->cmds->tokens->next;
 		}
 		if (data->cmds->commands != NULL)
 		{
-			printf("one\n");
-
 			ft_free_array(data->cmds->commands);
 		}
-			// ft_free_array(data->cmds->commands);
-	
 		free(data->cmds->defpath);
-		printf("one\n");
 		free(data->cmds);
 		
 	}
-	// free(data->cmds);
 	data->paths = NULL;
 	data->actual = NULL;
 }
 void	free_struct(t_data *data)
 {
-		printf("one S\n");
 		if (data->paths != NULL)
 			ft_free_array(data->paths);
 		while (data->cmds && data != NULL && data->tokentotal != 0)
@@ -81,7 +70,6 @@ void	free_struct(t_data *data)
 	data->cmds = NULL;
 	data->actual = NULL;
 }
-
 
 void	ft_free_3array(char ***input)
 {

@@ -55,7 +55,9 @@ int	here_doc(char *stop, t_data *data, char *name)
 	size = ft_strlen(stop);
 	temp = readline(">");
 	if (temp == NULL && unlink_close(data, fd, name))
+	{
 		return (-1);
+	}
 	while (ft_strncmp(temp, stop, size) || temp[size] != '\0')
 	{
 		temp1 = temp;

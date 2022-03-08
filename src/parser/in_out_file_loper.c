@@ -32,7 +32,6 @@ static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 {
 	t_tok	*temp_t2;
 
-	printf("vuki \n");
 	if ((*temp_t)->bedeleted == 1)
 	{
 		temp_t2 = (*temp_t)->next->next;
@@ -45,7 +44,7 @@ static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 			*temp_t = only_heredoc(data, temp_c);
 		else
 		{
-			remove_node(&temp_c->tokens, (*temp_t)->prev); // freeeing content is not working... is it a leak???
+			remove_node(&temp_c->tokens, (*temp_t)->prev);
 			remove_node(&temp_c->tokens, (*temp_t));
 			*temp_t = temp_t2;
 		}
@@ -98,7 +97,6 @@ static t_cmds	*in_out_helper(t_cmds **temp_c, t_tok **temp_t)
 		if ((*temp_t)->hd_file != NULL)
 		{
 			unlink((*temp_c)->cm_hd_file);
-			// free((*temp_c)->cm_hd_file);
 			(*temp_c)->cm_hd_file = (*temp_t)->hd_file;
 		}
 		(*temp_t) = (*temp_t)->next;
