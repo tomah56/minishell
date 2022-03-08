@@ -33,7 +33,7 @@ static int	unlink_close(t_data *data, int fd, char *name)
 	return (1);
 }
 
-static int norm_fin_cut(char *name, char *temp, int fd)
+static int	norm_fin_cut(char *name, char *temp, int fd)
 {
 	free(temp);
 	close(fd);
@@ -68,6 +68,5 @@ int	here_doc(char *stop, t_data *data, char *name)
 		if (temp == NULL && unlink_close(data, fd, name))
 			return (-1);
 	}
-	free(stop);
 	return (norm_fin_cut(name, temp, fd));
 }
