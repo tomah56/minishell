@@ -69,7 +69,5 @@ void	builtin_exit(t_data *data)
 	free_struct(data);
 	data->environ = NULL;
 	g_exit = exit_status;
-	system("leaks minishellll");       // leakhunt
-		fscanf(stdin, "c");
 	exit(g_exit);
 }

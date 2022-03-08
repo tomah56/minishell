@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int g_exit = 0;
+int	g_exit = 0;
 
 static void	print_command_array(t_data *data)
 {

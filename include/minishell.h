@@ -129,7 +129,6 @@ char	*no_expand_next_part_no(char *str, t_data *data);
 
 // here_doc
 int		here_doc(char *stop, t_data *data, char *name);
-
 char	**plus_split(char const *s, char c);
 
 // redirections
@@ -208,6 +207,4 @@ int		ft_close(t_data	*data, int fd);
 void	ft_pipe(t_data *data, int *fd);
 void	ft_fork(t_data *data);
 
-// to delete later
-void	printlist(t_data *data);
 #endif

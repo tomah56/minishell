@@ -67,7 +67,7 @@ static void	rec(char const *s, char *ref, char **result, unsigned int index)
 	free(copy);
 }
 
-static char *malo_extra()
+static char	*malo_extra(void)
 {
 	char	*temp;
 
