@@ -91,7 +91,8 @@ static void	minishell(t_data *data)
 		}
 		if (temp[0] != '\0')
 			add_history(temp);
-		if (temp[0] == '\0' && free_struct(data))
+		// printf("sisi|%s|\n", temp);
+		if (temp[0] == '\0' /* && free_struct(data) */)
 			continue ;
 		if (why_again(temp))
 			make_routine(data, temp);

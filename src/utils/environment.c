@@ -32,6 +32,7 @@ void	create_environment(t_data *data, char **env)
 			msg_exit(data, "malloc error");
 		i++;
 	}
+	data->environ[i] = NULL;
 }
 
 // finds path in envp and saves it
