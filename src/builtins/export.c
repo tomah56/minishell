@@ -16,24 +16,24 @@ void	builtin_export(t_data *data)
 {
 	int		i;
 	t_cmds	*current_cmd;
-	char	**command;
+	char	**cmd;
 
 	i = 0;
 	current_cmd = data->actual;
-	command = current_cmd->commands;
+	cmd = current_cmd->commands;
 	if (current_cmd->comandcount == 1)
 		export_only(data);
 	else if (current_cmd->comandcount > 1)
 	{
-		while (command[i] != NULL)
+		while (cmd[i] != NULL)
 		{
-			if (command[i][0] == '=' || ft_ft_is_num_spec_char(command[i][0]))
+			if (cmd[i][0] == '=' || (ft_nr_spec(cmd[i][0]) && cmd[i][0] != '_'))
 			{
 				error_msg_no("not a valid identifier\n");
 				break ;
 			}
-			if (ft_strchr(command[i], '=') != NULL)
-				save_variable_in_environ(data, command, i);
+			if (ft_strchr(cmd[i], '=') != NULL)
+				save_variable_in_environ(data, cmd, i);
 			i++;
 		}
 	}
@@ -47,11 +47,19 @@ static void	copy_to_environ(t_data *data, char **new_environ)
 
 	i = 0;
 	while (new_environ[i])
+		i++;
+	data->environ = ft_calloc(i + 2, sizeof(char *));
+	if (data->environ == NULL)
+		msg_exit(data, "malloc error");
+	i = 0;
+	while (new_environ[i])
 	{
-		data->environ[i] = new_environ[i];
+		data->environ[i] = ft_strdup(new_environ[i]);
 		i++;
 	}
 	data->environ[i] = NULL;
+	ft_free_3array(&new_environ);
+	new_environ = NULL;
 }
 
 static int	count_size_environ(t_data *data)
@@ -79,12 +87,14 @@ void	save_variable_in_environ(t_data *data, char **command, int i)
 	j = 0;
 	while (data->environ[j] != NULL)
 	{
-		new_environ[j] = data->environ[j];
+		new_environ[j] = ft_strdup(data->environ[j]);
 		j++;
 	}
 	new_environ[j] = ft_strdup(var);
 	new_environ[j + 1] = NULL;
 	free(var);
+	ft_free_3array(&data->environ);
+	data->environ = NULL;
 	copy_to_environ(data, new_environ);
 	g_exit = 0;
 }
