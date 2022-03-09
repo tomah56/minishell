@@ -48,6 +48,7 @@ static void	copy_to_environ(t_data *data, char **new_environ)
 		data->environ[i] = new_environ[i];
 		i++;
 	}
+	data->environ[i] = NULL;
 }
 
 void	save_variable_in_environ(t_data *data, char **command, int i)

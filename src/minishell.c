@@ -37,7 +37,7 @@ static int	make_routine(t_data *data, char *temp)
 	data->qusingle = 0;
 	data->tokentotal = 0;
 	data->falg = 1;
-	if (input_one_lilist(temp, data))
+	if (input_one_lilist(temp, data) || temp == '\0')
 		return (free_struct_sig(data));
 	if (link_expand_looper(data))
 		return (free_struct_sig(data));
@@ -55,6 +55,20 @@ static int	make_routine(t_data *data, char *temp)
 	return (0);
 }
 
+static int	why_again(char *str)
+{
+	int	i;
+	
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	return (1);
+}
+
 static void	minishell(t_data *data)
 {
 	char	*temp;
@@ -65,7 +79,7 @@ static void	minishell(t_data *data)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, rec_sig);
 		data->save_fd = ft_dup(data, STDIN_FILENO);
-		if (temp != NULL)
+		if (temp != NULL && why_again(temp))
 			free(temp);
 		temp = readline("HAKUNA MATATA 4.2$ ");
 		if (temp == NULL)
@@ -75,10 +89,12 @@ static void	minishell(t_data *data)
 			write(2, " exit\n", 6);
 			exit(EXIT_SUCCESS);
 		}
-		add_history(temp);
+		if (temp[0] != '\0')
+			add_history(temp);
 		if (temp[0] == '\0' && free_struct(data))
 			continue ;
-		make_routine(data, temp);
+		if (why_again(temp))
+			make_routine(data, temp);
 	}
 }
 

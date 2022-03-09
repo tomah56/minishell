@@ -40,7 +40,7 @@ void	inp_o_li_norm_cut(char *str, t_data *data, t_cmds **cmds, t_tok **tok)
 		(data->tokentotal)++;
 		(data->tokencount)++;
 	}
-	if (str[(data->i) + 1] == '|')
+	if (str[(data->i) + 1] == '|' && data->qusingle == 0 && data->qudouble == 0)
 	{
 		add_cmds_node_at_back(cmds, create_new_cmds_node
 			(*tok, data->tokencount));
