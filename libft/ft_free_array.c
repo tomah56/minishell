@@ -18,9 +18,12 @@ void	ft_free_array(char **input)
 	int	i;
 
 	i = 0;
+	if (input == NULL)
+		return ;
 	while (input[i] != NULL)
 	{
 		free(input[i]);
+		input[i] = NULL;
 		i++;
 	}
 	free(input);

@@ -37,8 +37,12 @@ void	free_struct_hd(t_data *data)
 
 int	free_struct(t_data *data)
 {
+	// if (data == NULL)
+	// 	return (1);
+	// printf("hello  0\n");
 	if (data->paths != NULL)
 		ft_free_array(data->paths);
+	// printf("hello  1\n");
 	while (data->cmds && data != NULL && data->tokentotal != 0)
 	{
 		if (data->cmds != NULL)
@@ -49,8 +53,9 @@ int	free_struct(t_data *data)
 				free(data->cmds->tokens);
 				data->cmds->tokens = data->cmds->tokens->next;
 			}
-			if (data->cmds->commands != NULL)
+			if (data->cmds != NULL && data->cmds->commands != NULL)
 				ft_free_array(data->cmds->commands);
+	// printf("hello  2\n");
 			free(data->cmds->defpath);
 			free(data->cmds);
 			data->cmds = data->cmds->next;

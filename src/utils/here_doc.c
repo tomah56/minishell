@@ -19,7 +19,7 @@ static void	rec_sig_doc(int num)
 	write(2, "  \b\b", 5);
 	if (num == 2)
 	{
-		write(2, " ", 1);
+		write(2, "\n", 1);
 		rl_on_new_line();
 		close(STDIN_FILENO);
 	}
