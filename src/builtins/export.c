@@ -57,14 +57,10 @@ static void	copy_to_environ(t_data *data, char **new_environ)
 static int	count_size_environ(t_data *data)
 {
 	int		len;
-	char	*save;
 
-	save = *data->environ;
 	len = 0;
 	while (data->environ[len])
 		len++;
-	while (ft_strncmp(*data->environ, save, ft_strlen(save)))
-		--data->environ;
 	return (len);
 }
 
@@ -101,7 +97,7 @@ char	**sort_env(char **env)
 
 	i = 0;
 	j = 0;
-	while (env[i] != NULL && env[i + 1] != NULL)
+	while (env[i] != NULL)
 	{
 		j = i + 1;
 		while (env[j] != NULL)

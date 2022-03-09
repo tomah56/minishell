@@ -30,7 +30,7 @@ void	export_only(t_data *data)
 			exp[i] = ft_strdup(data->environ[i]);
 			i++;
 		}
-		printf("HERE\n");
+		exp[i] = NULL;
 		exp = sort_env(exp);
 	}
 	print_export(exp);
