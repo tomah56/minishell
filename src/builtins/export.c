@@ -27,8 +27,11 @@ void	builtin_export(t_data *data)
 	{
 		while (command[i] != NULL)
 		{
-			if (command[i][0] == '=')
-				msg_exit(data, "not a valid identifier");
+			if (command[i][0] == '=' || ft_ft_is_num_spec_char(command[i][0]))
+			{
+				error_msg_no("not a valid identifier\n");
+				break ;
+			}
 			if (ft_strchr(command[i], '=') != NULL)
 				save_variable_in_environ(data, command, i);
 			i++;
@@ -48,6 +51,21 @@ static void	copy_to_environ(t_data *data, char **new_environ)
 		data->environ[i] = new_environ[i];
 		i++;
 	}
+	data->environ[i] = NULL;
+}
+
+static int	count_size_environ(t_data *data)
+{
+	int		len;
+	char	*save;
+
+	save = *data->environ;
+	len = 0;
+	while (data->environ[len])
+		len++;
+	while (ft_strncmp(*data->environ, save, ft_strlen(save)))
+		--data->environ;
+	return (len);
 }
 
 void	save_variable_in_environ(t_data *data, char **command, int i)
@@ -57,9 +75,7 @@ void	save_variable_in_environ(t_data *data, char **command, int i)
 	int		len;
 	int		j;
 
-	len = 0;
-	while (data->environ[len])
-		len++;
+	len = count_size_environ(data);
 	var = ft_substr(command[i], 0, ft_strlen(command[i]));
 	new_environ = ft_calloc(len + 2, sizeof(char *));
 	if (var == NULL || new_environ == NULL)

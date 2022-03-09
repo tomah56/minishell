@@ -23,7 +23,7 @@ ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c f
 ft_putdecimal_fd.c ft_decimaltohexup.c ft_decimaltohexlow.c ft_free_array.c ft_atoi_long.c ft_strlen_double.c \
 ft_strcmp.c ft_atoi_long_long.c ft_is_plus_minus.c \
 ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
-ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_is_num_spec_char.c
 
 all: $(NAME)
 

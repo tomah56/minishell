@@ -15,6 +15,7 @@
 void	error_msg_no(char *msg)
 {
 	write(STDERR_FILENO, msg, ft_strlen(msg));
+	g_exit = EXIT_FAILURE;
 }
 
 void	error_msg(char *msg)
