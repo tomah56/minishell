@@ -27,7 +27,7 @@ void	execute_cmd(t_data *data, t_cmds *temp_c, int i)
 		}
 		else
 			exec_cmd_helper_2(data, temp_c, temp_c->commands);
-		cmd_not_found_error(data, "Command not found\n");
+		cmd_not_found_error(data, ": Command not found\n", temp_c->commands[0]);
 	}
 }
 

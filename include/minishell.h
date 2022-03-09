@@ -162,7 +162,7 @@ void	msg_exit(t_data *data, char *msg);
 void	error_msg(char *msg);
 void	error_msg_no(char *msg);
 void	dup_exit(t_data *data, char *msg);
-void	cmd_not_found_error(t_data *data, char *msg);
+void	cmd_not_found_error(t_data *data, char *msg, char *str);
 int		free_struct(t_data *data);
 void	free_struct_hd(t_data *data);
 int		free_struct_sig(t_data *data);

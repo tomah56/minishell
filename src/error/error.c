@@ -39,9 +39,12 @@ void	dup_exit(t_data *data, char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	cmd_not_found_error(t_data *data, char *msg)
+void	cmd_not_found_error(t_data *data, char *msg, char *str)
 {
-	free_struct(data);
+	write(STDERR_FILENO, "!(hakuna matata): ", 18);
+	write(STDERR_FILENO, str, ft_strlen(str));
 	write(STDERR_FILENO, msg, ft_strlen(msg));
+	// write(STDERR_FILENO, "\n", 1);
+	free_struct(data);
 	exit(127);
 }
