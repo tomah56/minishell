@@ -99,7 +99,8 @@ void	ft_free_3array(char ***input)
 		return ;
 	while ((*input)[i] != NULL)
 	{
-		free((*input)[i]);
+		if (*((*input)[i]) != 0)
+			free((*input)[i]);
 		(*input)[i] = NULL;
 		i++;
 	}
