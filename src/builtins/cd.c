@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+
+
 static void	error(t_data *data, char *str, char *cwd)
 {
 	error_msg_no(str);
