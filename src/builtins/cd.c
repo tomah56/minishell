@@ -67,7 +67,9 @@ void	cd_only(t_data *data)
 char	*get_home(t_data *data)
 {
 	char	*home;
+	char	*save;
 
+	save = *data->environ;
 	while (*data->environ != NULL && ft_strncmp(*data->environ, "HOME=", 5))
 		++data->environ;
 	if (*data->environ == NULL)
@@ -77,6 +79,8 @@ char	*get_home(t_data *data)
 		return (NULL);
 	}
 	home = (*data->environ + 5);
+	while (ft_strncmp(*data->environ, save, ft_strlen(save)))
+		--data->environ;
 	return (home);
 }
 

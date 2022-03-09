@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 23:27:07 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/02/27 23:28:23 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:15:01 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	export_only(t_data *data)
 			exp[i] = ft_strdup(data->environ[i]);
 			i++;
 		}
+		printf("HERE\n");
 		exp = sort_env(exp);
 	}
 	print_export(exp);
