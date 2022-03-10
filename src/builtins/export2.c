@@ -6,7 +6,7 @@
 /*   By: sreinhol <sreinhol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 23:27:07 by sreinhol          #+#    #+#             */
-/*   Updated: 2022/03/09 16:15:01 by sreinhol         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:33:59 by sreinhol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,33 @@ void	print_export(char **exp)
 		free(var);
 		i++;
 	}
+}
+
+char	**sort_env(char **env)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	while (env[i] != NULL)
+	{
+		j = i + 1;
+		while (env[j] != NULL)
+		{
+			if (ft_strcmp(env[i], env[j]) > 0)
+			{
+				temp = ft_strdup(env[i]);
+				if (temp == NULL)
+					ft_free_array(env);
+				free(env[i]);
+				env[i] = env[j];
+				env[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (env);
 }
