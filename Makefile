@@ -56,6 +56,7 @@ all: $(NAME)
 	
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(LIBFT) $(LFR) $(LFRC) $^ -o $@
+	@rm -rf ./t;mkdir t
 	@echo "\n$(GREEN)$(NAME) created$(DEFAULT)"
 
 $(LIBFT):
