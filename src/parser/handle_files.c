@@ -62,15 +62,18 @@ int	red_infile(t_cmds *temp_c, t_tok **temp_t)
 		fail = 1;
 		g_exit = 1;
 	}
-	if ((*temp_t)->infile != -1)
-		close((*temp_t)->infile);
-	(*temp_t)->infile = open((*temp_t)->content, O_RDONLY);
-	if ((*temp_t)->infile == FAILED)
+	else
 	{
-		error_msg((*temp_t)->content);
-		(*temp_t)->infile = -5;
-		fail = 1;
-		g_exit = 1;
+		if ((*temp_t)->infile != -1)
+			close((*temp_t)->infile);
+		(*temp_t)->infile = open((*temp_t)->content, O_RDONLY);
+		if ((*temp_t)->infile == FAILED)
+		{
+			error_msg((*temp_t)->content);
+			(*temp_t)->infile = -5;
+			fail = 1;
+			g_exit = 1;
+		}
 	}
 	return (fail);
 }

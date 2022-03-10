@@ -85,25 +85,25 @@ static char	*cut_path_off(char *srt, t_cmds	*temp_c, t_data *data)
 
 void	commands_link_to_array_looper(t_data *data)
 {
-	t_tok	*temp_t;
+	t_tok	*t_t;
 	t_cmds	*temp_c;
 	char	**temp;
 	int		i;
 
-	temp_t = data->cmds->tokens;
+	t_t = data->cmds->tokens;
 	temp_c = data->cmds;
 	while (temp_c != NULL)
 	{
 		temp = malloc((temp_c->comandcount + 1) * sizeof(char *));
-		temp_t = temp_c->tokens;
+		t_t = temp_c->tokens;
 		i = 0;
-		while (temp_t != NULL)
+		while (t_t != NULL)
 		{
-			if (i == 0 && temp_t->content[0] == '/')
-				temp[i] = cut_path_off(temp_t->content, temp_c, data);
+			if (i == 0 && (t_t->content[0] == '/' || t_t->content[0] == '.'))
+				temp[i] = cut_path_off(t_t->content, temp_c, data);
 			else
-				temp[i] = temp_t->content;
-			temp_t = temp_t->next;
+				temp[i] = t_t->content;
+			t_t = t_t->next;
 			i++;
 		}
 		temp[i] = NULL;

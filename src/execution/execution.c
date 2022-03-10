@@ -57,10 +57,12 @@ static void	rec_sig_execute(int num)
 {
 	if (num == 2)
 	{
+		g_exit = 130;
 		write(2, "\n", 1);
 	}
 	if (num == 3)
 	{
+		g_exit = 131;
 		write(2, "Quit: 3\n", 9);
 	}
 }

@@ -19,6 +19,7 @@ static void	rec_sig_doc(int num)
 	write(2, "  \b\b", 5);
 	if (num == 2)
 	{
+		g_exit = 1;
 		write(2, "\n", 1);
 		rl_on_new_line();
 		close(STDIN_FILENO);
@@ -28,6 +29,7 @@ static void	rec_sig_doc(int num)
 static int	unlink_close(t_data *data, int fd, char *name)
 {
 	unlink(name);
+	g_exit = 0;
 	if (close(fd) == FAILED)
 		msg_exit(data, "close error\n");
 	return (1);

@@ -108,6 +108,7 @@ int	link_expand_looper(t_data *data)
 		}
 		temp_c = temp_c->next;
 	}
+	close(save_in);
 	return (0);
 }
 
