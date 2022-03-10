@@ -12,15 +12,37 @@
 
 #include "../../include/minishell.h"
 
+static void	path_not_found_error(char *msg, char *str)
+{
+	write(STDERR_FILENO, "!(hakuna matata): ", 18);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	g_exit = 127;
+}
+
 void	builtin_env(t_data *data)
 {
-	int	i;
+	int		i;
+	bool	unset;
 
 	i = 0;
+	unset = true;
 	while (data->environ[i] != NULL)
 	{
-		printf("%s\n", data->environ[i]);
+		if (!ft_strncmp(data->environ[i], "PATH=", 5))
+			unset = false;
 		i++;
 	}
-	g_exit = 0;
+	if (unset == false)
+	{
+		i = 0;
+		while (data->environ[i] != NULL)
+		{
+			printf("%s\n", data->environ[i]);
+			i++;
+		}
+		g_exit = 0;
+	}
+	else
+		path_not_found_error(" No such file or directory\n", "env");
 }

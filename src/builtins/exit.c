@@ -57,12 +57,12 @@ void	builtin_exit(t_data *data)
 	exit_status = g_exit;
 	write(STDERR_FILENO, "exit\n", 5);
 	cmd_array = data->actual->commands;
-	if (data->actual->comandcount == 2)
-		exit_status = ft_atoi_long_long(cmd_array[1]);
 	if (cmd_array[1] == NULL)
 		g_exit = exit_status;
 	else
 		exit_status = exit_errors(data, cmd_array);
+	if (data->tokencount == 2)
+		exit_status = ft_atoi_long_long(cmd_array[1]);
 	ft_free_3array(&data->environ);
 	data->environ = NULL;
 	free_struct(data);
