@@ -12,6 +12,27 @@
 
 #include "../../include/minishell.h"
 
+static int normy_baby(char	**cmd_array, int *i)
+{
+	bool	newline;
+
+	newline = true;
+	while (cmd_array[1 + *i] && !ft_strncmp(cmd_array[1 + *i], "-n", 3))
+	{
+		newline = false;
+		(*i)++;
+	}
+	if (newline == true && cmd_array[1][0] == '-')
+	{
+		while (cmd_array[1][*i + 1] == 'n')
+			(*i)++;
+		if (cmd_array[1][*i + 1] == '\0')
+			newline = false;
+		*i = 1;
+	}
+	return (newline);
+}
+
 void	builtin_echo(t_data *data)
 {
 	char	**cmd_array;
@@ -20,13 +41,7 @@ void	builtin_echo(t_data *data)
 
 	cmd_array = data->actual->commands;
 	i = 0;
-	newline = true;
-	while (cmd_array[1 + i]
-		&& !ft_strncmp(cmd_array[1 + i], "-n", 3))
-	{
-		newline = false;
-		i++;
-	}
+	newline = normy_baby(data->actual->commands, &i);
 	while (cmd_array[1 + i])
 	{
 		printf("%s", cmd_array[1 + i]);
