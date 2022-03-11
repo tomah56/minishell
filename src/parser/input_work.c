@@ -84,7 +84,10 @@ int	input_one_lilist(char *str, t_data *data)
 	}
 	add_cmds_node_at_back(&cmds, create_new_cmds_node(tok, data->tokencount));
 	if (data->qudouble == 1 || data->qusingle == 1)
-		write(1, "error: input\n", 13);
+	{
+		error_msg_no("error: input\n");
+		return (1);
+	}
 	data->cmds = cmds;
 	return (0);
 }

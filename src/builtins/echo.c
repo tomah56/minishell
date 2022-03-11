@@ -22,7 +22,7 @@ static int	normy_baby(char	**cmd_array, int *i)
 		newline = false;
 		(*i)++;
 	}
-	if (newline == true && cmd_array[1][0] == '-')
+	if (cmd_array[1 + *i] && newline == true && cmd_array[1][0] == '-')
 	{
 		while (cmd_array[1][*i + 1] == 'n')
 			(*i)++;
