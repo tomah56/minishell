@@ -44,6 +44,7 @@ int	free_struct(t_data *data)
 		if (data->cmds != NULL)
 		{
 			unlink(data->cmds->cm_hd_file);
+			free(data->cmds->cm_hd_file);
 			while (data->cmds->tokens != NULL)
 			{
 				free(data->cmds->tokens);

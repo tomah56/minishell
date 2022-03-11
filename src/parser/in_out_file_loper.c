@@ -35,10 +35,8 @@ static void	in_out_norm(t_tok **temp_t, t_cmds	*temp_c, t_data *data)
 	{
 		temp_t2 = (*temp_t)->next->next;
 		free((*temp_t)->content);
-		free((*temp_t)->hd_file);
 		*temp_t = (*temp_t)->next;
 		free((*temp_t)->content);
-		free((*temp_t)->hd_file);
 		if (count_tokens(temp_c) == 2)
 			*temp_t = only_heredoc(data, temp_c);
 		else
