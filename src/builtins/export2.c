@@ -38,32 +38,6 @@ void	export_only(t_data *data)
 	g_exit = 0;
 }
 
-void	print_export(char **exp)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*var_name;
-	char	*var;
-
-	i = 0;
-	while (exp[i] != NULL)
-	{
-		len = ft_strlen(exp[i]);
-		j = 0;
-		while (exp[i][j] && exp[i][j] != '=')
-			j++;
-		j = j + 1;
-		var_name = ft_substr(exp[i], 0, j);
-		var = ft_substr(exp[i], j, (len - j));
-		printf("%s", var_name);
-		printf("\"%s\"\n", var);
-		free(var_name);
-		free(var);
-		i++;
-	}
-}
-
 char	**sort_env(char **env)
 {
 	int		i;
@@ -91,4 +65,66 @@ char	**sort_env(char **env)
 		i++;
 	}
 	return (env);
+}
+
+static int	check_valid_var_2(t_data *data, char *command)
+{
+	int	j;
+	int	len;
+
+	while (command != NULL)
+	{
+		j = 0;
+		len = ft_strlen(command);
+		while (data->environ[j])
+		{
+			if (ft_strncmp(data->environ[j], command, len) == 0)
+				return (j);
+			j++;
+		}
+	}
+	g_exit = 0;
+	return (-1);
+}
+
+static void	delete_var_env_2(t_data *data, char *cmd, int j)
+{
+	int		len;
+
+	len = ft_strlen(cmd);
+	while (data->environ[j] != NULL)
+	{
+		if (ft_strncmp(data->environ[j], cmd, len) == 0)
+		{
+			ft_free_2array((void **) &data->environ[j]);
+			while (data->environ[j + 1] != NULL)
+			{
+				data->environ[j] = data->environ[j + 1];
+				j++;
+			}
+			data->environ[j] = NULL;
+		}
+		j++;
+	}
+}
+
+void	check_for_existing_variable(t_data *data, char *cmd)
+{
+	int	i;
+	int	to_delete;
+
+	i = 0;
+	while (cmd[i] != '=')
+		i++;
+	cmd = ft_substr(cmd, 0, i);
+	while (data->environ[i])
+	{
+		if (ft_strncmp(data->environ[i], cmd, ft_strlen(cmd)) == 0)
+		{
+			to_delete = check_valid_var_2(data, cmd);
+			if (to_delete != FAILED)
+				delete_var_env_2(data, cmd, to_delete);
+		}
+		i++;
+	}
 }

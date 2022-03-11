@@ -88,7 +88,7 @@ static void	minishell(t_data *data)
 			exit(130);
 		if (temp[0] != '\0')
 			add_history(temp);
-		if (temp[0] == '\0' /* && free_struct(data) */)
+		if (temp[0] == '\0')
 			continue ;
 		data->save_fd = ft_dup(data, STDIN_FILENO);
 		if (why_again(temp))

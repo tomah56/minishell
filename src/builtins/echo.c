@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static int normy_baby(char	**cmd_array, int *i)
+static int	normy_baby(char	**cmd_array, int *i)
 {
 	bool	newline;
 
