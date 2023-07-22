@@ -1,10 +1,8 @@
 # minishell
-## Almost as beautiful as a shell.<br>
-
-## Short description of the subject
-
+## Short description of the project
+One of the very famous 42 curriculum projects. Code name was "miniHELL"
 The goal of the subject was to recreate some of the functionalities of bash (Version 3.2).<br>
-To see the exact requirements, check Chapter III and IV of the subject pdf.<br>
+The guideline was "check bash" So it gave us an infinite possibility for bug hunting. Edge cases after edge cases. Our project canvas was looking like a Christmas tree. But we made it through. After some segf! we had it running. Our own personal and beautiful command line tool!
 
 ## From the subject pdf
 ### Introduction
